@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.authServices.setUser(res.response);
       localStorage.setItem('isLoggedin', 'true');
       this.toastr.success('Credenciales Correctas!', 'Logueado con Exito');
-      this.route.navigate(['home']);
+      this.route.navigate(['web']);
     }, error => {
       this.toastr.error('Credenciales Incorrectas!', 'Oops algo ha salido mal');
     });

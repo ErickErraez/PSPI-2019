@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MailService} from '../../services/mail.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  email: any;
+  asunto: any;
+  mensaje: any;
+
+  constructor(private mailServices: MailService) {
+  }
 
   ngOnInit() {
+
+  }
+
+  enviarNotas() {
+    this.mailServices.sendEmailMessage(this.email, this.asunto, this.mensaje).subscribe(r => {
+
+    });
   }
 
 }

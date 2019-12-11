@@ -11,7 +11,7 @@ let sendMail = (req, res) => {
     });
 
     var mailOptions = {
-        from: 'sispspi.notification@gmail.com',
+        from: 'PSPI <sispspi.notification@gmail.com>',
         to: email,
         subject: asunto,
         text: mensaje
@@ -21,7 +21,10 @@ let sendMail = (req, res) => {
         if (error) {
             console.log(error);
         } else {
-            console.log('Email enviado: ' + info.response);
+            return res.status(200).json({
+                ok: true,
+                action: 'Correo Enviado',
+            })
         }
     });
 };

@@ -49,6 +49,12 @@ let loginUser = (req, res) => {
                         if (result[0].idRol == 1) {
                             token = jwt.sign({email, contrasena}, 'userToken');
                         }
+                        if (result[0].idRol == 2) {
+                            token = jwt.sign({email, contrasena}, 'docToken');
+                        }
+                        if (result[0].idRol == 3) {
+                            token = jwt.sign({email, contrasena}, 'adminToken');
+                        }
                         return res.status(200).json({
                             message: 'Login Successfull',
                             session_id: token,

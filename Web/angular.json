@@ -24,9 +24,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
-            "scripts": []
+            "scripts": [
+              {
+                "input": "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -89,15 +95,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              {
-                "input": "node_modules/ngx-toastr/toastr.css"
-              },
-              {
-                "input": "node_modules/@fortawesome/fontawesome-free/css/all.css"
-              }
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
-            "scripts": []
+            "scripts": [
+              {
+                "input": "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              }
+            ]
           }
         },
         "lint": {
@@ -126,6 +132,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "Web"
 }
