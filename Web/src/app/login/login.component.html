@@ -2,83 +2,45 @@
   <div class="container-login100">
     <div class="wrap-login100">
       <form class="login100-form validate-form">
-					<span *ngIf="!registro" class="login100-form-title p-b-43">
+					<span class="login100-form-title p-b-43">
 						Iniciar Sesión
 					</span>
-
-        <span *ngIf="registro" class="login100-form-title p-b-43">
-						Registrarse
-					</span>
-
         <br><br>
-        <div *ngIf="registro" class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-          <label for="inp" class="inp">
-            <input type="text" id="inp" placeholder="&nbsp;" [(ngModel)]="nombre" name="email">
-            <span class="label">Nombre</span>
-            <span class="border"></span>
-          </label>
-        </div>
-        <br>
-        <div *ngIf="registro" class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-          <label for="inp" class="inp">
-            <input type="text" id="inp" placeholder="&nbsp;" [(ngModel)]="apellido" name="email">
-            <span class="label">Apellido</span>
-            <span class="border"></span>
-          </label>
-        </div>
-        <br>
         <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
           <label for="inp" class="inp">
-            <input type="text" id="inp" placeholder="&nbsp;" [(ngModel)]="email" name="email">
+            <input type="text" id="inp" placeholder="&nbsp;" [(ngModel)]="userName" name="email">
             <span class="label">Email</span>
             <span class="border"></span>
           </label>
+          <div class="input-group-prepend">
+            <span class="input-group-text  input-underline input-lg" id="basic-addon1">@yavirac.edu.ec</span>
+          </div>
         </div>
         <br>
         <div class="wrap-input100 validate-input" data-validate="Password is required">
-          <label for="inp" class="inp">
-            <input [type]="tipoInput" class="contrasena" id="inp" placeholder="&nbsp;" [(ngModel)]="password"
+          <label for="inp1" class="inp">
+            <input (keyup)="login($event)" [type]="tipoInput" class="contrasena" id="inp1" placeholder="&nbsp;"
+                   [(ngModel)]="password"
                    name="password">
             <span class="label">Contraseña</span>
             <span class="border"></span>
           </label>
+          <div >
+            <span >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </div>
           <i *ngIf="tipoInput == 'password'" (click)="mostrarContrasena(tipoInput)"
              class="far fa-eye fa-2x arreglo"></i>
           <i *ngIf="tipoInput == 'text'" (click)="mostrarContrasena(tipoInput)"
              class="far fa-eye-slash fa-2x arreglo"></i>
+
         </div>
         <br>
 
-        <div *ngIf="registro" class="wrap-input100 validate-input" data-validate="Password is required">
-          <label for="inp" class="inp">
-            <input [type]="tipoInput" id="inp" placeholder="&nbsp;" [(ngModel)]="rPassword" name="rPassword">
-            <span class="label">Repetir Contraseña</span>
-            <span class="border"></span>
-          </label>
-        </div>
-
         <br>
-        <div *ngIf="!registro" class="container-login100-form-btn">
-          <button class="login100-form-btn btn-success" (click)="login()">
+        <div class="container-login100-form-btn">
+          <button class="login100-form-btn btn-success" (click)="login(13)">
             Iniciar Sesión
           </button>
-        </div>
-        <div *ngIf="registro" class="container-login100-form-btn">
-          <button class="login100-form-btn btn-success" (click)="register()">
-            Registrarse
-          </button>
-        </div>
-
-        <div *ngIf="!registro" class="text-center p-t-46 p-b-20">
-          <a class="txt2" (click)="registro = true">
-            ¿No tienes Cuenta? Registrate
-          </a>
-        </div>
-
-        <div *ngIf="registro" class="text-center p-t-46 p-b-20">
-          <a class="txt2" (click)="registro = false">
-            ¿Ya tienes Cuenta? Iniciar Sesion
-          </a>
         </div>
 
 
@@ -89,3 +51,4 @@
     </div>
   </div>
 </div>
+

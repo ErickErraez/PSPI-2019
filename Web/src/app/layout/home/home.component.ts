@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MailService} from '../../services/mail.service';
+import {WebsocketsService} from '../../services/websockets.service';
 
 @Component({
   selector: 'app-home',
@@ -12,11 +13,15 @@ export class HomeComponent implements OnInit {
   asunto: any;
   mensaje: any;
 
-  constructor(private mailServices: MailService) {
+  constructor(private mailServices: MailService, private webSocket: WebsocketsService) {
   }
 
   ngOnInit() {
-
+    this.webSocket.listen('prueba').subscribe((data) => {
+      console.log(data);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   enviarNotas() {

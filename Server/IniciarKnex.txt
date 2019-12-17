@@ -1,0 +1,12 @@
+En la consola dentro de la carpera server:
+
+3.- knex migrate:latest 
+4.- knex seed:run 
+
+CREAR TABLAS EN UN NUEVO SCHEMA.-
+
+1.- knex migrate:make nombreSchema
+
+CREAR DATOS PARA UNA TABLA.-
+
+1.- knex seed:make ##nombreTabla

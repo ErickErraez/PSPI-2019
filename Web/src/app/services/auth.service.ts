@@ -20,6 +20,18 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
+  get(url: string) {
+    this.headers = new HttpHeaders().set('Content-Type', 'application/json');
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token').replace('"', ''));
+    return this.http.get(environment.API_URL + url, {headers: this.headers});
+  }
+
+  postPublic(url: string, data: any) {
+    url = environment.API_URL_PUBLIC + url;
+    this.headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(url, data, {headers: this.headers});
+  }
+
   loginUser(contrasena: string, email: string) {
     return this.http.post(this.url + 'login', {
       params: {

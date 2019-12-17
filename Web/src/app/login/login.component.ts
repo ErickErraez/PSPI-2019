@@ -10,65 +10,62 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
-  registro = false;
-  nombre: any;
-  apellido: any;
-  email: any;
-  validEmail: any = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  rPassword: any;
-  password: any;
+  userName: string;
+  password: string;
   tipoInput: any = 'password';
+  validateLogin: boolean;
 
-  constructor(private authServices: AuthService, private route: Router, private toastr: ToastrService) {
+  constructor(private service: AuthService, private route: Router, private toastr: ToastrService,
+              public router: Router) {
   }
 
   ngOnInit() {
   }
 
-  login() {
-    this.authServices.loginUser(this.password, this.email).subscribe(r => {
-      let res: any = {};
-      res = r;
-      this.authServices.setToken(res.session_id);
-      this.authServices.setUser(res.response);
-      localStorage.setItem('isLoggedin', 'true');
-      this.toastr.success('Credenciales Correctas!', 'Logueado con Exito');
-      this.route.navigate(['web']);
-    }, error => {
-      this.toastr.error('Credenciales Incorrectas!', 'Oops algo ha salido mal');
-    });
-  }
-
-  register() {
-    if (this.validEmail.test(this.email)) {
-      if (this.rPassword === this.password) {
-        this.authServices.registerUser(this.nombre, this.apellido, this.email
-          , this.password).subscribe(r => {
-          this.login();
-        }, error => {
-          let message: any = {};
-          message = error;
-          if (message.error.message === 'Correo ya existe') {
-            this.toastr.error('El correo ya esta en uso!', 'Oops algo ha salido mal');
-          } else {
-            this.toastr.error('Revisa todos tus datos!', 'Oops algo ha salido mal');
-          }
-        });
-      } else {
-        this.toastr.error('Las contraseñas no coinciden!', 'Oops algo ha salido mal');
-      }
-    } else {
-      this.toastr.error('Debes ingresar un email válido!', 'Oops algo ha salido mal');
-    }
-  }
-
   mostrarContrasena(item) {
-    if (item == 'password') {
+    if (item === 'password') {
       this.tipoInput = 'text';
     }
-    if (item == 'text') {
+    if (item === 'text') {
       this.tipoInput = 'password';
     }
   }
 
+  login(event) {
+    if (event.which === 13 || event === 13) {
+      this.validateLogin = false;
+      const clientId = 1;
+      const clientSecret = 'gCKtEi6W8KpXgWCv4sDSlkM6IErcQQLTuvW5j5yg';
+      const grantType = 'password';
+
+      this.userName = this.userName.toLocaleLowerCase();
+      if (this.userName.search('@') === -1) {
+        this.userName = this.userName + '@yavirac.edu.ec';
+      }
+      this.service.postPublic('oauth/token', {
+        'client_id': clientId,
+        'client_secret': clientSecret,
+        'grant_type': grantType,
+        'username': this.userName,
+        'password': this.password
+      }).subscribe(
+        response => {
+          localStorage.setItem('token', JSON.stringify(response['access_token']));
+          localStorage.setItem('isLoggedin', 'true');
+          this.service.get('usuarios/login?email=' + this.userName).subscribe(response2 => {
+            localStorage.setItem('user', JSON.stringify(response2));
+            this.toastr.success('Credenciales Correctas!', 'Logueado con Exito');
+            this.route.navigate(['web']);
+          });
+          this.validateLogin = false;
+        },
+        error => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('isLoggedin');
+          this.toastr.error('Credenciales Incorrectas', '!Oops algp ha salido mal');
+          this.validateLogin = true;
+        });
+    }
+  }
 }
