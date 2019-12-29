@@ -1,0 +1,46 @@
+<!-- -->
+<ion-content>
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('/assets/images/img-01.jpg');">
+            <div class="wrap-login100 p-t-190 p-b-30">
+                <form class="login100-form">
+
+                    <ion-avatar class="login100-form-avatar">
+                        <img src="/assets/images/avatar.jpg">
+                    </ion-avatar>
+
+                    <span class="login100-form-title p-t-20 p-b-45">
+						Inicio de Sesion
+					</span>
+
+                    <div class="wrap-input100 validate-input m-b-10">
+                        <input [(ngModel)]="userName" class="input100" type="email" name="username"
+                               placeholder="Username">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+							<ion-icon name="contact"></ion-icon>
+						</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-10">
+                        <input [(ngModel)]="password" (keyup)="login($event)" class="input100" type="password"
+                               name="pass"
+                               placeholder="Password">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+							<ion-icon name="lock"></ion-icon>
+						</span>
+                    </div>
+
+                    <div class="container-login100-form-btn p-t-10">
+                        <button class="login100-form-btn" (click)="login(13)">
+                            Login
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</ion-content>
