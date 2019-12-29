@@ -372,11 +372,38 @@
                     <div class="card-body">
                       <div class="row align-items-center">
                         <div class=" validate-input">
-                          <label  class="inp">
-                            <input type="text" id="inp" placeholder="&nbsp;" [(ngModel)]="userName" name="email">
-                            <span class="label">Documentación</span>
-                            <span class="border"></span>
-                          </label>
+                          
+
+
+<div id="exampleContainer" onchange="YUI()">
+<div id="uploaderContainer">
+    <div id="selectFilesButtonContainer">
+    </div>
+    <div id="uploadFilesButtonContainer">
+      <button type="button" id="uploadFilesButton"
+              class="yui3-button" style="width:250px; height:35px;">Upload Files</button>
+    </div>
+    <div id="overallProgress">
+    </div>
+</div>
+
+<div id="filelist">
+  <table id="filenames">
+    <thead>
+       <tr><th>File name</th><th>File size</th><th>Percent uploaded</th></tr>
+       <tr id="nofiles">
+        <td colspan="3" id="ddmessage">
+            <strong>No files selected.</strong>
+        </td>
+       </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+</div>
+
+
                         </div>
                       </div>
                     </div>
