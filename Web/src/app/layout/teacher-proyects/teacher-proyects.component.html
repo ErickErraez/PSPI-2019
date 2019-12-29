@@ -1,71 +1,105 @@
-<!-- Begin Page Content -->
+
+
+
+
+
+
+  <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
-  
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>Proyecto</th>
-                <th>Lider</th>
-                <th>Nivel</th>
-                <th>Observar</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-                <th>Proyecto</th>
-                <th>Lider</th>
-                <th>Nivel</th>
-                <th>Observar</th>
-              </tr>
-            </tfoot>
-            <tbody>
-              <tr>
-                <td>Proyecto A1</td>
-                <td>Lider Rojo</td>
-                <td>5to</td>
-                <td><button>Calificar</button></td>
-              </tr>
-              <tr>
-                <td>Proyecto A2</td>
-                <td>Lider Rojo</td>
-                <td>5to</td>
-                <td><button>Calificar</button></td>
-              </tr>
-              <tr>
-                <td>Proyecto A3</td>
-                <td>Lider Rojo</td>
-                <td>5to</td>
-                <td><button>Calificar</button></td>
-              </tr>
-              <tr>
-                <td>Proyecto A3</td>
-                <td>Lider Rojo</td>
-                <td>5to</td>
-                <td><button>Calificar</button></td>
-              </tr>
-              <tr>
-                <td>Proyecto A4</td>
-                <td>Lider Rojo</td>
-                <td>5to</td>
-                <td><button>Calificar</button></td>
-              </tr>
-           
-            </tbody>
-          </table>
-        </div>
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+  <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Proyecto</th>
+              <th>Lider</th>
+              <th>Nivel</th>
+              <th>Calificar</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Proyecto</th>
+              <th>Lider</th>
+              <th>Nivel</th>
+              <th>Observar</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr>
+              <td>Proyecto A1</td>
+              <td>Lider Rojo</td>
+              <td>5to</td>
+              <td>
+                <button  class="btn btn-success m-1" data-toggle="modal" data-target="#update">CALIFICAR</button>&nbsp; &nbsp; &nbsp; &nbsp;
+               
+              </td>
+            </tr>
+            <tr>
+              <td>Proyecto A2</td>
+              <td>Lider Rojo</td>
+              <td>5to</td>
+              <td>  <button  class="btn btn-success m-1" data-toggle="modal" data-target="#update">CALIFICAR</button>&nbsp; &nbsp; &nbsp; &nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td>Proyecto A3</td>
+              <td>Lider Rojo</td>
+              <td>5to</td>
+              <td>  <button  class="btn btn-success m-1" data-toggle="modal" data-target="#update">CALIFICAR</button>&nbsp; &nbsp; &nbsp; &nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td>Proyecto A3</td>
+              <td>Lider Rojo</td>
+              <td>5to</td>
+              <td>  <button  class="btn btn-success m-1" data-toggle="modal" data-target="#update">CALIFICAR</button>&nbsp; &nbsp; &nbsp; &nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td>Proyecto A4</td>
+              <td>Lider Rojo</td>
+              <td>5to</td>
+              <td>  <button  class="btn btn-success m-1" data-toggle="modal" data-target="#update">CALIFICAR</button>&nbsp; &nbsp; &nbsp; &nbsp;
+              </td>
+            </tr>
+         
+          </tbody>
+        </table>
       </div>
     </div>
-  
   </div>
-  <!-- /.container-fluid -->
+
+</div>
+<!-- /.container-fluid -->
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">CALIFICAR</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <input type="text" >
+            <br>
+            <button class="btn btn-primary" (click)="update()" data-dismiss="modal">ASIGNAR NOTA</button>&nbsp;
+            <button class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+            
+        </div>
+
+    </div>
+</div>
+</div>

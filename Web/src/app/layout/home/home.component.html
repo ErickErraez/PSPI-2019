@@ -1,14 +1,59 @@
-<div class="container">
-  <div class="row">
-    <div class="col-10">
-      <br>
-      <input type="email" placeholder="&nbsp;" name="work" [(ngModel)]="email">
-      <br>
-      <input type="text" placeholder="&nbsp;" name="work" [(ngModel)]="asunto">
-      <br>
-      <input type="text" placeholder="&nbsp;" name="work" [(ngModel)]="mensaje">
-      <br>
-      <a (click)="enviarNotas()" class="btn btn-block btn-primary">SIGUIENTE</a>
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">CURSOS</h1>
+  <p class="mb-4"> CURSOS DE LA CARRERA DE DESARROLLO DE SOFTWARE</p>
+  <button class="btn btn-success m-1" data-toggle="modal" data-target="#update">PRIMER CURSO</button>&nbsp;
+  <button class="btn btn-success m-1" data-toggle="modal" data-target="#update">SEGUNDO CURSO</button>&nbsp;
+  <button class="btn btn-success m-1" data-toggle="modal" data-target="#update">TERCER CURSO</button>&nbsp;
+  <button class="btn btn-success m-1" data-toggle="modal" data-target="#update">CUARTO CURSO</button>&nbsp;
+  <button class="btn btn-success m-1" data-toggle="modal" data-target="#update">QUINTO CURSO</button>&nbsp;
+
+
+
+  <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">CALIFICAR</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <select class="browser-default custom-select">
+
+            <option value="" disabled selected>Seleccione un Tutor
+            </option>
+            <option value="2010">Andocilla Carlos</option>
+            <option value="2011">Chulde Lorena</option>
+            <option value="2012">Estrella Gorky</option>
+            <option value="2013">Robayo Pablo</option>
+
+
+          </select>
+          <div class="modal-body">
+            <select class="browser-default custom-select">
+
+              <option value="" disabled selected>Seleccione un Juez
+              </option>
+              <option value="2010">Andocilla Carlos</option>
+              <option value="2011">Chulde Lorena</option>
+              <option value="2012">Estrella Gorky</option>
+              <option value="2013">Robayo Pablo</option>
+
+
+            </select>
+
+            <button class="btn btn-success" (click)="update()">ACEPTAR </button>&nbsp; &nbsp; &nbsp;
+            <button class="btn btn-danger" data-toggle="modal" data-dismiss="modal"
+              data-target="#rechazo">RECHAZAR</button>&nbsp;
+            <br>
+
+
+          </div>
+
+        </div>
+      </div>
     </div>
-  </div>
-</div>
