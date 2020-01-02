@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-user-form',
-  templateUrl: './user-form.page.html',
-  styleUrls: ['./user-form.page.scss'],
+  templateUrl: './student-form.page.html',
+  styleUrls: ['./student-form.page.scss'],
 })
-export class UserFormPage implements OnInit {
+export class StudentFormPage implements OnInit {
 
   constructor() { }
 

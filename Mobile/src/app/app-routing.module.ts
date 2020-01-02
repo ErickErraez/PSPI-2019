@@ -13,8 +13,28 @@ const routes: Routes = [
     },
     {
         path: 'user-form',
-        loadChildren: () => import('./pages/user-form/user-form.module').then(m => m.UserFormPageModule)
-    }
+        loadChildren: () => import('./pages/student-form/student-form.module').then(m => m.UserFormPageModule)
+    },
+  {
+    path: 'student-proyect',
+    loadChildren: () => import('./pages/student-proyect/student-proyect.module').then( m => m.StudentProyectPageModule)
+  },
+  {
+    path: 'teacher-notes',
+    loadChildren: () => import('./pages/teacher-notes/teacher-notes.module').then( m => m.TeacherNotesPageModule)
+  },
+  {
+    path: 'teacher-proyects',
+    loadChildren: () => import('./pages/teacher-proyects/teacher-proyects.module').then( m => m.TeacherProyectsPageModule)
+  },
+  {
+    path: 'admin-control',
+    loadChildren: () => import('./pages/admin-control/admin-control.module').then( m => m.AdminControlPageModule)
+  },
+  {
+    path: 'admin-assign',
+    loadChildren: () => import('./pages/admin-assign/admin-assign.module').then( m => m.AdminAssignPageModule)
+  }
 ];
 
 @NgModule({
