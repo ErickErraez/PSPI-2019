@@ -18,15 +18,15 @@
         </div>
         <br>
         <div class="wrap-input100 validate-input" data-validate="Password is required">
-          <label for="inp1ng " class="inp">
+          <label for="inp1ng" class="inp">
             <input (keyup)="login($event)" [type]="tipoInput" class="contrasena" id="inp1" placeholder="&nbsp;"
                    [(ngModel)]="password"
                    name="password">
             <span class="label">Contraseña</span>
             <span class="border"></span>
           </label>
-          <div >
-            <span >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <div>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </div>
           <i *ngIf="tipoInput == 'password'" (click)="mostrarContrasena(tipoInput)"
              class="far fa-eye fa-2x arreglo"></i>

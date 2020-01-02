@@ -26,8 +26,8 @@ export class AuthService {
     }
 
     postPublic(url: string, data: any) {
-        const url1 = environment.API_URL_PUBLIC + url;
-        return this.http.post(url1, data, {headers: this.headers});
+        url = environment.API_URL_PUBLIC + url;
+        return this.http.post(url, data, {headers: this.headers});
     }
 
     loginUser(contrasena: string, email: string) {

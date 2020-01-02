@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree} from '@angular/router';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, CanLoad, RouterStateSnapshot, UrlTree} from '@angular/router';
+import {Observable} from 'rxjs';
 import {NavController} from '@ionic/angular';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: NavController) {
+    constructor(private router: NavController) {
 
-  }
-
-  canActivate() {
-    if (localStorage.getItem('isLoggedin')) {
-      return true;
     }
-    this.router.navigateRoot(['/login']);
-    return false;
-  }
+
+    canActivate() {
+        if (localStorage.getItem('isLoggedin')) {
+            return true;
+        }
+        this.router.navigateRoot(['/login']);
+        return false;
+    }
+
+
 
 }

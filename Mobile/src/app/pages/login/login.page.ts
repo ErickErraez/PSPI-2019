@@ -38,18 +38,16 @@ export class LoginPage implements OnInit {
                 'password': this.password
             }).subscribe(
                 response => {
-                    alert(response);
                     localStorage.setItem('token', JSON.stringify(response['access_token']));
                     localStorage.setItem('isLoggedin', 'true');
                     this.service.get('usuarios/login?email=' + this.userName).subscribe(response2 => {
                         localStorage.setItem('user', JSON.stringify(response2));
                         this.presentToast('Logueado con Exito');
-                        this.route.navigateRoot(['']);
+                        this.route.navigateRoot(['user-form']);
                     });
                     this.validateLogin = false;
                 },
                 error => {
-                    alert(JSON.stringify(error));
                     localStorage.removeItem('token');
                     localStorage.removeItem('user');
                     localStorage.removeItem('isLoggedin');
