@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController} from '@ionic/angular';
+import {NavController, Platform, ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-user-form',
@@ -8,7 +8,10 @@ import {NavController} from '@ionic/angular';
 })
 export class StudentFormPage implements OnInit {
 
-    constructor(private route: NavController) {
+    constructor(private route: NavController, private platform: Platform) {
+        this.platform.backButton.subscribeWithPriority(1, () => {
+            navigator['app'].exitApp();
+        });
     }
 
     ngOnInit() {
