@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Toast} from '@ionic-native/toast/ngx';
-import {NavController, ToastController} from '@ionic/angular';
+import {NavController, Platform, ToastController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
 
 @Component({
@@ -16,7 +16,10 @@ export class LoginPage implements OnInit {
     tipoInput: any = 'password';
     validateLogin: boolean;
 
-    constructor(private service: AuthService, private route: NavController, private toastr: ToastController, private storage: Storage) {
+    constructor(private service: AuthService, private route: NavController, private toastr: ToastController, private platform: Platform) {
+        this.platform.backButton.subscribeWithPriority(1, () => {
+            navigator['app'].exitApp();
+        });
     }
 
     ngOnInit() {
