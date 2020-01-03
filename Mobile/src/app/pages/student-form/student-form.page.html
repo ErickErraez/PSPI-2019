@@ -1,22 +1,59 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary">
         <ion-title>Propuesta de Proyecto</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title color="primary">Desarrollo de Software</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item>
+                <ion-label position="floating">Nombre del Proyecto</ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Descripcion del Proyecto</ion-label>
+                <ion-textarea rows="4" cols="20"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Herramientas a Utilizar</ion-label>
+                <ion-textarea rows="4" cols="20"></ion-textarea>
+            </ion-item>
+            <ion-list>
                 <ion-item>
-                    <ion-card-title color="primary">Desarrollo de Software</ion-card-title>
+                    <ion-label>Tema</ion-label>
+                    <ion-select value="" okText="Aceptar" cancelText="Cerrar">
+                        <ion-select-option value="brown">Software Ecologia</ion-select-option>
+                        <ion-select-option value="blonde">Software Ignug</ion-select-option>
+                        <ion-select-option value="black">Software Empresa</ion-select-option>
+                    </ion-select>
                 </ion-item>
-                <ion-item>
-                    <ion-label position="floating">Nombre del Proyecto</ion-label>
-                    <ion-input></ion-input>
-                </ion-item>
-            </div>
-        </div>
-    </div>
+            </ion-list>
+            <ion-item>
+                <table border="1" class="table" style="width:100%" id="tablaprueba">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Nombres</th>
+                        <th width="85" scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Lider Rojo</td>
+                        <td width="85">
+                            <ion-icon color="primary" name="add-circle-outline"></ion-icon>
+                            <ion-icon color="danger" name="trash"></ion-icon>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Lider Rojo</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

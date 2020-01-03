@@ -53,6 +53,7 @@ export class LoginPage implements OnInit {
                     localStorage.removeItem('isLoggedin');
                     this.presentToast('Credenciales Incorrectas');
                     this.validateLogin = true;
+                    alert(JSON.stringify(error));
                 });
         }
     }

@@ -5,6 +5,7 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
+    "serve": "ionic serve",
     "start": "ionic serve --lab",
     "emulate": "ionic cordova run android --livereload\n",
     "build": "ng build",

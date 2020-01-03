@@ -17,4 +17,4 @@ import { StudentFormPage } from './student-form.page';
   ],
   declarations: [StudentFormPage]
 })
-export class UserFormPageModule {}
+export class StudentFormPageModule {}
