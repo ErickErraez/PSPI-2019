@@ -11,7 +11,6 @@ const databaseData = {
 };
 
 module.exports = {
-
     development: {
         migrations: {tableName: 'knex_migrations', directory: './database/migrations'},
         seeds: {directory: './database/seeds'},
