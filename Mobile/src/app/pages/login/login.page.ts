@@ -46,7 +46,7 @@ export class LoginPage implements OnInit {
                     this.service.get('usuarios/login?email=' + this.userName).subscribe(response2 => {
                         localStorage.setItem('user', JSON.stringify(response2));
                         this.presentToast('Logueado con Exito');
-                        this.route.navigateRoot(['user-form']);
+                        this.route.navigateRoot(['']);
                     });
                     this.validateLogin = false;
                 },
@@ -56,7 +56,6 @@ export class LoginPage implements OnInit {
                     localStorage.removeItem('isLoggedin');
                     this.presentToast('Credenciales Incorrectas');
                     this.validateLogin = true;
-                    alert(JSON.stringify(error));
                 });
         }
     }

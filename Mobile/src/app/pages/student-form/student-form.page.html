@@ -42,25 +42,28 @@
                     <thead class="thead-dark">
                     <tr>
                         <th>Nombres</th>
-                        <th width="85" scope="col"></th>
+                        <th width="70" scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Lider Rojo</td>
-                        <td width="85">
-                            <ion-icon color="primary" name="add-circle-outline"></ion-icon>
-                            <ion-icon color="danger" name="trash"></ion-icon>
+                        <td> {{user.usuario.name}} {{user.usuario.email}}</td>
+                        <td width="70">
+                            <ion-icon (click)="presentAlertPrompt()" color="primary"
+                                      name="add-circle-outline"></ion-icon>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Lider Rojo</td>
+                    <tr *ngFor="let item of miembros;">
+                        <td>{{item}}</td>
+                        <td width="70">
+                            <ion-icon color="danger" name="trash"></ion-icon>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </ion-item>
             <br>
-            <ion-button (click)="cerrar()" shape="round" fill="outline">Cerrar Sesion</ion-button>
+            <ion-button (click)="cerrar()" shape="round" expand="block" fill="outline">Enviar Propuesta</ion-button>
         </ion-card-content>
     </ion-card>
 </ion-content>

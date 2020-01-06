@@ -75,4 +75,13 @@ export class AuthService {
             return null;
         }
     }
+
+    update(url: string, data: any) {
+        url = environment.API_URL + url;
+        this.headers = new HttpHeaders().set('Content-Type', 'application/json');
+        this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token').replace('"', ''));
+        return this.http.put(url, data, {headers: this.headers});
+    }
+
+
 }

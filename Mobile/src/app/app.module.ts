@@ -12,12 +12,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthService} from './services/auth.service';
 import {IonicStorageModule} from '@ionic/storage';
+import {ModalPage} from './pages/modal/modal.page';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
-    declarations: [AppComponent],
-    entryComponents: [],
+    declarations: [AppComponent,
+        ModalPage
+    ],
+    entryComponents: [ModalPage],
     imports: [
         BrowserModule,
+        FormsModule,
         IonicModule.forRoot(),
         AppRoutingModule,
         BrowserAnimationsModule,

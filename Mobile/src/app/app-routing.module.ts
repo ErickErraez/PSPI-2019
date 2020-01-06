@@ -5,7 +5,7 @@ import {AuthGuard} from './services/auth.guard';
 const routes: Routes = [
     {
         path: '',
-        loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+        loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule), canActivate: [AuthGuard]
     },
     {
         path: 'login',
@@ -34,6 +34,10 @@ const routes: Routes = [
     {
         path: 'admin-assign',
         loadChildren: () => import('./pages/admin-assign/admin-assign.module').then(m => m.AdminAssignPageModule)
+    },
+    {
+        path: 'modal',
+        loadChildren: () => import('./pages/modal/modal.module').then(m => m.ModalPageModule)
     }
 ];
 
