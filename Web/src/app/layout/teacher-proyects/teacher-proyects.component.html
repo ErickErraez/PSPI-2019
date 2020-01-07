@@ -92,11 +92,167 @@ aria-hidden="true">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <input type="text" >
-            <br>
-            <button class="btn btn-primary" (click)="update()" data-dismiss="modal">ASIGNAR NOTA</button>&nbsp;
-            <button class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+        <div class="modal-body col-md-12 mb-12">
+          <div class="row">
+
+            <div class="col-lg-6">
+  
+              <!-- Default Card Example -->
+              <div class="card mb-12">
+                <div class="card-header">
+                  Seleccion de Carrera
+                </div>
+                <div class="card-body">
+                  <div class="col-md-12 mb-12">
+                    <div class="card border-left-primary shadow">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class=" validate-input"style="width: 100%">
+                            <label  class="inp">
+                              <input type="text" id="inp" placeholder="&nbsp;">
+                              <span class="label">Carrera</span>
+                              <span class="border" ></span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+              </div>
+  
+              <!-- Basic Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">integrantes</h6>
+                </div>
+                <div class="card-body">
+                  <div class="col-md-12 mb-12">
+                    <div class="card border-left-primary shadow">
+                      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+  
+                      <table border="1" class="table" id="tablaprueba">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>ID</th>
+                            <th>Nombres</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1</td>
+                            <td>Lider Rojo</td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td>Lider Rojo</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <script>
+                        function agregarFila(){
+    document.getElementById("tablaprueba").insertRow(-1).innerHTML = '<td></td><td></td><td></td><td></td>';
+  }
+  
+  function eliminarFila(){
+    var table = document.getElementById("tablaprueba");
+    var rowCount = table.rows.length;
+    //console.log(rowCount);
+    
+    if(rowCount <= 1)
+      alert('No se puede eliminar el encabezado');
+    else
+      table.deleteRow(rowCount -1);
+  }
+                    </script>
+                      <div class="form-group">
+                        <button type="button" class="btn btn-primary mr-2" click="agregarFila()">Agregar Fila</button>
+                        <button type="button" class="btn btn-danger" click="eliminarFila()">Eliminar Fila</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="col-lg-6">
+  
+              <!-- Dropdown Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Nombre del Proyecto</h6>
+                </div>
+                <div class="card-body">
+                  <div class="col-md-12 mb-12">
+                    <div class="card border-left-primary shadow">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class=" validate-input"style="width: 100%">
+                            <label  class="inp">
+                              <input type="text" id="inp" placeholder="&nbsp;"  name="email">
+                              <span class="label">Nombre del Proyecto</span>
+                              <span class="border"></span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Collapsable Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Descripcion</h6>
+                </div>
+                <div class="card-body">
+                  <div class="col-md-12 mb-12">
+                    <div class="card border-left-primary shadow">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class=" validate-input"style="width: 100%">
+                            <label  class="inp">
+                              <input type="text"  placeholder="&nbsp;" >
+                              <span class="label">Descripcion del Proyecto</span>
+                              <span class="border"></span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Collapsable Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Herramientas</h6>
+                </div>
+                <div class="card-body">
+                  <div class="col-md-12 mb-12">
+                    <div class="card border-left-primary shadow">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class=" validate-input"style="width: 100%">
+                            <label  class="inp">
+                              <input type="text"  placeholder="&nbsp;" >
+                              <span class="label">Herramientas a utilizar</span>
+                              <span class="border"></span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+  
+          </div>
             
         </div>
 
