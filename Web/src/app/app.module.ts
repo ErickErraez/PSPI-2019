@@ -7,14 +7,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { LayoutComponent } from './layout/layout.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { NavbarComponent } from './layout/shared/navbar/navbar.component';
+import { SidebarComponent } from './layout/shared/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    SidebarComponent,
   ],
   imports: [
     BrowserModule,

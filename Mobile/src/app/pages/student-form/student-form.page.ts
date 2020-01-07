@@ -13,7 +13,8 @@ export class StudentFormPage implements OnInit {
     user: any = JSON.parse(localStorage.getItem('user'));
     miembros = [];
 
-    constructor(private route: NavController, private platform: Platform, public alertController: AlertController, public loadingController: LoadingController) {
+    constructor(private route: NavController, private platform: Platform, public alertController: AlertController,
+                public loadingController: LoadingController) {
         this.platform.backButton.subscribeWithPriority(1, () => {
             navigator['app'].exitApp();
         });

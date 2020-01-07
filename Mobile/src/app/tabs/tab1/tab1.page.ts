@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, LoadingController, NavController} from '@ionic/angular';
+import {AlertController, LoadingController, NavController, Platform} from '@ionic/angular';
 import {AuthService} from '../../services/auth.service';
 
 @Component({
@@ -14,8 +14,12 @@ export class Tab1Page {
     tipoInput: any = 'password';
     repeatPassword: any;
 
-    constructor(private service: AuthService, public alertController: AlertController, private route: NavController, public loadingController: LoadingController) {
+    constructor(private service: AuthService, private platform: Platform, public alertController: AlertController,
+                private route: NavController, public loadingController: LoadingController) {
         this.user = this.user.usuario;
+        this.platform.backButton.subscribeWithPriority(1, () => {
+            this.route.navigateRoot(['']);
+        });
     }
 
     cancelar() {

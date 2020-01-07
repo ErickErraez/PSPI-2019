@@ -16,7 +16,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/student-form/student-form.module').then(m => m.StudentFormPageModule)
     },
     {
-        path: 'student-proyect',
+        path: 'student-proyect/:id',
         loadChildren: () => import('./pages/student-proyect/student-proyect.module').then(m => m.StudentProyectPageModule)
     },
     {
@@ -38,12 +38,7 @@ const routes: Routes = [
     {
         path: 'modal',
         loadChildren: () => import('./pages/modal/modal.module').then(m => m.ModalPageModule)
-    },
-  {
-    path: 'informacion/:id',
-    loadChildren: () => import('./informacion/informacion.module').then( m => m.InformacionPageModule)
-  },
-
+    }
 ];
 
 @NgModule({
