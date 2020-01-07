@@ -6,10 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./student-form.component.css']
 })
 export class StudentFormComponent implements OnInit {
+  user: any = JSON.parse(localStorage.getItem('user'));
+
 
   constructor() { }
 
   ngOnInit() {
   }
+
+  hola(){
+    alert('hola');
+  }
+  cerrar() {
+   
+}
 
 }

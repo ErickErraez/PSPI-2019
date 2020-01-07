@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(event) {
+
     if (event.which === 13 || event === 13) {
       this.validateLogin = false;
       const clientId = 1;
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
           this.service.get('usuarios/login?email=' + this.userName).subscribe(response2 => {
             localStorage.setItem('user', JSON.stringify(response2));
             this.toastr.success('Credenciales Correctas!', 'Logueado con Exito');
-            this.route.navigate(['web']);
+            this.route.navigate(['web/form']);
           });
           this.validateLogin = false;
         },

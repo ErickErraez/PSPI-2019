@@ -1,0 +1,40 @@
+#color {
+    background: rgb(70, 53, 220);
+    font-kerning: none;
+    -webkit-text-fill-color: rgb(252, 252, 252);
+    border-radius: 62px 62px 62px 62px;
+    -moz-border-radius: 62px 62px 62px 62px;
+    -webkit-border-radius: 62px 62px 62px 62px;
+    border: 0px solid #000000;
+}
+
+
+/*
+#logo {
+    float: right;
+}*/
+#center{
+    text-align: center;
+}
+#colorLogo {
+    
+    font-kerning: auto;
+    -webkit-text-fill-color: rgb(223, 82, 82);
+    border-radius: 25px 80px 79px 16px;
+    -moz-border-radius: 25px 80px 79px 16px;
+    -webkit-border-radius: 25px 80px 79px 16px;
+    border: 1px solid #eea3a3;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75)
+}
+#tableColor {
+    background:rgba(255, 253, 137, 0.658);
+}
+#trColor {
+    background:rgb(38, 39, 39);
+    -webkit-text-fill-color: rgb(252, 252, 252);
+}
+#texto{
+    font-size: xx-large;
+}
