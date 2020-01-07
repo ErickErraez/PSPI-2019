@@ -15,13 +15,8 @@ import {IonicStorageModule} from '@ionic/storage';
 import {ModalPage} from './pages/modal/modal.page';
 import {FormsModule} from '@angular/forms';
 
-import { InformacionPageModule } from './informacion/informacion.module';
-
 @NgModule({
-    declarations: [AppComponent,
-        ModalPage,
-        
-    ],
+    declarations: [AppComponent, ModalPage],
     entryComponents: [ModalPage],
     imports: [
         BrowserModule,

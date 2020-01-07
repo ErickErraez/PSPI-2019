@@ -1,2 +1,10 @@
-
-<router-outlet></router-outlet>
+<div id="wrapper">
+  <app-sidebar></app-sidebar>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <app-navbar></app-navbar>
+    <!-- Main Content -->
+    <div id="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
