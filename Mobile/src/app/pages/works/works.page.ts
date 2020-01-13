@@ -3,11 +3,11 @@ import {ActivatedRoute} from '@angular/router';
 import {NavController} from '@ionic/angular';
 
 @Component({
-    selector: 'app-student-proyect',
-    templateUrl: './student-proyect.page.html',
-    styleUrls: ['./student-proyect.page.scss'],
+    selector: 'app-works',
+    templateUrl: './works.page.html',
+    styleUrls: ['./works.page.scss'],
 })
-export class StudentProyectPage implements OnInit {
+export class WorksPage implements OnInit {
 
     id: string;
 
@@ -17,10 +17,6 @@ export class StudentProyectPage implements OnInit {
     }
 
     ngOnInit() {
-    }
-
-    openWork(item) {
-        this.nav.navigateForward(`works/${item}`);
     }
 
 }

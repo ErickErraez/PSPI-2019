@@ -38,7 +38,12 @@ const routes: Routes = [
     {
         path: 'modal',
         loadChildren: () => import('./pages/modal/modal.module').then(m => m.ModalPageModule)
+    },
+    {
+        path: 'works/:id',
+        loadChildren: () => import('./pages/works/works.module').then(m => m.WorksPageModule)
     }
+
 ];
 
 @NgModule({
