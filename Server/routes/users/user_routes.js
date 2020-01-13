@@ -5,5 +5,6 @@ const api = express.Router(),
 
 api.post('/register', crudController.registerUser);
 api.post('/login', crudController.loginUser);
+api.post('/form', crudController.createForm),
 
-module.exports = api;
+    module.exports = api;
