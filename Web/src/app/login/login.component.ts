@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
           this.service.get('usuarios/login?email=' + this.userName).subscribe(response2 => {
             localStorage.setItem('user', JSON.stringify(response2));
             this.toastr.success('Credenciales Correctas!', 'Logueado con Exito');
-            this.route.navigate(['web/form']);
+            this.route.navigate(['web/student/form']);
           });
           this.validateLogin = false;
         },

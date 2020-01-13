@@ -26,6 +26,7 @@ const routes: Routes = [{
         import('./student-proyect/student-proyect.module')
           .then(m => m.StudentProyectModule)
     },
+
     {
       path: 'teacher/notes',
       loadChildren: () =>
@@ -50,6 +51,7 @@ const routes: Routes = [{
         import('./admin-assign/admin-assign.module')
           .then(m => m.AdminAssignModule)
     },
+
   ]
 }];
 

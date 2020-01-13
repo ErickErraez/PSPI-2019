@@ -1,89 +1,130 @@
-<div class=" container p-3 ">
-  <h1 align="center" id="color">PROPUESTA DE PROYECTOS INTEGRADORES</h1>
-</div>
-
-<div class=" container p-3 ">
-  <div class="row ">
 
 
-    <div class="col-12 ">
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <div id="content">
 
 
-      <div class="card ">
-        <div class="card-header text-white bg-dark ">
-          <b>DESARROLLO DE SOFTWARE</b></div>
-        <div class="card-body ">
-          <div class="row ">
+      <div class="row">
+        <div class="col-12 ">
+          <div class="card">
+            <div class="card-header text-white bg-dark ">
+              <b>INFORMACIÓN DEL PROYECTO</b>
+            </div>
+            <div class="card-body ">
+              <div class="row ">
+                <table class="table table-bordered" id="tableColor">
+                  <tbody>
+                  <tr>
 
-            <table class="table table-bordered" id="tableColor">
+                    <td scope="col">
 
-              <tbody>
-                <tr>
-
-                  <td scope="col">NOMBRE DEL PROYECTO</td>
-                  <td scope="col">
-                    <input class="form-control " type="text ">
-
-                  </td>
-
-                </tr>
-                <tr>
-
-                  <td scope="col">DESCRIPCIÓN DEL PROYECTO</td>
-                  <td scope="col">
-                    <textarea class="form-control "></textarea>
-
-                  </td>
-
-                </tr>
-                <tr>
-
-                  <td scope="col">HERRAMIENTAS A UTILIZAR</td>
-                  <td scope="col">
-                    <textarea class="form-control "></textarea>
+                    <label for="inp" class="inp">
+                      <input type="text" id="name" placeholder="&nbsp;"  name="email">
+                      <span class="label">NOMBRE DEL PROYECTO</span>
+                      <span class="border"></span>
+                    </label>
 
                   </td>
-                </tr>
-                <tr>
+                    <td scope="col">
 
-                  <td scope="col">TEMA</td>
-                  <td scope="col">
-                    <select class="browser-default custom-select">
-                      <option value="" disabled selected>SELECCIONE UN TEMA</option>
-                      <option value="ecologia">Ecologia</option>
-                      <option value="medioAmbiente">Medio Ambiente</option>
-                      <option value="Salud">Salud</option>
-                      <option value="Facturacion">Facturacion</option>
+                      <label for="inp" class="inp">
+                        <input type="text" id="desc" placeholder="&nbsp;"  name="email">
+                        <span class="label">DESCRIPCIÓN DEL PROYECTO</span>
+                        <span class="border"></span>
+                      </label>
 
-                    </select>
+                    </td>
+                  </tr>
 
-                  </td>
+                  </tbody>
+                </table>
+                <table class="table table-bordered" id="tableColor">
+                  <tbody>
+                  <tr>
 
-                </tr>
-                <tr>
-                  <th>Nombres</th>
-                  <td scope="col">{{user.usuario.name}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<button class="btn btn-success m-1" data-toggle="modal"
-                      data-target="#nuevo">+</button>&nbsp;</td>
-                </tr>
-              </tbody>
-            </table>
+                    <td scope="col">
 
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      <label for="inp" class="inp">
+                        <input type="text" id="herr" placeholder="&nbsp;"  name="email">
+                        <span class="label">HERRAMIENTAS A UTILIZAR</span>
+                        <span class="border"></span>
+                      </label>
+
+                    </td>
+
+                    <td scope="col">
+                      <select class="browser-default custom-select">
+                        <option value="" disabled selected>SELECCIONE UN TEMA</option>
+                        <option value="ecologia">Ecologia</option>
+                        <option value="medioAmbiente">Medio Ambiente</option>
+                        <option value="Salud">Salud</option>
+                        <option value="Facturacion">Facturacion</option>
+
+                      </select>
+
+                    </td>
+                  </tr>
+
+
+                  </tbody>
+                </table>
+                <table class="table table-bordered" id="tableColor">
+                  <div class="card-header text-white bg-dark ">
+                    <b>INTEGRANTES</b>
+                  </div>
+                  <tbody>
+                  <tr>
+
+
+
+
+                    <td scope="col">{{user.usuario.name}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<button class="btn btn-primary m-1" data-toggle="modal"
+                                                                data-target="#nuevo">+</button>&nbsp;</td>
+
+
+
+                  </tr>
+
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
             <button type="button" class="btn btn-outline-primary" (click)="cerrar()">ENVIAR PROPUESTA</button>
-
           </div>
         </div>
+
+
       </div>
     </div>
+
+
   </div>
+
+
 </div>
+
+
+</body>
+
+
 
 <div class="modal fade" id="nuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -110,7 +151,7 @@
         <br>
         <button class="btn btn-success" (click)="update()">ACEPTAR </button>&nbsp;&nbsp;&nbsp;
         <button class="btn btn-danger" data-toggle="modal" data-dismiss="modal"
-          data-target="#rechazo">CANCELAR</button>&nbsp;
+                data-target="#rechazo">CANCELAR</button>&nbsp;
         <br>
 
       </div>

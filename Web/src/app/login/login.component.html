@@ -1,26 +1,47 @@
+
 <div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
-  
+  <form class="login100-form validate-form">
+					<span class="login100-form-title p-b-43">
+						Iniciar Sesión
+					</span>
+    <br><br>
+    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+      <label for="inp" class="inp">
+        <input type="text" id="inp" placeholder="&nbsp;" [(ngModel)]="userName" name="email">
+        <span class="label">Email</span>
+        <span class="border"></span>
+      </label>
+      <div class="input-group-prepend">
+        <span class="input-group-text  input-underline input-lg" id="basic-addon1">@yavirac.edu.ec</span>
+      </div>
+    </div>
+    <br>
+    <div class="wrap-input100 validate-input" data-validate="Password is required">
+      <label for="inp1ng" class="inp">
+        <input (keyup)="login($event)" [type]="tipoInput" class="contrasena" id="inp1" placeholder="&nbsp;"
+               [(ngModel)]="password"
+               name="password">
+        <span class="label">Contraseña</span>
+        <span class="border"></span>
+      </label>
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      </div>
+      <i *ngIf="tipoInput == 'password'" (click)="mostrarContrasena(tipoInput)"
+         class="far fa-eye fa-2x arreglo"></i>
+      <i *ngIf="tipoInput == 'text'" (click)="mostrarContrasena(tipoInput)"
+         class="far fa-eye-slash fa-2x arreglo"></i>
 
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="../../../assets/images/yav.png" id="icon" alt="User Icon" style="width: 100px;"/>
+    </div>
+    <br>
+
+    <br>
+    <div class="container-login100-form-btn">
+      <button class="login100-form-btn btn-success" (click)="login(13)">
+        Iniciar Sesión
+      </button>
     </div>
 
-    <!-- Login Form -->
-    <form #frmLogin="ngForm" (ngSubmit)="login(13)">
-      <input type="email" id="login" class="fadeIn second" [(ngModel)]="userName"  placeholder="Email"
-      name="email">
-      <input type="password" id="password" class="fadeIn third" [(ngModel)]="password"  placeholder="Password"
-      name="password">
-      <input type="submit" class="fadeIn fourth" value="Login">
-    </form> 
 
-    <!-- Rrecuperar contraseña -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">¿Se te olvidó tu contraseña?</a>
-    </div>
-
-  </div>
+  </form>
 </div>
