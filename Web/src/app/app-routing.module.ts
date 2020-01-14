@@ -9,7 +9,6 @@ const routes: Routes = [
   {path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule)},
   {path: 'web/control', loadChildren: () => import('./layout/admin-control/admin-control.module').then(m => m.AdminControlModule)},
   {path: 'web/form', loadChildren: () => import('./layout/student-form/student-form.module').then(m => m.StudentFormModule)},
-
 ];
 
 @NgModule({

@@ -1,0 +1,10 @@
+export class Usuarios{
+    id?: number;
+    nombre: string;
+    apellido: string;
+    cedula: string;
+    correo: string;
+    password: string;
+    nivel: string;
+    idRol: number;
+}
