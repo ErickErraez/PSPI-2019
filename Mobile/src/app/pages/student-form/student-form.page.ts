@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AlertController, LoadingController, ModalController, NavController, Platform, ToastController} from '@ionic/angular';
 import {ModalPage} from '../modal/modal.page';
 import {log} from 'util';
+import {Proyectos} from '../../models/Proyectos';
+import {UserFormService} from '../../services/user-form.service';
 
 @Component({
     selector: 'app-user-form',
@@ -11,14 +13,14 @@ import {log} from 'util';
 export class StudentFormPage implements OnInit {
 
     user: any = JSON.parse(localStorage.getItem('user'));
+    proyecto: Proyectos = new Proyectos();
     miembros = [];
 
     constructor(private route: NavController, private platform: Platform, public alertController: AlertController,
-                public loadingController: LoadingController) {
+                public loadingController: LoadingController, private userService: UserFormService) {
         this.platform.backButton.subscribeWithPriority(1, () => {
             navigator['app'].exitApp();
         });
-
     }
 
     ngOnInit() {
@@ -71,8 +73,13 @@ export class StudentFormPage implements OnInit {
     }
 
 
-    cerrar() {
-        this.route.navigateRoot(['login']);
+    enviarPropuesta() {
+        this.proyecto.estado = 'Pendiente';
+        this.userService.createForm(this.proyecto).subscribe(res => {
+            console.log(res);
+        }, error => {
+            console.log(error);
+        });
     }
 
 }

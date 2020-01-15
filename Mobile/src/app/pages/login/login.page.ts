@@ -3,6 +3,10 @@ import {AuthService} from '../../services/auth.service';
 import {Toast} from '@ionic-native/toast/ngx';
 import {NavController, Platform, ToastController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
+import {UserFormService} from '../../services/user-form.service';
+import {error} from 'util';
+import {Roles} from '../../models/Roles';
+import {Usuarios} from '../../models/Usuarios';
 
 @Component({
     selector: 'app-login',
@@ -12,11 +16,15 @@ import {Storage} from '@ionic/storage';
 export class LoginPage implements OnInit {
 
     userName: string;
+    person: Usuarios = new Usuarios();
+    roles: Roles = new Roles();
     password: string;
-    tipoInput: any = 'password';
+    typeInput: any = 'password';
     validateLogin: boolean;
+    user: any;
 
-    constructor(private service: AuthService, private route: NavController, private toastr: ToastController, private platform: Platform) {
+    constructor(private service: AuthService, private route: NavController, private toastr: ToastController, private platform: Platform,
+                private userService: UserFormService) {
         this.platform.backButton.subscribeWithPriority(1, () => {
             navigator['app'].exitApp();
         });
@@ -34,11 +42,11 @@ export class LoginPage implements OnInit {
                 this.userName = this.userName + '@yavirac.edu.ec';
             }
             this.service.postPublic('oauth/token', {
-                'client_id': 1,
-                'client_secret': 'gCKtEi6W8KpXgWCv4sDSlkM6IErcQQLTuvW5j5yg',
-                'grant_type': 'password',
-                'username': this.userName,
-                'password': this.password
+                client_id: 1,
+                client_secret: 'gCKtEi6W8KpXgWCv4sDSlkM6IErcQQLTuvW5j5yg',
+                grant_type: 'password',
+                username: this.userName,
+                password: this.password
             }).subscribe(
                 response => {
                     localStorage.setItem('token', JSON.stringify(response['access_token']));
@@ -46,6 +54,7 @@ export class LoginPage implements OnInit {
                     this.service.get('usuarios/login?email=' + this.userName).subscribe(response2 => {
                         localStorage.setItem('user', JSON.stringify(response2));
                         this.presentToast('Logueado con Exito');
+                        this.saveUser();
                         this.route.navigateRoot(['']);
                     });
                     this.validateLogin = false;
@@ -60,13 +69,41 @@ export class LoginPage implements OnInit {
         }
     }
 
-    async presentToast(mensaje) {
+    async presentToast(message) {
         const toast = await this.toastr.create({
-            message: mensaje,
+            message: message,
             cssClass: 'toast-scheme',
             position: 'top',
             duration: 2000
         });
         toast.present();
+    }
+
+    saveUser() {
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.user = this.user.usuario;
+        if (this.user.role_id == 2) {
+            this.person.idRol = 4;
+        }
+        const array1 = this.user.name.split(' ');
+        this.person.nombre = array1[1];
+        this.person.apellido = array1[0];
+        this.person.cedula = this.user.user_name;
+        this.person.correo = this.user.email;
+        this.userService.getUserByEmail(this.person.correo).subscribe(response => {
+            let objeto: any = {};
+            objeto = response;
+            if (objeto.ok) {
+                console.log(objeto.ok);
+            } else {
+                this.userService.createUser(this.person).subscribe(res => {
+                    console.log('creado');
+                }, er => {
+                    console.log(er);
+                });
+            }
+        }, err => {
+
+        });
     }
 }

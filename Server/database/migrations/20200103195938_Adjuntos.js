@@ -5,7 +5,7 @@ exports.up = function (knex, Promise) {
         table.string('tipo').notNullable();
         table.text('contenido').notNullable();
         table.integer('idNotas').unsigned().references('idNotas').inTable('Notas');
-        table.timestamps();
+        table.timestamps(true, true);
     });
 };
 

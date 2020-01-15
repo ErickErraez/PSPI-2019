@@ -5,10 +5,10 @@ exports.up = function (knex, Promise) {
         table.string('apellido',50).notNullable();
         table.string('cedula',10).notNullable();
         table.string('correo',50).notNullable();
-        table.string('password',6).notNullable();
+        table.string('password',6);
         table.string('nivel',10);
         table.integer('idRol').unsigned().references('idRoles').inTable('Roles');
-        table.timestamps();
+        table.timestamps(true, true);
     });
 };
 

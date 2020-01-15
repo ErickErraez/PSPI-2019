@@ -7,7 +7,7 @@ exports.up = function (knex, Promise) {
         table.string('calificador',100).notNullable();
         table.integer('idTipoEvaluacion').unsigned().references('idTipoEvaluaciones').inTable('TipoEvaluaciones');
         table.integer('idUsuariosProyectos').unsigned().references('idUsuariosProyectos').inTable('UsuariosProyectos');
-        table.timestamps();
+        table.timestamps(true, true);
     });
 };
 

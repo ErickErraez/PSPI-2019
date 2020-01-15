@@ -4,7 +4,8 @@ let api = express.Router(),
     contador = 0,
     repetidas = 'Rutas repetidas: \n';
 let rutas = [
-    user_routes = require('./user_routes'),
+    user_routes = require('./user'),
+    proyects_routes = require('./proyects')
 ];
 
 api = rutas[0];

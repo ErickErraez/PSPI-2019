@@ -7,22 +7,30 @@ import {environment} from '../../environments/environment';
 })
 export class UserFormService {
 
-    url = environment.urlServer;
+    url = environment.urlServer + 'user/';
 
     constructor(private http: HttpClient) {
 
     }
 
     getAllForm() {
-        return this.http.get(this.url);
+        return this.http.get(this.url + 'all');
     }
 
     getForm() {
         return this.http.get(this.url);
     }
 
-    createForm(form) {
-        return this.http.post(this.url, form);
+    createUser(user) {
+        return this.http.post(this.url + 'createUser', user);
+    }
+
+    createForm(proyecto) {
+        return this.http.post(this.url + 'form', proyecto);
+    }
+
+    getUserByEmail(email) {
+        return this.http.get(this.url + 'getUserByEmail/' + email);
     }
 
 }

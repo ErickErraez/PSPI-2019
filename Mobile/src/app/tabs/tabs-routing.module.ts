@@ -18,6 +18,16 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'admin-assign',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import('../pages/admin-assign/admin-assign.module').then(m => m.AdminAssignPageModule)
+                    }
+                ]
+            },
+            {
                 path: 'tab1',
                 children: [
                     {

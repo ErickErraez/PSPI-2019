@@ -84,31 +84,78 @@ let loginUser = (req, res) => {
 
 };
 
-let createForm = (req, res) => {
-    let tabla = 'Proyectos';
-    let datos = req.body.datos;
-    const qu = db.insert(datos[i]).into(tabla);
+let createUser = (req, res) => {
+    let tabla = 'Usuarios';
+    let datos = req.body;
+    const qu = db.insert(datos).into(tabla);
     qu.then(resultado => {
-        console.log(resultado);
-        return res.status(200).json({
-            ok: true,
-            datos: resultado,
-            mensaje: `Registro Creado con Exito`
+        let idUsuarios = resultado[0];
+        const user = db(tabla).where('idUsuarios', idUsuarios).select();
+        user.then(response => {
+            return res.status(200).json({
+                ok: true,
+                mensaje: 'CREADO CON EXITO',
+                datos: response
+            })
+        }).catch(err => {
+
+        })
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            datos: datos,
+            mensaje: `Error del servidor: ${error}` + tabla
         })
     })
-        .catch((error) => {
-            return res.status(500).json({
-                ok: false,
-                datos: datos,
-                mensaje: `Error del servidor: ${error}` + tabla
-            })
-        })
 };
 
+let allUsers = (req, res) => {
+    let tabla = 'Proyectos';
+    let datos = req.body;
+    const proyecto = db('Usuarios').select();
+    proyecto.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            message: 'Error en el Servidor'
+        })
+    });
+};
+let getUserByEmail = (req, res) => {
+    let tabla = 'Proyectos';
+    let datos = req.params.email;
+    console.log(datos)
+    const proyecto = db('Usuarios').where('correo', datos).select();
+    proyecto.then(response => {
+        if (response.length == 0) {
+            return res.status(200).json({
+                ok: false,
+                mensaje: 'No Existe'
+            })
+        }
+        if (response.length == 1) {
+            return res.status(200).json({
+                ok: true,
+                mensaje: 'Encontrado con Exito',
+                datos: response[0]
+            })
+        }
+    }).catch(err => {
+        return res.status(500).json({
+            message: 'Error en el Servidor'
+        })
+    });
+};
 
 module.exports = {
     //CRUD USERS
     loginUser,
     registerUser,
-    createForm
+    allUsers,
+    createUser,
+    getUserByEmail,
 };
