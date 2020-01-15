@@ -1,125 +1,129 @@
-
-
-
 <body id="page-top" style="padding-left: 10%;padding-right: 10%;">
 
-<!-- Page Wrapper -->
-<div id="wrapper">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
 
-  <!-- Sidebar -->
+    <!-- Sidebar -->
 
-  <!-- End of Sidebar -->
+    <!-- End of Sidebar -->
 
-  <!-- Content Wrapper -->
-  <div id="content-wrapper"  class="d-flex flex-column">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
-    <div id="content">
-
-
-      <div class="row" >
-        <div class="col-12 ">
-          <div class="card">
-            <div class="card-header text-white"style="border-bottom-width: 5px;background-color: rgb(43, 76, 226);" >
-              <h6 class="m-0 font-weight-bold">INFORMACIÓN DEL PROYECTO</h6>
-            </div>
-            <div class="card-body ">
-              <div class="row ">
-                <table class="table table-bordered" id="tableColor">
-                  <tbody>
-                  <tr>
-
-                    <td scope="col">
-
-                    <label class="inp">
-                      <input type="text" id="name" placeholder="&nbsp;">
-                      <span class="label">NOMBRE DEL PROYECTO</span>
-                      <span class="border"></span>
-                    </label>
-
-                  </td>
-                    <td scope="col">
-
-                      <label  class="inp">
-                        <input type="text" id="desc" placeholder="&nbsp;">
-                        <span class="label">DESCRIPCIÓN DEL PROYECTO</span>
-                        <span class="border"></span>
-                      </label>
-
-                    </td>
-                  </tr>
-
-                  </tbody>
-                </table>
-                <table class="table table-bordered" id="tableColor">
-                  <tbody>
-                  <tr>
-
-                    <td scope="col">
-
-                      <label class="inp">
-                        <input type="text" id="herr" placeholder="&nbsp;">
-                        <span class="label">HERRAMIENTAS A UTILIZAR</span>
-                        <span class="border"></span>
-                      </label>
-
-                    </td>
-
-                    <td scope="col">
-                      <select class="browser-default custom-select">
-                        <option value="" disabled selected>SELECCIONE UN TEMA</option>
-                        <option value="ecologia">Ecologia</option>
-                        <option value="medioAmbiente">Medio Ambiente</option>
-                        <option value="Salud">Salud</option>
-                        <option value="Facturacion">Facturacion</option>
-
-                      </select>
-
-                    </td>
-                  </tr>
+      <div id="content">
 
 
-                  </tbody>
-                </table>
-                <table class="table table-bordered" id="tableColor">
-                  <div class="card-header text-white" style="border-bottom-width: 5px;background-color: rgb(43, 76, 226);">
-                    <h6 class="m-0 font-weight-bold ">INREGRANTES</h6>
-                  </div>
-                  <tbody>
-                  <tr>
-
-
-
-
-                    <td scope="col">{{user.usuario.name}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<button class="btn btn-primary m-1" data-toggle="modal"
-                                                                data-target="#nuevo">+</button>&nbsp;</td>
-
-
-
-                  </tr>
-
-                  </tbody>
-                </table>
-
+        <div class="row">
+          <div class="col-12 ">
+            <div class="card">
+              <div class="card-header text-white" style="border-bottom-width: 5px;background-color: rgb(43, 76, 226);">
+                <h6 class="m-0 font-weight-bold">INFORMACIÓN DEL PROYECTO</h6>
               </div>
+              <div class="card-body ">
+                <div class="row ">
+                  <table class="table table-bordered" id="tableColor">
+                    <tbody>
+                      <tr>
+
+                        <td scope="col">
+
+                          <label class="inp">
+                            <input type="text" id="name" placeholder="&nbsp;" [(ngModel)]="nombre">
+                            <span class="label">NOMBRE DEL PROYECTO</span>
+                            <span class="border"></span>
+                          </label>
+
+                        </td>
+                        <td scope="col">
+
+                          <label class="inp">
+                            <input type="text" id="desc" placeholder="&nbsp;" [(ngModel)]="descripcion">
+                            <span class="label">DESCRIPCIÓN DEL PROYECTO</span>
+                            <span class="border"></span>
+                          </label>
+
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  <table class="table table-bordered" id="tableColor">
+                    <tbody>
+                      <tr>
+
+                        <td scope="col">
+
+                          <label class="inp">
+                            <input type="text" id="herr" placeholder="&nbsp;" [(ngModel)]="herramientas">
+                            <span class="label">HERRAMIENTAS A UTILIZAR</span>
+                            <span class="border"></span>
+                          </label>
+
+                        </td>
+
+                        <td scope="col">
+                          <select class="browser-default custom-select">
+                            <option value="" disabled selected>SELECCIONE UN TEMA</option>
+                            <option value="ecologia">Ecologia</option>
+                            <option value="medioAmbiente">Medio Ambiente</option>
+                            <option value="Salud">Salud</option>
+                            <option value="Facturacion">Facturacion</option>
+
+                          </select>
+
+                        </td>
+                      </tr>
+
+
+                    </tbody>
+                  </table>
+                  <table class="table table-bordered" id="tableColor">
+                    <div class="card-header text-white"
+                      style="border-bottom-width: 5px;background-color: rgb(43, 76, 226);">
+                      <h6 class="m-0 font-weight-bold ">INREGRANTES</h6>
+                    </div>
+                    <tbody>
+                      <tr>
+
+
+
+
+                        <td scope="col">{{user.usuario.name}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          &nbsp;
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          &nbsp;
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          &nbsp;
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          &nbsp;
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          &nbsp;
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<button class="btn btn-primary m-1" data-toggle="modal"
+                            data-target="#nuevo">+</button>&nbsp;</td>
+
+
+
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <button class="btn btn-primary m-1" data-toggle="modal" data-target="#seleccion">ENVIAR PROPUESTA</button>
+              
             </div>
-            <button type="button" class="btn btn-outline-primary" (click)="cerrar()">ENVIAR PROPUESTA</button>
           </div>
+
+
         </div>
-
-
       </div>
+
+
     </div>
 
 
   </div>
-
-
-</div>
 
 
 </body>
@@ -151,7 +155,32 @@
         <br>
         <button class="btn btn-success" (click)="update()">ACEPTAR </button>&nbsp;&nbsp;&nbsp;
         <button class="btn btn-danger" data-toggle="modal" data-dismiss="modal"
-                data-target="#rechazo">CANCELAR</button>&nbsp;
+          data-target="#rechazo">CANCELAR</button>&nbsp;
+        <br>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="seleccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">INTEGRANTE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <h5>ESTÁS SEGURO DE ENVÍAR ESTA PROPUESTA ?</h5>
+        <br>
+        <br>
+        <button class="btn btn-success" (click)="EnviarPropuesta()" data-dismiss="modal">ACEPTAR </button>&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-danger" data-toggle="modal" data-dismiss="modal"
+          data-target="#rechazo">CANCELAR</button>&nbsp;
         <br>
 
       </div>
