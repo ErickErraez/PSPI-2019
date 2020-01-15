@@ -1,9 +1,10 @@
-
+;
 const express = require('express');
 let api = express.Router(),
     contador = 0,
     repetidas = 'Rutas repetidas: \n';
 let rutas = [
+
     user_routes = require('./user'),
     proyects_routes = require('./proyects')
 ];

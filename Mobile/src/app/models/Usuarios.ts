@@ -4,6 +4,7 @@ export class Usuarios {
     apellido: string;
     cedula: string;
     correo: string;
+    password: string;
     nivel?: string;
     idRol: number;
 }
