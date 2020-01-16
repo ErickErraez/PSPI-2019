@@ -11,3 +11,4 @@ export class Proyectos {
     idPeriodo: number;
     idCategoria: number;
 }
+

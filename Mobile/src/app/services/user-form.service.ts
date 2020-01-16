@@ -33,4 +33,8 @@ export class UserFormService {
         return this.http.get(this.url + 'getUserByEmail/' + email);
     }
 
+    getDocentes() {
+        return this.http.get(this.url + 'getDocentes');
+    }
+
 }
