@@ -97,9 +97,31 @@ let getPeriodo = (req, res) => {
         })
 };
 
+
+let getProfesor = (req, res) => {
+    let tabla = 'Usuarios';
+    let datos = req.body;
+    const profesor = db(tabla).innerJoin('Roles', 'Usuarios.idRol', 'Roles.idRoles')
+        .select('idUsuarios', 'Usuarios.nombre', 'apellido', 'correo', 'idRol', 'Roles.nombre as rol_descripcion')
+        .whereNot('idRol', 4);
+    profesor.then(r => {
+        return res.status(200).json({
+            ok: true,
+            datos: r,
+        });
+    }).catch(er => {
+        return res.status(500).json({
+            ok: false,
+            datos: datos,
+            mensaje: 'Error de Servidor' + er
+        })
+    });
+};
+
 module.exports = {
     //CRUD USERS
     createForm,
     getCategories,
-    getPeriodo
+    getPeriodo,
+    getProfesor
 };

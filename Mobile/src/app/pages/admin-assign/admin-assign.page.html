@@ -16,37 +16,41 @@
     </ion-card>
     <ion-card class="welcome-card">
         <ion-card-header>
-            <ion-card-title color="primary">Primer Nivel
-                <ion-button shape="round" expand="block" fill="outline">Asignar Tutores</ion-button>
+            <ion-card-title color="primary">Seleccione
             </ion-card-title>
         </ion-card-header>
+        <ion-card-content>
+            <ion-item>
+                <ion-label>Nivel</ion-label>
+                <ion-select placeholder="Select One" [(ngModel)]="valor">
+                    <ion-select-option value="1">Primero</ion-select-option>
+                    <ion-select-option value="2">Segundo</ion-select-option>
+                    <ion-select-option value="3">Terecero</ion-select-option>
+                    <ion-select-option value="4">Cuarto</ion-select-option>
+                    <ion-select-option value="5">Quinto</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <div class="container" *ngIf="valor!=null">
+                <ion-item>
+                    <ion-label>Tutor</ion-label>
+                    <ion-select placeholder="Select One" [(ngModel)]="tutor">
+                        <ion-select-option *ngFor="let item of docentes" value="{{item.idUsuarios}}">{{item.nombre}} {{item.apellido}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Calificador 1</ion-label>
+                    <ion-select placeholder="Select One"[(ngModel)]="calificador1">
+                        <ion-select-option *ngFor="let item of docentes" value="{{item.idUsuarios}}">{{item.nombre}} {{item.apellido}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Calificador 2</ion-label>
+                    <ion-select placeholder="Select One"[(ngModel)]="calificador2">
+                        <ion-select-option *ngFor="let item of docentes" value="{{item.idUsuarios}}">{{item.nombre}} {{item.apellido}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </div>
+        </ion-card-content>
     </ion-card>
-    <ion-card class="welcome-card">
-        <ion-card-header>
-            <ion-card-title color="primary">Segundo Nivel
-                <ion-button shape="round" expand="block" fill="outline">Asignar Tutores</ion-button>
-            </ion-card-title>
-        </ion-card-header>
-    </ion-card>
-    <ion-card class="welcome-card">
-        <ion-card-header>
-            <ion-card-title color="primary">Tercer Nivel
-                <ion-button shape="round" expand="block" fill="outline">Asignar Tutores</ion-button>
-            </ion-card-title>
-        </ion-card-header>
-    </ion-card>
-    <ion-card class="welcome-card">
-        <ion-card-header>
-            <ion-card-title color="primary">Cuarto Nivel
-                <ion-button shape="round" expand="block" fill="outline">Asignar Tutores</ion-button>
-            </ion-card-title>
-        </ion-card-header>
-    </ion-card>
-    <ion-card class="welcome-card">
-        <ion-card-header>
-            <ion-card-title color="primary">Quinto Nivel
-                <ion-button shape="round" expand="block" fill="outline">Asignar Tutores</ion-button>
-            </ion-card-title>
-        </ion-card-header>
-    </ion-card>
+
 </ion-content>

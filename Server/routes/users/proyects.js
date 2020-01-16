@@ -5,6 +5,7 @@ const api = express.Router(),
 
 api.post('/form', proyectController.createForm);
 api.get('/getCategories', proyectController.getCategories);
+api.get('/getDocentes', proyectController.getProfesor);
 api.get('/getPeriodo', proyectController.getPeriodo);
 
 module.exports = api;
