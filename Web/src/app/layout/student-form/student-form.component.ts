@@ -15,7 +15,7 @@ export class StudentFormComponent implements OnInit {
   constructor(private server: UserFormService) { }
 
   ngOnInit() {
-    
+    this.traerDatos();
   }
   traerDatos() {
     this.server.getAllForm().subscribe(r => {

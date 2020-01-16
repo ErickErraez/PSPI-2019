@@ -10,6 +10,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { NavbarComponent } from './layout/shared/navbar/navbar.component';
 import { SidebarComponent } from './layout/shared/sidebar/sidebar.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

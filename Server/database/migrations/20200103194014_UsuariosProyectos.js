@@ -1,4 +1,4 @@
-
+                                              
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('UsuariosProyectos', function (table) {
         table.increments('idUsuariosProyectos').unsigned().primary();
