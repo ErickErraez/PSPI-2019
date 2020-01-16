@@ -10,13 +10,8 @@ export class UserFormService {
 
   constructor(private http: HttpClient) { }
 
-  getAllForm() {
-    return this.http.get(this.url);
 
-  }
-  getForm() {
-    return this.http.get(this.url);
-  }
+
 
   postForm(form) {
     return this.http.post(this.url + 'form', form);

@@ -1,5 +1,5 @@
 export class periodosAcademicos {
-    id?: number;
+    idPeriodoAcademico?: number;
     nombre: string;
-    
+
 }

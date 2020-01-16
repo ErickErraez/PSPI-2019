@@ -78,6 +78,7 @@ let getCategories = (req, res) => {
         })
 };
 
+
 let getPeriodo = (req, res) => {
     let tabla = 'PeriodoAcademico';
     db(tabla).orderBy('created_at', 'desc').select().first()

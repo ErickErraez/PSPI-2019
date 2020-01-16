@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { UserFormService } from '../../services/user-form.service';
+import {Component, OnInit} from '@angular/core';
+import {UserFormService} from '../../services/user-form.service';
+import {ProyectoServiceService} from "../../services/proyecto-service.service";
+import {Proyectos} from '../../models/Proyectos';
+
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -11,32 +14,52 @@ export class StudentFormComponent implements OnInit {
   nombre: any;
   descripcion: any;
   herramientas: any;
+  Arraycategorias = [];
+  period: any;
+  proyectos: Proyectos = new Proyectos();
 
-  constructor(private server: UserFormService) { }
+  constructor(private server: UserFormService, private proyectService: ProyectoServiceService) {
+  }
 
   ngOnInit() {
-    this.traerDatos();
+    this.getPeriodo();
+    this.obtenerCategorias();
   }
-  traerDatos() {
-    this.server.getAllForm().subscribe(r => {
-      console.log(r);
+
+  obtenerCategorias() {
+
+    this.proyectService.getCategorias().subscribe(r => {
+
+      let Categorias: any = {};
+      Categorias = r;
+      this.Arraycategorias = Categorias.datos;
+
+    });
+
+  }
+
+
+  EnviarPropuesta() {
+    this.proyectos.estado = 'pendiente';
+    this.proyectos.nivel='Quinto';
+
+    this.server.postForm(this.proyectos).subscribe(r => {
+      console.log('el formulario se guardo con éxito' + r);
+
+    }, error => {
+      console.log(error);
     })
   }
 
-  EnviarPropuesta() {
-
-    let objeto = {
-      nombre: this.nombre,
-      descripcion: this.descripcion,
-      Herramientas: this.herramientas,
-      estado: 'PENDIENTE'
-    }
-
-    this.server.postForm(objeto).subscribe(r => {
-      console.log(r);
-
-    }, err => { console.log(err) });
+  getPeriodo() {
+    this.proyectService.getPeriodo().subscribe(res => {
+      const per: any = res;
+      localStorage.setItem('periodoActual', JSON.stringify(per.datos));
+      this.period = JSON.parse(localStorage.getItem('periodoActual'));
+      this.proyectos.idPeriodo = this.period.idPeriodoAcademico;
+    });
   }
+
   cerrar() {
 
   }
