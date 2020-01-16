@@ -17,7 +17,7 @@ export class StudentFormPage implements OnInit {
     miembros = [];
 
     constructor(private route: NavController, private platform: Platform, public alertController: AlertController,
-                public loadingController: LoadingController, private userService: UserFormService) {
+                public loadingController: LoadingController, private userService: UserFormService, private toastr: ToastController) {
         this.platform.backButton.subscribeWithPriority(1, () => {
             navigator['app'].exitApp();
         });
@@ -69,7 +69,25 @@ export class StudentFormPage implements OnInit {
 
     buscarPersona(email) {
         this.presentLoadingWithOptions();
-        this.miembros.push(email);
+        this.userService.getUserByEmail(email).subscribe(response => {
+            let objeto: any = {};
+            objeto = response;
+            if (objeto.ok) {
+                if (objeto.datos.idRol == 4) {
+                    if (objeto.datos.correo != this.user.usuario.email) {
+                        this.miembros.push(objeto.datos);
+                    } else {
+                        this.presentToast('Ya estas agregado');
+                    }
+                } else {
+                    this.presentToast('No puedes agregar un profesor');
+                }
+            } else {
+                this.presentToast('No existe el correo');
+            }
+        }, err => {
+            this.presentToast('Algo ha salido mal');
+        });
     }
 
 
@@ -81,5 +99,16 @@ export class StudentFormPage implements OnInit {
             console.log(error);
         });
     }
+
+    async presentToast(message) {
+        const toast = await this.toastr.create({
+            message: message,
+            cssClass: 'toast-scheme',
+            position: 'top',
+            duration: 2000
+        });
+        toast.present();
+    }
+
 
 }

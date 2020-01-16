@@ -6,15 +6,22 @@ const db = require('knex')(config['development']);
 
 let createForm = (req, res) => {
     let tabla = 'Proyectos';
-    let datos = req.body.datos;
-    const qu = db.insert(datos[i]).into(tabla);
+    let datos = req.body;
+    console.log(datos);
+    const qu = db.insert(datos).into(tabla);
     qu.then(resultado => {
-        console.log(resultado);
-        return res.status(200).json({
-            ok: true,
-            datos: resultado,
-            mensaje: `Registro Creado con Exito`
-        })
+        idProyectos = resultado[0];
+        const proyect = db(tabla).where('idProyectos', idProyectos).select('idProyectos', 'nombre', 'descripcion', 'herramientas', 'estado').first();
+        proyect.then(r => {
+            return res.status(200).json({
+                ok: true,
+                proyecto: r,
+                mensaje: `Registro Creado con Exito`
+            })
+        }).catch(er => {
+
+        });
+
     })
         .catch((error) => {
             return res.status(500).json({

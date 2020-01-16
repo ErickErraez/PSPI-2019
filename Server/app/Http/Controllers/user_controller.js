@@ -128,7 +128,7 @@ let allUsers = (req, res) => {
 let getUserByEmail = (req, res) => {
     let tabla = 'Proyectos';
     let datos = req.params.email;
-    console.log(datos)
+    console.log(datos);
     const proyecto = db('Usuarios').where('correo', datos).select();
     proyecto.then(response => {
         if (response.length == 0) {

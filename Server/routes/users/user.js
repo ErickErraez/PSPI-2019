@@ -5,5 +5,7 @@ const api = express.Router(),
 
 api.post('/register', crudController.registerUser);
 api.post('/login', crudController.loginUser);
+api.get('/getUserByEmail/:email', crudController.getUserByEmail);
+api.post('/createUser', crudController.createUser);
 
 module.exports = api;
