@@ -7,6 +7,7 @@ import {UserFormService} from '../../services/user-form.service';
 import {error} from 'util';
 import {Roles} from '../../models/Roles';
 import {Usuarios} from '../../models/Usuarios';
+import {ProyectService} from '../../services/proyect.service';
 
 @Component({
     selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginPage implements OnInit {
     user: any;
 
     constructor(private service: AuthService, private route: NavController, private toastr: ToastController, private platform: Platform,
-                private userService: UserFormService) {
+                private userService: UserFormService, private proyectoServices: ProyectService) {
         this.platform.backButton.subscribeWithPriority(1, () => {
             navigator['app'].exitApp();
         });
@@ -94,7 +95,7 @@ export class LoginPage implements OnInit {
             let objeto: any = {};
             objeto = response;
             if (objeto.ok) {
-                console.log(objeto.ok);
+                this.getPeriodo();
             } else {
                 this.userService.createUser(this.person).subscribe(res => {
                     console.log('creado');
@@ -104,6 +105,13 @@ export class LoginPage implements OnInit {
             }
         }, err => {
 
+        });
+    }
+
+    getPeriodo() {
+        this.proyectoServices.getPeriodo().subscribe(res => {
+            const periodo: any = res;
+            localStorage.setItem('periodo', JSON.stringify(periodo.datos));
         });
     }
 }
