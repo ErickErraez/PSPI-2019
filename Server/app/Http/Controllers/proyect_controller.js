@@ -118,10 +118,48 @@ let getProfesor = (req, res) => {
     });
 };
 
+let createUserProyect = (req, res) => {
+    let tabla = 'UsuariosProyectos';
+    let datos = req.body;
+    const qu = db.insert(datos).into(tabla);
+    qu.then(r => {
+        return res.status(200).json({
+            ok: true,
+            datos: r,
+        });
+    }).catch(er => {
+        return res.status(500).json({
+            ok: false,
+            datos: datos,
+            mensaje: 'Error de Servidor' + er
+        })
+    });
+};
+
+let saveNotes = (req, res) => {
+    let tabla = 'Notas';
+    let datos = req.body;
+    const qu = db.insert(datos).into(tabla);
+    qu.then(r => {
+        return res.status(200).json({
+            ok: true,
+            datos: r,
+        });
+    }).catch(er => {
+        return res.status(500).json({
+            ok: false,
+            datos: datos,
+            mensaje: 'Error de Servidor' + er
+        })
+    });
+};
+
 module.exports = {
     //CRUD USERS
     createForm,
     getCategories,
     getPeriodo,
-    getProfesor
+    getProfesor,
+    createUserProyect,
+    saveNotes
 };

@@ -95,10 +95,11 @@ export class LoginPage implements OnInit {
             let objeto: any = {};
             objeto = response;
             if (objeto.ok) {
+                localStorage.setItem('usuario', JSON.stringify(objeto.datos));
                 this.getPeriodo();
             } else {
                 this.userService.createUser(this.person).subscribe(res => {
-                    console.log('creado');
+                    localStorage.setItem('usuario', JSON.stringify(objeto.datos));
                 }, er => {
                     console.log(er);
                 });

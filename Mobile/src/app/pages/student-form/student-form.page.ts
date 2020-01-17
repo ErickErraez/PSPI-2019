@@ -5,6 +5,7 @@ import {log} from 'util';
 import {Proyectos} from '../../models/Proyectos';
 import {UserFormService} from '../../services/user-form.service';
 import {ProyectService} from '../../services/proyect.service';
+import {UsuariosProyecto} from '../../models/Usuarios-Proyecto';
 
 @Component({
     selector: 'app-user-form',
@@ -15,7 +16,9 @@ export class StudentFormPage implements OnInit {
 
     user: any = JSON.parse(localStorage.getItem('user'));
     proyecto: Proyectos = new Proyectos();
+    usuario: any = JSON.parse(localStorage.getItem('usuario'));
     miembros = [];
+    usuarioProyecto: UsuariosProyecto = new UsuariosProyecto();
     categorias = [];
     periodo: any;
 
@@ -85,9 +88,10 @@ export class StudentFormPage implements OnInit {
                         } else {
                             for (let i = 0; i < this.miembros.length; i++) {
                                 if (this.miembros[i].correo == email) {
-                                    this.presentToast('Ya has agregado al Usuario');
+
                                 } else {
                                     this.miembros.push(objeto.datos);
+                                    console.log(this.miembros);
                                 }
                             }
                         }
@@ -108,14 +112,29 @@ export class StudentFormPage implements OnInit {
 
     enviarPropuesta() {
         this.proyecto.estado = 'Pendiente';
+        this.proyecto.nivel = this.usuario.nivel;
         this.userService.createForm(this.proyecto).subscribe(res => {
             this.presentLoadingWithOptions();
             this.presentToast('Registro Guardado con exito');
             let proyectFinal: any = res;
             proyectFinal = proyectFinal.proyecto;
-            localStorage.setItem('proyecto', JSON.stringify(proyectFinal));
+            this.createUserProyect(proyectFinal.idProyectos);
         }, error => {
             console.log(error);
+        });
+    }
+
+    createUserProyect(proyecto) {
+        console.log(proyecto);
+        this.usuarioProyecto.idProyecto = parseInt(proyecto);
+        this.usuarioProyecto.idEstudiante = this.usuario.idUsuarios;
+        this.proyectoServices.createUserProyects(this.usuarioProyecto).subscribe(res => {
+            for (let i = 0; i < this.miembros.length; i++) {
+                this.usuarioProyecto.idEstudiante = this.miembros[i].idUsuarios;
+                this.proyectoServices.createUserProyects(this.usuarioProyecto).subscribe(resp => {
+                    console.log(resp);
+                });
+            }
         });
     }
 
@@ -123,7 +142,7 @@ export class StudentFormPage implements OnInit {
         this.proyectoServices.getPeriodo().subscribe(res => {
             const per: any = res;
             localStorage.setItem('periodoActual', JSON.stringify(per.datos));
-            this.periodo = JSON.parse(localStorage.getItem('periodo'));
+            this.periodo = JSON.parse(localStorage.getItem('periodoActual'));
             this.proyecto.idPeriodo = this.periodo.idPeriodoAcademico;
         });
     }
@@ -151,8 +170,6 @@ export class StudentFormPage implements OnInit {
             this.presentToast('Algo ha salido mal');
         });
     }
-
-
 
 
 }

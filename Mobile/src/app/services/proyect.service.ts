@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {userError} from '@angular/compiler-cli/src/transformers/util';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,10 @@ export class ProyectService {
     }
 
     getPeriodo() {
-      return this.http.get(this.url + 'getPeriodo');
+        return this.http.get(this.url + 'getPeriodo');
+    }
+
+    createUserProyects(usuariosProyecto) {
+        return this.http.post(this.url + 'createUserProyect', usuariosProyecto);
     }
 }
