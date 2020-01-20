@@ -3,6 +3,27 @@ const bcrypt = require('bcrypt');
 const config = require('../../../knexfile');
 const jwt = require('jsonwebtoken');
 const db = require('knex')(config['development']);
+const Proyecto = require('../../Models/Proyectos').Proyecto;
+const UserProyects = require('../../Models/UsuariosProyectos').UsuariosProyectos;
+
+
+let getUserProyect = (req, res) => {
+    let tabla = 'UsuariosProyectos';
+    let datos = req.params.id;
+    const proyecto = db(tabla).where('idEstudiante', datos).innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos').select().first();
+    proyecto.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            message: 'Error en el Servidor'
+        })
+    });
+
+};
 
 let createForm = (req, res) => {
     let tabla = 'Proyectos';
@@ -118,10 +139,71 @@ let getProfesor = (req, res) => {
     });
 };
 
+let createUserProyect = (req, res) => {
+    let tabla = 'UsuariosProyectos';
+    let datos = req.body;
+    const qu = db.insert(datos).into(tabla);
+    qu.then(r => {
+        return res.status(200).json({
+            ok: true,
+            datos: r,
+        });
+    }).catch(er => {
+        return res.status(500).json({
+            ok: false,
+            datos: datos,
+            mensaje: 'Error de Servidor' + er
+        })
+    });
+};
+
+let getUsersProyects = (req, res) => {
+    let id = req.params.id;
+    UserProyects.query({
+        where: {idProyecto: id}
+    })
+        .fetch({withRelated: ['estudiante.rol', 'proyecto.tutor', 'proyecto.jurado1.rol', 'proyecto.jurado2', 'proyecto.periodoAcademico', 'proyecto.categoria']})
+        .then(response => {
+            console.log(response);
+            return res.status(200).json({
+                ok: true,
+                mensaje: 'ENCONTRADO CON EXITO',
+                datos: response
+            })
+        }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
+};
+
+let saveNotes = (req, res) => {
+    let tabla = 'Notas';
+    let datos = req.body;
+    const qu = db.insert(datos).into(tabla);
+    qu.then(r => {
+        return res.status(200).json({
+            ok: true,
+            datos: r,
+        });
+    }).catch(er => {
+        return res.status(500).json({
+            ok: false,
+            datos: datos,
+            mensaje: 'Error de Servidor' + er
+        })
+    });
+};
+
 module.exports = {
     //CRUD USERS
     createForm,
     getCategories,
     getPeriodo,
-    getProfesor
+    getProfesor,
+    createUserProyect,
+    getUsersProyects,
+    getUserProyect,
+    saveNotes
 };

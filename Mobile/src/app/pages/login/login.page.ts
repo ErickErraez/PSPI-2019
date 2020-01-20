@@ -95,10 +95,12 @@ export class LoginPage implements OnInit {
             let objeto: any = {};
             objeto = response;
             if (objeto.ok) {
+                localStorage.setItem('usuario', JSON.stringify(objeto.datos));
                 this.getPeriodo();
+                this.getUserProyect(objeto.datos.idUsuarios);
             } else {
                 this.userService.createUser(this.person).subscribe(res => {
-                    console.log('creado');
+                    localStorage.setItem('usuario', JSON.stringify(objeto.datos));
                 }, er => {
                     console.log(er);
                 });
@@ -111,7 +113,14 @@ export class LoginPage implements OnInit {
     getPeriodo() {
         this.proyectoServices.getPeriodo().subscribe(res => {
             const periodo: any = res;
-            localStorage.setItem('periodo', JSON.stringify(periodo.datos));
+            localStorage.setItem('periodoActual', JSON.stringify(periodo.datos));
+        });
+    }
+
+    getUserProyect(id) {
+        this.proyectoServices.getUserProyects(id).subscribe(r => {
+            const proyecto: any = r;
+            localStorage.setItem('proyecto', JSON.stringify(proyecto.datos));
         });
     }
 }

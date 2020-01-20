@@ -90,7 +90,7 @@ let createUser = (req, res) => {
     const qu = db.insert(datos).into(tabla);
     qu.then(resultado => {
         let idUsuarios = resultado[0];
-        const user = db(tabla).where('idUsuarios', idUsuarios).select();
+        const user = db(tabla).where('idUsuarios', idUsuarios).select('idUsuarios', 'nombre', 'apellido', 'cedula', 'correo', 'nivel', 'idRol');
         user.then(response => {
             return res.status(200).json({
                 ok: true,
@@ -112,7 +112,7 @@ let createUser = (req, res) => {
 let allUsers = (req, res) => {
     let tabla = 'Proyectos';
     let datos = req.body;
-    const proyecto = db('Usuarios').select();
+    const proyecto = db('Usuarios').select('idUsuarios', 'nombre', 'apellido', 'cedula', 'correo', 'nivel', 'idRol');
     proyecto.then(response => {
         return res.status(200).json({
             ok: true,
@@ -128,8 +128,7 @@ let allUsers = (req, res) => {
 let getUserByEmail = (req, res) => {
     let tabla = 'Proyectos';
     let datos = req.params.email;
-    console.log(datos);
-    const proyecto = db('Usuarios').where('correo', datos).select();
+    const proyecto = db('Usuarios').where('correo', datos).select('idUsuarios', 'nombre', 'apellido', 'cedula', 'correo', 'nivel', 'idRol');
     proyecto.then(response => {
         if (response.length == 0) {
             return res.status(200).json({

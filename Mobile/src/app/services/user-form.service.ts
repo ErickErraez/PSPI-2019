@@ -8,6 +8,7 @@ import {environment} from '../../environments/environment';
 export class UserFormService {
 
     url = environment.urlServer + 'user/';
+    apiUrl = environment.API_URL + 'v2/estudiantes';
 
     constructor(private http: HttpClient) {
 
@@ -35,6 +36,10 @@ export class UserFormService {
 
     getDocentes() {
         return this.http.get(this.url + 'getDocentes');
+    }
+
+    getEstudiantes() {
+        return this.http.get(this.apiUrl);
     }
 
 }

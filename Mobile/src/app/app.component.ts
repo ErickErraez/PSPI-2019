@@ -5,6 +5,7 @@ import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {Network} from '@ionic-native/network/ngx';
 import {NetworkService} from './services/network.service';
+import {UserFormService} from './services/user-form.service';
 
 @Component({
     selector: 'app-root',
@@ -13,13 +14,11 @@ import {NetworkService} from './services/network.service';
 })
 export class AppComponent {
 
-    constructor(
-        private platform: Platform,
-        private splashScreen: SplashScreen,
-        private statusBar: StatusBar
-    ) {
+    constructor(private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private userService: UserFormService) {
         this.initializeApp();
-
+      /*  this.userService.getEstudiantes().subscribe(r => {
+            console.log(r.estudiantes);
+        });*/
     }
 
 

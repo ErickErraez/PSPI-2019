@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
         table.string('descripcion',200).notNullable();
         table.string('herramientas',200).notNullable();
         table.string('estado',10).notNullable();
-        table.string('nivel',50).notNullable();
+        table.string('nivel',2).notNullable();
         table.integer('tutor').unsigned().references('idUsuarios').inTable('Usuarios');
         table.integer('jurado1').unsigned().references('idUsuarios').inTable('Usuarios');
         table.integer('jurado2').unsigned().references('idUsuarios').inTable('Usuarios');
