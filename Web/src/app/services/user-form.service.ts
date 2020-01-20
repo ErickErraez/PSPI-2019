@@ -16,4 +16,7 @@ export class UserFormService {
   postForm(form) {
     return this.http.post(this.url + 'form', form);
   }
+  getUserByEmail(email) {
+    return this.http.get(this.url + 'getUserByEmail/' + email);
+  }
 }

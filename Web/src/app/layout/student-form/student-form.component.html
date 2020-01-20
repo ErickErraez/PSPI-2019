@@ -62,9 +62,10 @@
                     </td>
 
                     <td scope="col">
-                      <select class="browser-default custom-select"  [(ngModel)]="proyectos.idCategoria" >
+                      <select class="browser-default custom-select" [(ngModel)]="proyectos.idCategoria">
                         <option value="" disabled selected>SELECCIONE UN TEMA</option>
-                        <option *ngFor="let categoria of Arraycategorias" value="{{categoria.idCategorias}}">{{categoria.nombre}}</option>
+                        <option *ngFor="let categoria of Arraycategorias"
+                                value="{{categoria.idCategorias}}">{{categoria.nombre}}</option>
 
 
                       </select>
@@ -78,19 +79,22 @@
                 <table class="table table-bordered" id="tableColor">
                   <div class="card-header text-white"
                        style="border-bottom-width: 5px;background-color: rgb(43, 76, 226);">
-                    <h6 class="m-0 font-weight-bold ">INREGRANTES</h6>
+                    <h6 class="m-0 font-weight-bold ">INTEGRANTES</h6>
                   </div>
                   <tbody>
                   <tr>
-
-                    <td scope="col">{{user.usuario.name}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<button class="btn btn-primary m-1" data-toggle="modal"
-                                                                data-target="#nuevo">+
-                      </button>&nbsp;
+                    <td> {{user.usuario.name}} {{user.usuario.email}}</td>
+                    <td width="70">
+                      <button (click)="presentarAlerta()" color="primary"
+                              name="add-circle-outline" class="btn btn-primary">+
+                      </button>
                     </td>
-
-
+                  </tr>
+                  <tr *ngFor="let item of miembros;">
+                    <td>{{item.nombre}}&nbsp;{{item.apellido}} {{item.correo}}</td>
+                    <td width="70">
+                      <button (click)="quitar(item)" color="danger" name="trash" class="btn btn-danger">-</button>
+                    </td>
                   </tr>
 
                   </tbody>
@@ -115,40 +119,6 @@
 
 
 </body>
-
-
-<div class="modal fade" id="nuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">INTEGRANTE</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <select class="browser-default custom-select">
-
-          <option value="" disabled selected>Seleccione un Estudiante
-          </option>
-          <option value="2010">Rodrigo Diaz</option>
-          <option value="2011">Alejandro Coronel</option>
-          <option value="2012">Erick Erraez</option>
-
-
-        </select>
-        <br>
-        <br>
-        <button class="btn btn-success" (click)="update()">ACEPTAR</button>&nbsp;&nbsp;&nbsp;
-        <button class="btn btn-danger" data-toggle="modal" data-dismiss="modal"
-                data-target="#rechazo">CANCELAR
-        </button>&nbsp;
-        <br>
-
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <div class="modal fade" id="seleccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
