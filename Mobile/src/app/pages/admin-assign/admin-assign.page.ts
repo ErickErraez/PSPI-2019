@@ -24,8 +24,6 @@ export class AdminAssignPage implements OnInit {
 
     ngOnInit() {
 
-        //this.proyecto.tutor = tutor;
-
     }
 
 }

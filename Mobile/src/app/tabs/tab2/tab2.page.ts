@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from '@ionic/angular';
+import {ProyectService} from '../../services/proyect.service';
 
 @Component({
     selector: 'app-tab2',
@@ -9,8 +10,11 @@ import {NavController, NavParams} from '@ionic/angular';
 export class Tab2Page {
 
     items = [];
+    proyecto: any = JSON.parse(localStorage.getItem('proyecto'));
+    userProyect: any;
 
-    constructor(public nav: NavController) {
+    constructor(public nav: NavController, private proyectServices: ProyectService) {
+        this.getData();
     }
 
     abrirEnlace(item) {
@@ -18,5 +22,11 @@ export class Tab2Page {
 
     }
 
+    getData() {
+        this.proyectServices.getUsersProyects(this.proyecto.idProyecto).subscribe(res => {
+            this.userProyect = res;
+
+        });
+    }
 
 }
