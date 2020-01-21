@@ -1,15 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AdminService} from '../../services/admin.service';
 
 @Component({
-  selector: 'app-admin-control',
-  templateUrl: './admin-control.page.html',
-  styleUrls: ['./admin-control.page.scss'],
+    selector: 'app-admin-control',
+    templateUrl: './admin-control.page.html',
+    styleUrls: ['./admin-control.page.scss'],
 })
 export class AdminControlPage implements OnInit {
 
-  constructor() { }
+    show: any = {};
 
-  ngOnInit() {
-  }
+    constructor(private adminService: AdminService) {
+        this.adminService.getConfiguracion().subscribe(res => {
+            this.show = res;
+            this.show = this.show.datos;
+        });
+    }
+
+    ngOnInit() {
+    }
+
+    changeStatus() {
+        if (this.show.formularioSolicitud) {
+            this.show.formularioSolicitud = false;
+        } else {
+            this.show.formularioSolicitud = true;
+        }
+    }
 
 }

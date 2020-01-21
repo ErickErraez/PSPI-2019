@@ -16,9 +16,6 @@ export class AppComponent {
 
     constructor(private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private userService: UserFormService) {
         this.initializeApp();
-      /*  this.userService.getEstudiantes().subscribe(r => {
-            console.log(r.estudiantes);
-        });*/
     }
 
 

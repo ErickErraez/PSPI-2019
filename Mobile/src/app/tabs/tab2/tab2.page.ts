@@ -10,23 +10,46 @@ import {ProyectService} from '../../services/proyect.service';
 export class Tab2Page {
 
     items = [];
-    proyecto: any = JSON.parse(localStorage.getItem('proyecto'));
+    myProyects: any = [];
+    proyectos: any;
+    usuario: any = JSON.parse(localStorage.getItem('usuario'));
     userProyect: any;
+    show: any = false;
 
-    constructor(public nav: NavController, private proyectServices: ProyectService) {
-        this.getData();
+    constructor(public nav: NavController, private proyectoServices: ProyectService) {
+        this.getUserProyect();
     }
 
-    abrirEnlace(item) {
+    abrirEnlace(item, estado) {
         this.nav.navigateForward(`student-proyect/${item}`);
 
     }
 
-    getData() {
-        this.proyectServices.getUsersProyects(this.proyecto.idProyecto).subscribe(res => {
-            this.userProyect = res;
+    doRefresh(event) {
+        this.getUserProyect();
+        setTimeout(() => {
+            console.log('Async operation has ended');
+            event.target.complete();
+        }, 1000);
+    }
+
+
+    getUserProyect() {
+        this.proyectoServices.getUserProyects(this.usuario.idUsuarios).subscribe(r => {
+            const proyecto: any = r;
+            this.validar(proyecto);
+            localStorage.setItem('proyecto', JSON.stringify(proyecto.datos));
+            this.proyectos = JSON.parse(localStorage.getItem('proyecto'));
 
         });
+    }
+
+    validar(id?) {
+        if (id.datos.length == 0) {
+            this.show = false;
+        } else {
+            this.show = true;
+        }
     }
 
 }

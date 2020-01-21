@@ -6,7 +6,7 @@ const db = require('knex')(config['development']);
 
 
 let registerUser = (req, res) => {
-    let {nombre, apellido, email, contrasena, idRol} = req.body.params;
+    let {nombre, apellido, email, contrasena, rol} = req.body.params;
     db('PERSONAS').where({'email': email}).then(result => {
         console.log(result.length)
         if (result.length === 1) {
@@ -21,7 +21,7 @@ let registerUser = (req, res) => {
                     apellido,
                     email,
                     contrasena: hash,
-                    idRol
+                    rol
                 }).returning('idPersona')
                     .then(result => {
                         return res.status(200).json({
@@ -40,19 +40,19 @@ let registerUser = (req, res) => {
 let loginUser = (req, res) => {
     let {contrasena, email} = req.body.params;
     res.header('access-control-allow-origin', '*');
-    db('PERSONAS').where({'email': email}).select('contrasena', 'nombre', 'apellido', 'idRol', 'idPersona', 'email')
+    db('PERSONAS').where({'email': email}).select('contrasena', 'nombre', 'apellido', 'rol', 'idPersona', 'email')
         .then(result => {
             if (result.length === 1) {
                 bcrypt.compare(contrasena, result[0].contrasena, (err, re) => {
                     if (re) {
                         let token;
-                        if (result[0].idRol == 1) {
+                        if (result[0].rol == 1) {
                             token = jwt.sign({email, contrasena}, 'userToken');
                         }
-                        if (result[0].idRol == 2) {
+                        if (result[0].rol == 2) {
                             token = jwt.sign({email, contrasena}, 'docToken');
                         }
-                        if (result[0].idRol == 3) {
+                        if (result[0].rol == 3) {
                             token = jwt.sign({email, contrasena}, 'adminToken');
                         }
                         return res.status(200).json({
@@ -62,7 +62,7 @@ let loginUser = (req, res) => {
                                 'idPersona': result[0].id,
                                 'nombre': result[0].nombre,
                                 'apellido': result[0].apellido,
-                                'idRol': result[0].idRol,
+                                'rol': result[0].rol,
                                 'email': result[0].email,
                             },
 
@@ -84,13 +84,32 @@ let loginUser = (req, res) => {
 
 };
 
+let insertUsers = (req, res) => {
+    let tabla = 'Usuarios';
+    let datos = req.body.estudiantes;
+    db(tabla).insert(datos).then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'CREADO CON EXITO',
+            datos: resultado
+        })
+
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            datos: datos,
+            mensaje: `Error del servidor: ${error}`
+        })
+    })
+};
+
 let createUser = (req, res) => {
     let tabla = 'Usuarios';
     let datos = req.body;
     const qu = db.insert(datos).into(tabla);
     qu.then(resultado => {
         let idUsuarios = resultado[0];
-        const user = db(tabla).where('idUsuarios', idUsuarios).select('idUsuarios', 'nombre', 'apellido', 'cedula', 'correo', 'nivel', 'idRol');
+        const user = db(tabla).where('idUsuarios', idUsuarios).select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'nivel', 'rol').first();
         user.then(response => {
             return res.status(200).json({
                 ok: true,
@@ -104,7 +123,7 @@ let createUser = (req, res) => {
         return res.status(500).json({
             ok: false,
             datos: datos,
-            mensaje: `Error del servidor: ${error}` + tabla
+            mensaje: `Error del servidor: ${error}`
         })
     })
 };
@@ -112,7 +131,7 @@ let createUser = (req, res) => {
 let allUsers = (req, res) => {
     let tabla = 'Proyectos';
     let datos = req.body;
-    const proyecto = db('Usuarios').select('idUsuarios', 'nombre', 'apellido', 'cedula', 'correo', 'nivel', 'idRol');
+    const proyecto = db('Usuarios').select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'nivel', 'rol');
     proyecto.then(response => {
         return res.status(200).json({
             ok: true,
@@ -126,9 +145,9 @@ let allUsers = (req, res) => {
     });
 };
 let getUserByEmail = (req, res) => {
-    let tabla = 'Proyectos';
     let datos = req.params.email;
-    const proyecto = db('Usuarios').where('correo', datos).select('idUsuarios', 'nombre', 'apellido', 'cedula', 'correo', 'nivel', 'idRol');
+    console.log(datos);
+    const proyecto = db('Usuarios').where('correo', datos).select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'nivel', 'rol');
     proyecto.then(response => {
         if (response.length == 0) {
             return res.status(200).json({
@@ -150,6 +169,7 @@ let getUserByEmail = (req, res) => {
     });
 };
 
+
 module.exports = {
     //CRUD USERS
     loginUser,
@@ -157,4 +177,5 @@ module.exports = {
     allUsers,
     createUser,
     getUserByEmail,
+    insertUsers
 };
