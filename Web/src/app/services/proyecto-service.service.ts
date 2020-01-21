@@ -19,4 +19,13 @@ export class ProyectoServiceService {
     return this.http.get(this.url+'getPeriodo');
 
   }
+  createUserProyects(usuariosProyecto) {
+    return this.http.post(this.url + 'createUserProyect', usuariosProyecto);
+  }
+  getUserProyects(id) {
+    return this.http.get(this.url + 'getUserProyect/' + id);
+  }
+  getUsersProyects(id) {
+    return this.http.get(this.url + 'getUsersProyects/' + id);
+  }
 }

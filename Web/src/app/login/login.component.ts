@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {Usuarios} from "../../../../Mobile/src/app/models/Usuarios";
+import {ProyectoServiceService} from "../services/proyecto-service.service";
+
 
 @Component({
   selector: 'app-login',
@@ -14,8 +17,10 @@ export class LoginComponent implements OnInit {
   password: string;
   tipoInput: any = 'password';
   validateLogin: boolean;
+  person: Usuarios = new Usuarios();
+  user: any;
 
-  constructor(private service: AuthService, private route: Router, private toastr: ToastrService,
+  constructor(private service: AuthService, private route: Router, private toastr: ToastrService, private proyectService: ProyectoServiceService,
               public router: Router) {
   }
 
@@ -44,11 +49,11 @@ export class LoginComponent implements OnInit {
         this.userName = this.userName + '@yavirac.edu.ec';
       }
       this.service.postPublic('oauth/token', {
-        'client_id': clientId,
-        'client_secret': clientSecret,
-        'grant_type': grantType,
-        'username': this.userName,
-        'password': this.password
+        client_id: 1,
+        client_secret: 'gCKtEi6W8KpXgWCv4sDSlkM6IErcQQLTuvW5j5yg',
+        grant_type: 'password',
+        username: this.userName,
+        password: this.password
       }).subscribe(
         response => {
           localStorage.setItem('token', JSON.stringify(response['access_token']));
@@ -56,6 +61,7 @@ export class LoginComponent implements OnInit {
           this.service.get('usuarios/login?email=' + this.userName).subscribe(response2 => {
             localStorage.setItem('user', JSON.stringify(response2));
             this.toastr.success('Credenciales Correctas!', 'Logueado con Exito');
+            this.saveUser();
             this.route.navigate(['web/student/form']);
           });
           this.validateLogin = false;
@@ -69,4 +75,49 @@ export class LoginComponent implements OnInit {
         });
     }
   }
+
+  saveUser() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.user = this.user.usuario;
+    if (this.user.role_id == 2) {
+      this.person.idRol = 4;
+    }
+    const array1 = this.user.name.split(' ');
+    this.person.nombre = array1[1];
+    this.person.apellido = array1[0];
+    this.person.cedula = this.user.user_name;
+    this.person.correo = this.user.email;
+    this.service.getUserByEmail(this.person.correo).subscribe(response => {
+      let objeto: any = {};
+      objeto = response;
+      if (objeto.ok) {
+        localStorage.setItem('usuario', JSON.stringify(objeto.datos));
+        this.getPeriodo();
+        this.getUserProyect(objeto.datos.idUsuarios);
+      } else {
+        this.service.createUser(this.person).subscribe(res => {
+          localStorage.setItem('usuario', JSON.stringify(objeto.datos));
+        }, er => {
+          console.log(er);
+        });
+      }
+    }, err => {
+
+    });
+  }
+
+  getPeriodo() {
+    this.proyectService.getPeriodo().subscribe(res => {
+      const periodo: any = res;
+      localStorage.setItem('periodoActual', JSON.stringify(periodo.datos));
+    });
+  }
+
+  getUserProyect(id) {
+    this.proyectService.getUserProyects(id).subscribe(r => {
+      const proyecto: any = r;
+      localStorage.setItem('proyecto', JSON.stringify(proyecto.datos));
+    });
+  }
+
 }

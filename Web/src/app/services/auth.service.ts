@@ -11,7 +11,7 @@ import {environment} from '../../environments/environment';
 })
 export class AuthService {
 
-  url: any = environment.urlServer + 'users/';
+  url: any = environment.urlServer + 'user/';
 
   headers: HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -41,6 +41,9 @@ export class AuthService {
     }, {headers: this.headers});
   }
 
+  getUserByEmail(email) {
+    return this.http.get(this.url + 'getUserByEmail/' + email);
+  }
   registerUser(nombre: string, apellido: string, email: string, contrasena: string) {
     return this.http.post(this.url + 'register', {
       params: {
@@ -76,6 +79,23 @@ export class AuthService {
     } else {
       return null;
     }
+  }
+  createUser(user) {
+    return this.http.post(this.url + 'createUser', user);
+  }
+
+  createForm(proyecto) {
+    return this.http.post(this.url + 'form', proyecto);
+  }
+
+
+
+  getDocentes() {
+    return this.http.get(this.url + 'getDocentes');
+  }
+
+  getEstudiantes() {
+    return this.http.get(this.url);
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 user: any = JSON.parse(localStorage.getItem('user'));
-  constructor() { }
+  constructor(private route:RouterModule) { }
 
   ngOnInit() {
   }
+  cerrarSesion() {
+    localStorage.clear();
 
+  }
 }

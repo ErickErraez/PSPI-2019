@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('PeriodoAcademico').insert([
-        {nombre: 'NOVIEMBRE 2019 - ABRIL 2020'},
+        {nombre: 'NOVIEMBRE 2019 - ABRIL 2020', estado: 'activado'},
       ]);
     });
 };

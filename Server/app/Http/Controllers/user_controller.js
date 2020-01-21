@@ -87,6 +87,7 @@ let loginUser = (req, res) => {
 let createUser = (req, res) => {
     let tabla = 'Usuarios';
     let datos = req.body;
+    console.log(datos)
     const qu = db.insert(datos).into(tabla);
     qu.then(resultado => {
         let idUsuarios = resultado[0];
@@ -128,6 +129,7 @@ let allUsers = (req, res) => {
 let getUserByEmail = (req, res) => {
     let tabla = 'Proyectos';
     let datos = req.params.email;
+    console.log(req)
     const proyecto = db('Usuarios').where('correo', datos).select('idUsuarios', 'nombre', 'apellido', 'cedula', 'correo', 'nivel', 'idRol');
     proyecto.then(response => {
         if (response.length == 0) {
