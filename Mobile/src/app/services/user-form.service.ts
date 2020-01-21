@@ -42,4 +42,8 @@ export class UserFormService {
         return this.http.get(this.apiUrl);
     }
 
+    insertAllUsers(data) {
+        return this.http.post(this.url + 'insertAllUsers', data);
+    }
+
 }

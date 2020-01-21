@@ -5,7 +5,8 @@ let api = express.Router(),
     repetidas = 'Rutas repetidas: \n';
 let rutas = [
     user_routes = require('./user'),
-    proyects_routes = require('./proyects')
+    proyects_routes = require('./proyects'),
+    admin_routes = require('./admin')
 ];
 
 api = rutas[0];

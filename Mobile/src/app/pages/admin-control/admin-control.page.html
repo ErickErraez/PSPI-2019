@@ -1,9 +1,25 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>admin-control</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-title>
+            Configuraciones
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-card class="welcome-card">
+        <ion-card-header>
+            <ion-card-title color="primary">Mostrar Formulario
+                <br><br>
+                <div class="input-group">
+                    <label *ngIf="!show.formularioSolicitud" class="mr-2">NO</label>
+                    <label class="switch">
+                        <input (click)="changeStatus()" type="checkbox" id="bonoDesarrolloHumano" >
+                        <span class="slider round"></span>
+                    </label>
+                    <label *ngIf="show.formularioSolicitud" class="ml-2">SI</label>
+                </div>
+            </ion-card-title>
+        </ion-card-header>
+    </ion-card>
 </ion-content>

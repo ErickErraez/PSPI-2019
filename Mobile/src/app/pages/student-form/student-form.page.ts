@@ -55,7 +55,10 @@ export class StudentFormPage implements OnInit {
                 }, {
                     text: 'Ok',
                     handler: (data) => {
-                        console.log('Confirm Ok');
+                        data.persona = data.persona.toLocaleLowerCase();
+                        if (data.persona.search('@') === -1) {
+                            data.persona = data.persona + '@yavirac.edu.ec';
+                        }
                         this.buscarPersona(data.persona);
                     }
                 }
@@ -113,6 +116,7 @@ export class StudentFormPage implements OnInit {
     enviarPropuesta() {
         this.proyecto.estado = 'Pendiente';
         this.proyecto.nivel = this.usuario.nivel;
+        console.log(this.usuario);
         this.userService.createForm(this.proyecto).subscribe(res => {
             this.presentLoadingWithOptions();
             this.presentToast('Registro Guardado con exito');

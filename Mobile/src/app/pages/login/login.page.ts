@@ -101,6 +101,7 @@ export class LoginPage implements OnInit {
                 this.getUserProyect(objeto.datos.idUsuarios);
             } else {
                 this.userService.createUser(this.person).subscribe(res => {
+                    objeto = res;
                     localStorage.setItem('usuario', JSON.stringify(objeto.datos));
                 }, er => {
                     console.log(er);
