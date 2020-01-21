@@ -14,6 +14,10 @@ export class AdminService {
     }
 
     getConfiguracion() {
-       return this.http.get(this.url + 'getConfiguraciones');
+        return this.http.get(this.url + 'getConfiguraciones');
+    }
+
+    updateConfiguraciones(configuracion) {
+        return this.http.put(this.url + 'updateConfiguraciones', configuracion);
     }
 }

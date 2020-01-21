@@ -23,8 +23,14 @@ export class AdminControlPage implements OnInit {
     changeStatus() {
         if (this.show.formularioSolicitud) {
             this.show.formularioSolicitud = false;
+            this.adminService.updateConfiguraciones(this.show).subscribe(res => {
+                console.log(res);
+            });
         } else {
             this.show.formularioSolicitud = true;
+            this.adminService.updateConfiguraciones(this.show).subscribe(res => {
+                console.log(res);
+            });
         }
     }
 
