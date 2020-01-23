@@ -68,25 +68,32 @@ export class StudentFormComponent implements OnInit {
       let objeto: any = {};
       objeto = response;
       if (objeto.ok) {
-        if (objeto.datos.idRol == 4) {
+        if (objeto.datos.rol == 2) {
           if (objeto.datos.correo != this.user.usuario.email) {
             if (this.miembros.length == 0) {
+
               this.miembros.push(objeto.datos);
+
             } else {
               for (let i = 0; i < this.miembros.length; i++) {
+                console.log(this.miembros )
                 if (this.miembros[i].correo == email) {
 
                   //  alert('Ya has agregado este correo');
                   this.toastr.error('Ya has agregado este correo', '');
 
+
                 } else {
                   this.miembros.push(objeto.datos);
+
                 }
               }
             }
+            console.log(this.miembros )
           } else {
             //alert('Ya estas agregado');
             this.toastr.error('Ya estás agregado', '');
+            console.log(this.miembros)
           }
         } else {
           //    alert('No puedes agregar un profesor');
@@ -99,6 +106,7 @@ export class StudentFormComponent implements OnInit {
     }, err => {
       //alert('Algo ha salido mal');
       this.toastr.error('Error al agregar un miembro', '');
+      console.log(this.miembros)
     });
   }
 
@@ -126,6 +134,7 @@ export class StudentFormComponent implements OnInit {
       let proyectFinal: any = r;
       proyectFinal = proyectFinal.proyecto;
       this.createUserProyect(proyectFinal.idProyectos);
+      this.toastr.success('Bien ¡', 'Tu Propuesta se ha envíado correctamente');
 
     }, error => {
       this.toastr.error('Error!', 'No se ha envíado correctamente!');
