@@ -56,6 +56,7 @@ export class LoginPage implements OnInit {
                         localStorage.setItem('user', JSON.stringify(response2));
                         this.presentToast('Logueado con Exito');
                         this.saveUser();
+
                         this.route.navigateRoot(['']);
                     });
                     this.validateLogin = false;

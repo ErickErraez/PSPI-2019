@@ -54,7 +54,7 @@
                     <td scope="col">
 
                       <label class="inp">
-                        <input type="text" id="herr" placeholder="&nbsp;" [(ngModel)]="proyectos.Herramientas">
+                        <input type="text" id="herr" placeholder="&nbsp;" [(ngModel)]="proyectos.herramientas">
                         <span class="label">HERRAMIENTAS A UTILIZAR</span>
                         <span class="border"></span>
                       </label>
@@ -91,7 +91,7 @@
                     </td>
                   </tr>
                   <tr *ngFor="let item of miembros;">
-                    <td>{{item.nombre}}&nbsp;{{item.apellido}} {{item.correo}}</td>
+                    <td>{{item.nombre1}}&nbsp;{{item.apellido1}} {{item.correo}}</td>
                     <td width="70">
                       <button (click)="quitar(item)" color="danger" name="trash" class="btn btn-danger">-</button>
                     </td>

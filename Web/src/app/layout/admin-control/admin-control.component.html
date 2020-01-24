@@ -18,83 +18,47 @@
       <div class="container-fluid">
 
 
-
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">PROYECTOS INTEGRADORES</h6>
+            <h6 class="m-0 font-weight-bold text-primary">LISTADO DE PROYECTOS INTEGRADORES PENDIENTES</h6>
           </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                <tr>
-                  <th>Proyecto</th>
-                  <th>Tutor</th>
-                  <th>Nivel</th>
-                  <th>Fecha de Revision</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                  <th>Proyecto de asdf</th>
-                  <th>Lider rojo1</th>
-                  <th>5to</th>
-                  <th>28/5/2019</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                <tr>
-                  <td>Proyecto A1</td>
-                  <td>Lider Rojo</td>
-                  <td>5to</td>
-                  <td>28/5/2019</td>
-                </tr>
-                <tr>
-                  <td>Proyecto A2</td>
-                  <td>Lider Rojo</td>
-                  <td>4to</td>
-                  <td>28/5/2019</td>
-                </tr>
-                <tr>
-                  <td>Proyecto A3</td>
-                  <td>Lider Rojo</td>
-                  <td>3ro</td>
-                  <td>28/5/2019</td>
-                </tr>
-                <tr>
-                  <td>Proyecto A3</td>
-                  <td>Lider Rojo</td>
-                  <td>2do</td>
-                  <td>28/5/2019</td>
-                </tr>
-                <tr>
-                  <td>Proyecto A4</td>
-                  <td>Lider Rojo</td>
-                  <td>5to</td>
-                  <td>28/5/2019</td>
-                </tr>
 
-                </tbody>
-              </table>
+
+        </div>
+<div class="container col-12 ">
+          <div class="card-deck">
+            <div class="card" *ngFor="let proyecto of proyectos"
+                 (click)="abrirEnlace(proyecto.idUsuariosProyectos,proyecto.estadoProyecto)">
+              <img src="/assets/images/proyecto.jpg" style="width: 100px;" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{proyecto.nombreProyecto}}</h5>
+                <label>Tutor de Proyecto: {{proyecto.tutor}}</label>
+                <br>
+                <label>Nivel: {{proyecto.nivelProyecto}} Semestre</label>
+                <br>
+                <label>Estado: {{proyecto.estadoProyecto}}</label>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Periodo: {{proyecto.periodo | lowercase }}</small>
+              </div>
             </div>
           </div>
-        </div>
+
+
+
+        <!-- /.container-fluid -->
+
 
       </div>
-      <!-- /.container-fluid -->
+      <!-- End of Main Content -->
+
 
     </div>
-    <!-- End of Main Content -->
-
+    <!-- End of Content Wrapper -->
 
   </div>
-  <!-- End of Content Wrapper -->
-
+  <!-- End of Page Wrapper -->
+  </div>
 </div>
-<!-- End of Page Wrapper -->
-
-
-</body>
-
 
