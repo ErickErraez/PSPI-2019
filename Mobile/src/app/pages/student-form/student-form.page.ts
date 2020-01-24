@@ -6,6 +6,7 @@ import {Proyectos} from '../../models/Proyectos';
 import {UserFormService} from '../../services/user-form.service';
 import {ProyectService} from '../../services/proyect.service';
 import {UsuariosProyecto} from '../../models/Usuarios-Proyecto';
+import {AdminService} from '../../services/admin.service';
 
 @Component({
     selector: 'app-user-form',
@@ -21,6 +22,7 @@ export class StudentFormPage implements OnInit {
     usuarioProyecto: UsuariosProyecto = new UsuariosProyecto();
     categorias = [];
     periodo: any;
+
 
     constructor(private route: NavController, private platform: Platform, public alertController: AlertController, private proyectoServices: ProyectService,
                 public loadingController: LoadingController, private userService: UserFormService, private toastr: ToastController) {
@@ -41,7 +43,7 @@ export class StudentFormPage implements OnInit {
                 {
                     name: 'persona',
                     type: 'text',
-                    placeholder: 'Placeholder 1',
+                    placeholder: 'Ingrese Usuario',
                 }
             ],
             buttons: [
@@ -84,7 +86,8 @@ export class StudentFormPage implements OnInit {
             let objeto: any = {};
             objeto = response;
             if (objeto.ok) {
-                if (objeto.datos.idRol == 4) {
+                console.log(objeto.datos.rol == 2);
+                if (objeto.datos.rol == 2) {
                     if (objeto.datos.correo != this.user.usuario.email) {
                         if (this.miembros.length == 0) {
                             this.miembros.push(objeto.datos);

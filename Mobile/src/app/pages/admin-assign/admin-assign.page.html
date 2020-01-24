@@ -25,7 +25,7 @@
                 <ion-select placeholder="Select One" [(ngModel)]="valor">
                     <ion-select-option value="1">Primero</ion-select-option>
                     <ion-select-option value="2">Segundo</ion-select-option>
-                    <ion-select-option value="3">Terecero</ion-select-option>
+                    <ion-select-option value="3">Tercero</ion-select-option>
                     <ion-select-option value="4">Cuarto</ion-select-option>
                     <ion-select-option value="5">Quinto</ion-select-option>
                 </ion-select>
@@ -33,21 +33,31 @@
             <div class="container" *ngIf="valor!=null">
                 <ion-item>
                     <ion-label>Tutor</ion-label>
-                    <ion-select placeholder="Select One" [(ngModel)]="tutor">
-                        <ion-select-option *ngFor="let item of docentes" value="{{item.idUsuarios}}">{{item.nombre}} {{item.apellido}}</ion-select-option>
+                    <ion-select placeholder="Select One" [(ngModel)]="proyecto.tutor">
+                        <ion-select-option *ngFor="let item of docentes"
+                                           value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</ion-select-option>
                     </ion-select>
                 </ion-item>
                 <ion-item>
                     <ion-label>Calificador 1</ion-label>
-                    <ion-select placeholder="Select One"[(ngModel)]="calificador1">
-                        <ion-select-option *ngFor="let item of docentes" value="{{item.idUsuarios}}">{{item.nombre}} {{item.apellido}}</ion-select-option>
+                    <ion-select placeholder="Select One" [(ngModel)]="proyecto.jurado1">
+                        <ion-select-option *ngFor="let item of docentes"
+                                           value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</ion-select-option>
                     </ion-select>
                 </ion-item>
                 <ion-item>
                     <ion-label>Calificador 2</ion-label>
-                    <ion-select placeholder="Select One"[(ngModel)]="calificador2">
-                        <ion-select-option *ngFor="let item of docentes" value="{{item.idUsuarios}}">{{item.nombre}} {{item.apellido}}</ion-select-option>
+                    <ion-select placeholder="Select One" [(ngModel)]="proyecto.jurado2">
+                        <ion-select-option *ngFor="let item of docentes"
+                                           value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</ion-select-option>
                     </ion-select>
+                </ion-item>
+                <ion-item>
+                    <div class="container text-center">
+                        <ion-button shape="round" fill="outline" (click)="asignarTutores()">Asignar</ion-button>
+                        <ion-button (click)="cancelarAsignacion()" color="danger" shape="round" fill="outline">Cancelar
+                        </ion-button>
+                    </div>
                 </ion-item>
             </div>
         </ion-card-content>

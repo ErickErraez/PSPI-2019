@@ -20,4 +20,8 @@ export class AdminService {
     updateConfiguraciones(configuracion) {
         return this.http.put(this.url + 'updateConfiguraciones', configuracion);
     }
+
+    updateProyecto(proyecto) {
+        return this.http.put(this.url + 'updateProyecto', proyecto);
+    }
 }

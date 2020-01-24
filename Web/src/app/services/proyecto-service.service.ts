@@ -12,11 +12,16 @@ export class ProyectoServiceService {
 
   }
 
-  getCategorias() {
-     return this.http.get(this.url + 'getCategories');
+  getProyectosByNivel(nivel) {
+    return this.http.get(this.url + 'getProyectos/' + nivel);
   }
-  getPeriodo(){
-    return this.http.get(this.url+'getPeriodo');
+
+  getCategorias() {
+    return this.http.get(this.url + 'getCategories');
+  }
+
+  getPeriodo() {
+    return this.http.get(this.url + 'getPeriodo');
 
   }
 }

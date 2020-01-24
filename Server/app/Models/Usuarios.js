@@ -8,7 +8,7 @@ User = bookshelf.Model.extend({
     tableName: 'Usuarios',
     idAttribute: 'idUsuarios',
     rol: function () {
-        return this.hasOne(Rol, 'idRoles');
+        return this.hasOne(Rol, 'rol');
     }
 });
 

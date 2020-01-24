@@ -1,4 +1,3 @@
-
 export class Proyectos {
     idProyectos?: number;
     nombre: string;
@@ -7,8 +6,8 @@ export class Proyectos {
     estado: string;
     nivel: string;
     tutor: number;
-    juez1: number;
-    juez2: number;
+    jurado1: number;
+    jurado2: number;
     idPeriodo: number;
     idCategoria: number;
 }

@@ -30,7 +30,12 @@ export class ProyectService {
     getUserProyects(id) {
         return this.http.get(this.url + 'getUserProyect/' + id);
     }
+
     getUsersProyects(id) {
         return this.http.get(this.url + 'getUsersProyects/' + id);
+    }
+
+    getProyects(nivel) {
+        return this.http.get(this.url + 'getProyectos/' + nivel);
     }
 }

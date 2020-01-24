@@ -5,5 +5,6 @@ const api = express.Router(),
 
 api.get('/getConfiguraciones', crudController.getConfiguraciones);
 api.put('/updateConfiguraciones', crudController.updateConfiguraciones);
+api.put('/updateProyecto', crudController.assignTutor);
 
 module.exports = api;

@@ -18,10 +18,10 @@ let getUserProyect = (req, res) => {
         .innerJoin('Categorias', 'Proyectos.idCategoria', 'Categorias.idCategorias')
         .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
         .select('UsuariosProyectos.idUsuariosProyectos', 'UsuariosProyectos.idEstudiante', 'UsuariosProyectos.idProyecto',
-            'Proyectos.nombre as nombreProyecto', 'Proyectos.descripcion as descripcionProyecto','Proyectos.estado as estadoProyecto',
+            'Proyectos.nombre as nombreProyecto', 'Proyectos.descripcion as descripcionProyecto', 'Proyectos.estado as estadoProyecto',
             'Proyectos.herramientas as herramientasProyecto', 'Proyectos.nivel as nivelProyecto', db.raw(`CONCAT(Tutor.nombre1, ' ', Tutor.apellido1) as "tutor"`),
-            db.raw(`CONCAT(Jurado1.nombre1, ' ', Jurado1.apellido1) as "jurado1"`), db.raw(`CONCAT(Jurado2.nombre1, ' ', Jurado2.apellido1) as "jurado2"`),'Categorias.nombre as categoria',
-            'PeriodoAcademico.nombre as periodo','PeriodoAcademico.estado as estadoPeriodo');
+            db.raw(`CONCAT(Jurado1.nombre1, ' ', Jurado1.apellido1) as "jurado1"`), db.raw(`CONCAT(Jurado2.nombre1, ' ', Jurado2.apellido1) as "jurado2"`), 'Categorias.nombre as categoria',
+            'PeriodoAcademico.nombre as periodo', 'PeriodoAcademico.estado as estadoPeriodo');
     proyecto.then(response => {
         return res.status(200).json({
             ok: true,
@@ -131,9 +131,9 @@ let getPeriodo = (req, res) => {
 let getProfesor = (req, res) => {
     let tabla = 'Usuarios';
     let datos = req.body;
-    const profesor = db(tabla).innerJoin('Roles', 'Usuarios.rol', 'Roles.roles')
+    const profesor = db(tabla).innerJoin('Roles', 'Usuarios.rol', 'Roles.idRoles')
         .select('idUsuarios', 'Usuarios.nombre1', 'apellido1', 'correo', 'rol', 'Roles.nombre as rol_descripcion')
-        .whereNot('rol', 4);
+        .whereNot('rol', 2);
     profesor.then(r => {
         return res.status(200).json({
             ok: true,
@@ -165,6 +165,29 @@ let createUserProyect = (req, res) => {
         })
     });
 };
+
+let getProyectos = (req, res) => {
+    let tabla = 'Proyectos';
+    let nivel = req.params.nivel;
+    const qu = db(tabla)
+        .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
+        .where('nivel', nivel).andWhere('PeriodoAcademico.estado', 'Activo')
+        .select('Proyectos.idProyectos', 'Proyectos.nombre', 'Proyectos.descripcion', 'Proyectos.herramientas',
+            'Proyectos.estado', 'Proyectos.nivel', 'Proyectos.tutor', 'Proyectos.jurado1',
+            'Proyectos.jurado2', 'PeriodoAcademico.nombre as nombrePeriodo');
+    qu.then(r => {
+        return res.status(200).json({
+            ok: true,
+            datos: r,
+        });
+    }).catch(er => {
+        return res.status(500).json({
+            ok: false,
+            datos: er,
+            mensaje: 'Error de Servidor' + er
+        })
+    });
+}
 
 let getUsersProyects = (req, res) => {
     let id = req.params.id;
@@ -214,5 +237,6 @@ module.exports = {
     createUserProyect,
     getUsersProyects,
     getUserProyect,
+    getProyectos,
     saveNotes
 };

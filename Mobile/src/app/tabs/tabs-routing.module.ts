@@ -1,6 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {TabsPage} from './tabs.page';
+import {AuthGuard} from '../services/auth.guard';
+import {ShowPageGuard} from '../services/show-page.guard';
 
 const routes: Routes = [
     {
@@ -13,7 +15,8 @@ const routes: Routes = [
                     {
                         path: '',
                         loadChildren: () =>
-                            import('../pages/student-form/student-form.module').then(m => m.StudentFormPageModule)
+                            import('../pages/student-form/student-form.module').then(m => m.StudentFormPageModule),
+                        canActivate: [ShowPageGuard]
                     }
                 ]
             },
@@ -76,7 +79,7 @@ const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/tabs/student-form',
+        redirectTo: '/tabs/tab2',
         pathMatch: 'full'
     }
 ];
