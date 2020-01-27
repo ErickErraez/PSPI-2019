@@ -6,5 +6,8 @@ const api = express.Router(),
 api.get('/getConfiguraciones', crudController.getConfiguraciones);
 api.put('/updateConfiguraciones', crudController.updateConfiguraciones);
 api.put('/updateProyecto', crudController.assignTutor);
+api.post('/createCategory', crudController.createCategory);
+api.put('/updateCategory', crudController.updateCategory);
+api.delete('/deleteCategory', crudController.deleteCategory);
 
 module.exports = api;

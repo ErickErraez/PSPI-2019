@@ -85,11 +85,11 @@ export class LoginPage implements OnInit {
         this.user = JSON.parse(localStorage.getItem('user'));
         this.user = this.user.usuario;
         if (this.user.role_id == 2) {
-            this.person.idRol = 4;
+            this.person.rol = 2;
         }
         const array1 = this.user.name.split(' ');
-        this.person.nombre = array1[1];
-        this.person.apellido = array1[0];
+        this.person.nombre1 = array1[1];
+        this.person.apellido1 = array1[0];
         this.person.cedula = this.user.user_name;
         this.person.correo = this.user.email;
         this.userService.getUserByEmail(this.person.correo).subscribe(response => {

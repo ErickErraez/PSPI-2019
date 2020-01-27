@@ -9,10 +9,10 @@ import {ProyectService} from '../../services/proyect.service';
 })
 export class Tab2Page {
 
+    usuario: any = JSON.parse(localStorage.getItem('usuario'));
     items = [];
     myProyects: any = [];
     proyectos: any;
-    usuario: any = JSON.parse(localStorage.getItem('usuario'));
     userProyect: any;
     show: any = false;
 
@@ -21,7 +21,7 @@ export class Tab2Page {
     }
 
     abrirEnlace(item, estado) {
-        this.nav.navigateForward(`student-proyect/${item}`);
+        this.nav.navigateForward(`student-proyect/${item}/${estado}`);
 
     }
 

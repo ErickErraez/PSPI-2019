@@ -1,4 +1,4 @@
-<body id="page-top"style="padding-left: 5%;padding-right: 5%;">
+<body id="page-top" style="padding-left: 5%;padding-right: 5%;">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -29,37 +29,40 @@
                     <div class="row align-items-center">
                       <div class=" validate-input">
 
-                        <input  (change)="fileChange($event)"  type="file"  class="custom-file-input"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
+                        <input (change)="fileChange($event)" type="file" class="custom-file-input" id="inputGroupFile01"
+                               aria-describedby="inputGroupFileAddon01">
 
                         <div class="mainContainer">
                           <div class="content">
                             <div class="header">
                               <h5>SubirArchivos</h5>
-                          </div>
-                              <div class="row margin25">
-                      
-                                  <div class="col-md-4">
-                      
-                                  </div>
-                                  <div class="col-md-4">
-                                      <div class="input-group">
-                                          <div class="input-group-prepend">
-                                              <span class="input-group-text upload" id="btnUpload">Upload</span>
-                                          </div>
-                                          <div class="custom-file">
-                                              <form action="/api/upload" method="post" enctype="multipart/form-data">
-                                                  <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                              </form>
-                                              <label class="custom-file-label" for="inputGroupFile01"></label>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4">
-                      
-                                  </div>
+                            </div>
+                            <div class="row margin25">
+
+                              <div class="col-md-4">
+
                               </div>
+                              <div class="col-md-4">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text upload" id="btnUpload">Upload</span>
+                                  </div>
+                                  <div class="custom-file">
+                                    <form>
+                                      <input type="file" multiple (change)="fileChange($event)"
+                                             class="custom-file-input" id="inputGroupFile01"
+                                             aria-describedby="inputGroupFileAddon01">
+                                    </form>
+                                    <label class="custom-file-label" for="inputGroupFile01"></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+
+                              </div>
+                            </div>
                           </div>
-                      </div>
+                        </div>
 
 
                       </div>
@@ -97,7 +100,7 @@
         </div>
 
         <div class="col-lg-6">
-asdasdasd
+          asdasdasd
           <!-- Dropdown Card Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">

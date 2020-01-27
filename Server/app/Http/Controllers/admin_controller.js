@@ -63,10 +63,68 @@ let updateConfiguraciones = (req, res) => {
     })
 };
 
+let createCategory = (req, res) => {
+    let tabla = 'Categorias';
+    let datos = req.body;
+    const qu = db(tabla).insert(datos);
+    qu.then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se creo correctamente el registro`
+        })
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${error}`
+        })
+    })
+};
+
+let updateCategory = (req, res) => {
+    let tabla = 'Categorias';
+    let datos = req.body;
+    const qu = db(tabla).where("idCategorias", datos.idCategorias).update(datos);
+    qu.then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se creo correctamente el registro`
+        })
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${error}`
+        })
+    })
+};
+
+let deleteCategory = (req, res) => {
+    let tabla = 'Categorias';
+    let datos = req.body;
+    const qu = db(tabla).where("idCategorias", datos.idCategorias).delete();
+    qu.then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se Borro con exito`
+        })
+    })
+        .catch((error) => {
+            return res.status(500).json({
+                ok: false,
+                mensaje: `Error del servidor: ${error}`
+            })
+        })
+}
+
 
 module.exports = {
     //CRUD USERS
     getConfiguraciones,
     updateConfiguraciones,
-    assignTutor
+    assignTutor,
+    createCategory,
+    updateCategory,
+    deleteCategory
 };

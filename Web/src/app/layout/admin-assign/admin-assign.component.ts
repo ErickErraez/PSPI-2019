@@ -23,7 +23,7 @@ export class AdminAssignComponent implements OnInit {
   }
 
   asignarTutores() {
-    this.proyectoServiceService.getProyectosByNivel(this.id).subscribe(res => {
+    this.proyectoServiceService.getProyectosByNivel(this.nivel).subscribe(res => {
       console.log(res);
     });
   }

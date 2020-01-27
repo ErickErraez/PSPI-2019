@@ -97,7 +97,6 @@ let insertUsers = (req, res) => {
     }).catch((error) => {
         return res.status(500).json({
             ok: false,
-            datos: datos,
             mensaje: `Error del servidor: ${error}`
         })
     })
@@ -122,7 +121,6 @@ let createUser = (req, res) => {
     }).catch((error) => {
         return res.status(500).json({
             ok: false,
-            datos: datos,
             mensaje: `Error del servidor: ${error}`
         })
     })
@@ -144,9 +142,9 @@ let allUsers = (req, res) => {
         })
     });
 };
+
 let getUserByEmail = (req, res) => {
     let datos = req.params.email;
-    console.log(datos);
     const proyecto = db('Usuarios').where('correo', datos).select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'nivel', 'rol');
     proyecto.then(response => {
         if (response.length == 0) {

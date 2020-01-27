@@ -14,7 +14,7 @@
                                refreshingText="Refreshing..."></ion-refresher-content>
     </ion-refresher>
 
-    <ng-container *ngIf="show">
+    <ng-container *ngIf="show && usuario.rol == 2">
         <ion-card *ngFor="let proyecto of proyectos" class="welcome-card"
                   (click)="abrirEnlace(proyecto.idUsuariosProyectos,proyecto.estadoProyecto)">
             <ion-card-header>

@@ -11,5 +11,6 @@ api.post('/createUserProyect', proyectController.createUserProyect);
 api.get('/getUsersProyects/:id', proyectController.getUsersProyects);
 api.get('/getUserProyect/:id', proyectController.getUserProyect);
 api.get('/getProyectos/:nivel', proyectController.getProyectos);
+api.get('/getProyectById/:id', proyectController.getProyectById);
 
 module.exports = api;

@@ -11,22 +11,20 @@
         <ion-card-header>
             <ion-card-title color="primary">Activar Formulario
                 <br><br>
-                <div class="input-group">
-                    <label *ngIf="!show.formularioSolicitud" class="mr-2">NO</label>
-                    <label class="switch">
-                        <input (click)="changeStatus()" type="checkbox" id="bonoDesarrolloHumano">
-                        <span class="slider round"></span>
-                    </label>
-                    <label *ngIf="show.formularioSolicitud" class="ml-2">SI</label>
+                <div class="checkbox">
+                    <input type="checkbox" name="checkbox" id="checkbox1"
+                           (click)="changeStatus($event.target.checked)"/>
+                    <label for="checkbox1">Si</label>
                 </div>
             </ion-card-title>
         </ion-card-header>
     </ion-card>
+
     <ion-card>
         <ion-card-header>
             <ion-card-title color="primary">Editar Temas</ion-card-title>
             <br>
-            <ion-icon color="primary" name="add-circle-outline"></ion-icon>
+            <ion-icon (click)="presentModal()" color="primary" name="add-circle-outline"></ion-icon>
             <ion-icon color="success" name="create"></ion-icon>
             <ion-icon color="danger" name="trash"></ion-icon>
             <table border="1" class="table" style="width:100%" id="tablaprueba">

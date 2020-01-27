@@ -24,4 +24,17 @@ export class AdminService {
     updateProyecto(proyecto) {
         return this.http.put(this.url + 'updateProyecto', proyecto);
     }
+
+    createCategory(categoria) {
+        return this.http.post(this.url + 'createCategory', categoria);
+    }
+
+    updateCategory(categoria) {
+        return this.http.put(this.url + 'updateCategory', categoria);
+    }
+
+    deleteCategory(categoria) {
+        return this.http.delete(this.url + 'deleteCategory', categoria);
+    }
+
 }

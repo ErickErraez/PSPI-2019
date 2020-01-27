@@ -38,4 +38,9 @@ export class ProyectService {
     getProyects(nivel) {
         return this.http.get(this.url + 'getProyectos/' + nivel);
     }
+
+    getProyectById(id) {
+        return this.http.get(this.url + 'getProyectById/' + id);
+    }
+
 }

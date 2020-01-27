@@ -36,6 +36,35 @@ let getUserProyect = (req, res) => {
     });
 };
 
+let getProyectById = (req, res) => {
+    let tabla = 'UsuariosProyectos';
+    let datos = req.params.id;
+    const proyecto = db(tabla).orderBy('Proyectos.created_at', 'desc').where('idUsuariosProyectos', datos).first()
+        .innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos')
+        .innerJoin('Usuarios as Tutor', 'Proyectos.Tutor', 'Tutor.idUsuarios')
+        .innerJoin('Usuarios as Jurado1', 'Proyectos.jurado1', 'Jurado1.idUsuarios')
+        .innerJoin('Usuarios as Jurado2', 'Proyectos.jurado2', 'Jurado2.idUsuarios')
+        .innerJoin('Categorias', 'Proyectos.idCategoria', 'Categorias.idCategorias')
+        .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
+        .select('UsuariosProyectos.idUsuariosProyectos', 'UsuariosProyectos.idEstudiante', 'UsuariosProyectos.idProyecto',
+            'Proyectos.nombre as nombreProyecto', 'Proyectos.descripcion as descripcionProyecto', 'Proyectos.estado as estadoProyecto',
+            'Proyectos.herramientas as herramientasProyecto', 'Proyectos.nivel as nivelProyecto', db.raw(`CONCAT(Tutor.nombre1, ' ', Tutor.apellido1) as "tutor"`),
+            db.raw(`CONCAT(Jurado1.nombre1, ' ', Jurado1.apellido1) as "jurado1"`), db.raw(`CONCAT(Jurado2.nombre1, ' ', Jurado2.apellido1) as "jurado2"`), 'Categorias.nombre as categoria',
+            'PeriodoAcademico.nombre as periodo', 'PeriodoAcademico.estado as estadoPeriodo');
+    proyecto.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
+};
+
 let createForm = (req, res) => {
     let tabla = 'Proyectos';
     let datos = req.body;
@@ -238,5 +267,6 @@ module.exports = {
     getUsersProyects,
     getUserProyect,
     getProyectos,
-    saveNotes
+    saveNotes,
+    getProyectById
 };
