@@ -76,20 +76,17 @@ export class StudentFormComponent implements OnInit {
 
             } else {
               for (let i = 0; i < this.miembros.length; i++) {
-                console.log(this.miembros )
+                console.log(this.miembros)
                 if (this.miembros[i].correo == email) {
-
                   //  alert('Ya has agregado este correo');
                   this.toastr.error('Ya has agregado este correo', '');
-
-
-                } else {
-                  this.miembros.push(objeto.datos);
+                  return;
 
                 }
               }
+              this.miembros.push(objeto.datos);
             }
-            console.log(this.miembros )
+            console.log(this.miembros)
           } else {
             //alert('Ya estas agregado');
             this.toastr.error('Ya estás agregado', '');

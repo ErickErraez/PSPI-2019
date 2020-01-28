@@ -4,6 +4,12 @@ const config = require('../../../knexfile');
 const jwt = require('jsonwebtoken');
 const db = require('knex')(config['development']);
 
+let loadFile = (req, res) => {
+    res.json({
+        'message': 'File uploaded succesfully.'
+    });
+};
+
 
 let registerUser = (req, res) => {
     let {nombre, apellido, email, contrasena, rol} = req.body.params;
@@ -175,5 +181,6 @@ module.exports = {
     allUsers,
     createUser,
     getUserByEmail,
-    insertUsers
+    insertUsers,
+    loadFile
 };

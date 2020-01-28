@@ -1,4 +1,4 @@
-<body id="page-top" style="padding-left: 5%;padding-right: 5%;">
+<body id="page-top" style="padding-left: 10%;padding-right: 10%;">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -10,162 +10,84 @@
   <!-- Content Wrapper -->
   <div id="content-wrapper" class="d-flex flex-column">
 
-    <!-- Main Content -->
     <div id="content">
 
+
       <div class="row">
-
-        <div class="col-lg-6">
-
-          <!-- Default Card Example -->
-          <div class="card mb-4">
-            <div class="card-header">
-              Default Card Example
+        <div class="col-12 ">
+          <div class="card">
+            <div class="card-header text-white" style="border-bottom-width: 5px;background-color: rgb(43, 76, 226);">
+              <h6 class="m-0 font-weight-bold">INFORMACIÓN DEL PROYECTO</h6>
             </div>
-            <div class="card-body">
-              <div class="col-md-12 mb-12">
-                <div class="card border-left-primary shadow">
-                  <div class="card-body">
-                    <div class="row align-items-center">
-                      <div class=" validate-input">
+            <div class="card-body ">
+              <div class="row ">
+                <table class="table table-bordered" id="tableColor">
+                  <tbody>
+                  <tr>
 
-                        <input (change)="fileChange($event)" type="file" class="custom-file-input" id="inputGroupFile01"
-                               aria-describedby="inputGroupFileAddon01">
+                    <td scope="col">
 
-                        <div class="mainContainer">
-                          <div class="content">
-                            <div class="header">
-                              <h5>SubirArchivos</h5>
-                            </div>
-                            <div class="row margin25">
+                      <label class="inp">
+                        <input type="text" id="name" placeholder="&nbsp;"  disabled>
+                        <span class="label">NOMBRE DEL PROYECTO: PSPI</span>
+                        <span class="border"></span>
+                      </label>
 
-                              <div class="col-md-4">
+                    </td>
+                    <td scope="col">
 
-                              </div>
-                              <div class="col-md-4">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text upload" id="btnUpload">Upload</span>
-                                  </div>
-                                  <div class="custom-file">
-                                    <form>
-                                      <input type="file" multiple (change)="fileChange($event)"
-                                             class="custom-file-input" id="inputGroupFile01"
-                                             aria-describedby="inputGroupFileAddon01">
-                                    </form>
-                                    <label class="custom-file-label" for="inputGroupFile01"></label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-4">
+                      <label class="inp">
+                        <input type="text" id="desc" placeholder="&nbsp;" disabled>
+                        <span class="label">DESCRIPCIÓN DEL PROYECTO: Ayudar a llenar los datos</span>
+                        <span class="border"></span>
+                      </label>
 
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                    </td>
+                  </tr>
+
+                  </tbody>
+                </table>
+                <table class="table table-bordered" id="tableColor">
+                  <tbody>
+                  <tr>
+
+                    <td scope="col">
+
+                      <label class="inp">
+                        <input type="text" id="herr" placeholder="&nbsp;" disabled >
+                        <span class="label">HERRAMIENTAS A UTILIZAR: Angular,Node,Mongo</span>
+                        <span class="border"></span>
+                      </label>
+
+                    </td>
 
 
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  </tr>
+
+
+                  </tbody>
+                </table>
+
+
               </div>
             </div>
-          </div>
-
-          <!-- Basic Card Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
-            </div>
-            <div class="card-body">
-              <div class="col-md-12 mb-12">
-                <div class="card border-left-primary shadow">
-                  <div class="card-body">
-                    <div class="row align-items-center">
-                      <div class=" validate-input">
-                        <label class="inp">
-                          <input type="text" id="inp" placeholder="&nbsp;" [(ngModel)]="userName" name="email">
-                          <span class="label">Link de GitHub</span>
-                          <span class="border"></span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-lg-6">
-          asdasdasd
-          <!-- Dropdown Card Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
-            </div>
-            <div class="card-body">
-              <div class="col-md-12 mb-12">
-                <div class="card border-left-primary shadow">
-                  <div class="card-body">
-                    <div class="row align-items-center">
-                      <div class=" validate-input">
-                        <label class="inp">
-                          <input type="text" id="inp" placeholder="&nbsp;" [(ngModel)]="userName" name="email">
-                          <span class="label">Nota </span>
-                          <span class="border"></span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Collapsable Card Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
-            </div>
-            <div class="card-body">
-              <div class="col-md-12 mb-12">
-                <div class="card border-left-primary shadow">
-                  <div class="card-body">
-                    <div class="row align-items-center">
-                      <div class=" validate-input">
-                        <label class="inp">
-                          <input type="text" id="inp" placeholder="&nbsp;" [(ngModel)]="userName" name="email">
-                          <span class="label">Observaciones</span>
-                          <span class="border"></span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
 
         </div>
+        </div>
+
 
       </div>
-      <!-- /.container-fluid -->
-
-
     </div>
-    <!-- End of Main Content -->
 
 
   </div>
-  <!-- End of Content Wrapper -->
+
 
 </div>
-<!-- End of Page Wrapper -->
 
 
 </body>
+
+
 

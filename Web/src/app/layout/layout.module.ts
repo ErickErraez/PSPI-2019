@@ -7,11 +7,15 @@ import {NavbarComponent} from './shared/navbar/navbar.component';
 import {SidebarComponent} from './shared/sidebar/sidebar.component';
 
 
+
+
 @NgModule({
   declarations: [LayoutComponent,
 
     NavbarComponent,
     SidebarComponent,
+
+
   ],
   imports: [
     CommonModule,

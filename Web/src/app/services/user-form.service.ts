@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +8,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class UserFormService {
   url = environment.urlServer + 'user/';
 
-  constructor(private http: HttpClient) { }
-
-
+  constructor(private http: HttpClient) {
+  }
 
 
   postForm(form) {
     return this.http.post(this.url + 'form', form);
   }
+
   getUserByEmail(email) {
     return this.http.get(this.url + 'getUserByEmail/' + email);
   }
+
+
+  sendFilea(formData) {
+    return this.http.post(this.url + 'uploadFile', JSON.stringify(formData));
+
+  }
+
 }

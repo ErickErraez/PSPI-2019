@@ -1,3 +1,6 @@
+
+
+
 const jwt = require('jsonwebtoken'),
     ensureTokenAdmin = function (req, res, next) {
         const bearerHeader = req.headers.authorization;
@@ -75,5 +78,6 @@ ensureToken = function (req, res, next) {
 module.exports = {
     ensureToken,
     ensureTokenAdmin,
-    ensureTokenDoc
+    ensureTokenDoc,
+
 };

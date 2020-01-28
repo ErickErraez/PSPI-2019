@@ -51,6 +51,13 @@ const routes: Routes = [{
         import('./admin-assign/admin-assign.module')
           .then(m => m.AdminAssignModule)
     },
+    {
+      path:'admin/configuration',
+      loadChildren:() =>
+        import('./configuration/configuration.module')
+          .then(m=>m.ConfigurationModule)
+    }
+
 
   ]
 }];
