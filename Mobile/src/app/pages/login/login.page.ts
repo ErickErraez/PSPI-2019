@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Toast} from '@ionic-native/toast/ngx';
-import {NavController, Platform, ToastController} from '@ionic/angular';
+import {LoadingController, NavController, Platform, ToastController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
 import {UserFormService} from '../../services/user-form.service';
 import {error} from 'util';
@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
     user: any;
 
     constructor(private service: AuthService, private route: NavController, private toastr: ToastController, private platform: Platform,
-                private userService: UserFormService, private proyectoServices: ProyectService) {
+                private userService: UserFormService, private proyectoServices: ProyectService, public loadingController: LoadingController) {
         this.platform.backButton.subscribeWithPriority(1, () => {
             navigator['app'].exitApp();
         });
@@ -34,14 +34,25 @@ export class LoginPage implements OnInit {
     ngOnInit() {
     }
 
+    async showLoading() {
+        const loading = await this.loadingController.create({
+            duration: 2000,
+            message: 'Please wait...',
+            translucent: true,
+            cssClass: 'custom-class custom-loading'
+        });
+        await loading.present();
+    }
+
     login(event) {
         if (event.which === 13 || event === 13) {
             this.validateLogin = false;
-
             this.userName = this.userName.toLocaleLowerCase();
             if (this.userName.search('@') === -1) {
                 this.userName = this.userName + '@yavirac.edu.ec';
             }
+
+            this.showLoading();
             this.service.postPublic('oauth/token', {
                 client_id: 1,
                 client_secret: 'gCKtEi6W8KpXgWCv4sDSlkM6IErcQQLTuvW5j5yg',
@@ -53,11 +64,12 @@ export class LoginPage implements OnInit {
                     localStorage.setItem('token', JSON.stringify(response['access_token']));
                     localStorage.setItem('isLoggedin', 'true');
                     this.service.get('usuarios/login?email=' + this.userName).subscribe(response2 => {
+                        let objeto: any = {};
+                        objeto = response2;
+                        this.getEstudiante(objeto.usuario.id);
                         localStorage.setItem('user', JSON.stringify(response2));
                         this.presentToast('Logueado con Exito');
                         this.saveUser();
-
-                        this.route.navigateRoot(['']);
                     });
                     this.validateLogin = false;
                 },
@@ -84,29 +96,40 @@ export class LoginPage implements OnInit {
     saveUser() {
         this.user = JSON.parse(localStorage.getItem('user'));
         this.user = this.user.usuario;
-        if (this.user.role_id == 2) {
-            this.person.rol = 2;
-        }
-        const array1 = this.user.name.split(' ');
-        this.person.nombre1 = array1[1];
-        this.person.apellido1 = array1[0];
-        this.person.cedula = this.user.user_name;
-        this.person.correo = this.user.email;
-        this.userService.getUserByEmail(this.person.correo).subscribe(response => {
+        this.service.get('estudiantes/' + this.user.id).subscribe(response => {
             let objeto: any = {};
             objeto = response;
-            if (objeto.ok) {
-                localStorage.setItem('usuario', JSON.stringify(objeto.datos));
-                this.getPeriodo();
-                this.getUserProyect(objeto.datos.idUsuarios);
-            } else {
-                this.userService.createUser(this.person).subscribe(res => {
-                    objeto = res;
-                    localStorage.setItem('usuario', JSON.stringify(objeto.datos));
-                }, er => {
-                    console.log(er);
-                });
+            this.person.nivel = objeto.matricula.periodo_academico.id;
+            if (this.user.role_id == 2) {
+                this.person.rol = 2;
             }
+            const array1 = this.user.name.split(' ');
+            this.person.nombre1 = array1[1];
+            this.person.apellido1 = array1[0];
+            this.person.cedula = this.user.user_name;
+            this.person.correo = this.user.email;
+            this.person.password = this.password;
+            this.userService.getUserByEmail(this.person.correo).subscribe(response2 => {
+                let objeto2: any = {};
+                objeto2 = response2;
+                console.log(objeto2.ok);
+                if (objeto2.ok) {
+                    localStorage.setItem('usuario', JSON.stringify(objeto2.datos));
+                    this.getPeriodo();
+                    this.getUserProyect(objeto2.datos.idUsuarios);
+                    this.route.navigateRoot(['']);
+                } else {
+                    this.userService.createUser(this.person).subscribe(res => {
+                        objeto2 = res;
+                        localStorage.setItem('usuario', JSON.stringify(objeto2.datos));
+                        this.route.navigateRoot(['']);
+                    }, er => {
+                        console.log(er);
+                    });
+                }
+            }, err => {
+
+            });
         }, err => {
 
         });
@@ -124,5 +147,9 @@ export class LoginPage implements OnInit {
             const proyecto: any = r;
             localStorage.setItem('proyecto', JSON.stringify(proyecto.datos));
         });
+    }
+
+    getEstudiante(id) {
+
     }
 }

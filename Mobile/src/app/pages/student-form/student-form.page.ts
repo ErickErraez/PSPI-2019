@@ -86,20 +86,18 @@ export class StudentFormPage implements OnInit {
             let objeto: any = {};
             objeto = response;
             if (objeto.ok) {
-                console.log(objeto.datos.rol == 2);
-                if (objeto.datos.rol == 2) {
-                    if (objeto.datos.correo != this.user.usuario.email) {
-                        if (this.miembros.length == 0) {
+                if (objeto.datos.rol === 2) {
+                    if (objeto.datos.correo !== this.user.usuario.email) {
+                        console.log('value:', this.miembros);
+                        if (this.miembros.length === 0) {
                             this.miembros.push(objeto.datos);
                         } else {
                             for (let i = 0; i < this.miembros.length; i++) {
-                                if (this.miembros[i].correo == email) {
-
-                                } else {
-                                    this.miembros.push(objeto.datos);
-                                    console.log(this.miembros);
+                                if (this.miembros[i].correo === email) {
+                                    return;
                                 }
                             }
+                            this.miembros.push(objeto.datos);
                         }
                     } else {
                         this.presentToast('Ya estas agregado');
@@ -126,6 +124,7 @@ export class StudentFormPage implements OnInit {
             let proyectFinal: any = res;
             proyectFinal = proyectFinal.proyecto;
             this.createUserProyect(proyectFinal.idProyectos);
+            this.route.navigateRoot(['']);
         }, error => {
             console.log(error);
         });

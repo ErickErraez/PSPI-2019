@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button defaulHref="/app-tab2"></ion-back-button>
         </ion-buttons>
-        <ion-title>Proyecto PSPI</ion-title>
+        <ion-title>{{proyecto.nombreProyecto}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -12,24 +12,34 @@
         <ion-card-content>
             <div class="container">
                 <div class="row">
-                    <div class="col-3">
-                        <ion-img src="/assets/images/proyecto.png">
-                        </ion-img>
-                    </div>
-                    <div class="col-9">
-                        <ion-label>Lider de Proyecto: Rodrigo Diaz</ion-label>
+                    <div class="col-12">
+                        <ion-label>Tutor de Proyecto: {{proyecto.tutor}}</ion-label>
                         <br>
-                        <ion-label>Tutor de Proyecto: Bryan Cortez</ion-label>
+                        <ion-label>Periodo: {{proyecto.periodo}}</ion-label>
                         <br>
-                        <ion-label>Periodo: Noviembre - Abril</ion-label>
+                        <ion-label>Nivel: {{proyecto.nivelProyecto}} Semestre</ion-label>
                         <br>
-                        <ion-label>Nivel: Quinto Semestre</ion-label>
+                        <ion-label>Objetivos: {{proyecto.descripcionProyecto}}</ion-label>
                         <br>
-                        <ion-label>Objetivos: Crear un software</ion-label>
+                        <ion-label>Herramientas: {{proyecto.herramientasProyecto}}</ion-label>
                         <br>
-                        <ion-label>Herramientas: Mysql, Angular</ion-label>
+                        <ion-label>Categoria: {{proyecto.categoria}}</ion-label>
+                        <br>
+                        <ion-label>Estado: {{proyecto.estadoProyecto}}</ion-label>
                         <br>
                         <ion-label>Integrantes: Alejandro Coronel, Erick Erraez</ion-label>
+                        <div class="container" *ngIf="usuario.rol ===3">
+                            <ion-item>
+                                <ion-button shape="round" fill="outline">
+                                    Aceptar
+                                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button color="danger" shape="round" fill="outline">
+                                    Rechazar
+                                    <ion-icon name="close-circle-outline"></ion-icon>
+                                </ion-button>
+                            </ion-item>
+                        </div>
                     </div>
                 </div>
             </div>

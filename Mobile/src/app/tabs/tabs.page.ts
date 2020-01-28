@@ -11,6 +11,7 @@ import {WebsocketsService} from '../services/websockets.service';
 export class TabsPage {
 
     show: any = {};
+    usuario: any = JSON.parse(localStorage.getItem('usuario'));
 
     constructor(private adminService: AdminService) {
         this.adminService.getConfiguracion().subscribe(res => {

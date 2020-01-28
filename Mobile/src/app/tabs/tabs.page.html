@@ -1,6 +1,6 @@
 <ion-tabs>
     <ion-tab-bar slot="bottom">
-        <ion-tab-button *ngIf="show.formularioSolicitud == true" tab="student-form">
+        <ion-tab-button *ngIf="show.formularioSolicitud == true && usuario.rol == 2" tab="student-form">
             <ion-icon name="book"></ion-icon>
             <ion-label>Formulario</ion-label>
         </ion-tab-button>
@@ -10,7 +10,7 @@
             <ion-label>Proyectos</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="admin-assign">
+        <ion-tab-button *ngIf="usuario.rol == 1" tab="admin-assign">
             <ion-icon name="filing"></ion-icon>
             <ion-label>Asignar Tutores</ion-label>
         </ion-tab-button>
@@ -20,7 +20,7 @@
             <ion-label>Perfil</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="admin-control">
+        <ion-tab-button *ngIf="usuario.rol == 1 || usuario.rol == 3" tab="admin-control">
             <ion-icon name="settings"></ion-icon>
             <ion-label>Configuraciones</ion-label>
         </ion-tab-button>

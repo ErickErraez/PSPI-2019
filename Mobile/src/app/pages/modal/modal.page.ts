@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ModalController, NavParams} from '@ionic/angular';
 import {Categorias} from '../../models/Categorias';
 
@@ -13,8 +13,8 @@ export class ModalPage implements OnInit {
 
     constructor(public modalController: ModalController, private navParams: NavParams) {
         this.categoria = navParams.get('categoria');
+        console.log(navParams.get('categoria'));
     }
-
     ngOnInit() {
     }
 

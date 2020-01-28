@@ -12,6 +12,7 @@ export class Tab1Page {
     user: any = JSON.parse(localStorage.getItem('user'));
     passchange = false;
     tipoInput: any = 'password';
+    usuario: any = JSON.parse(localStorage.getItem('usuario'));
     repeatPassword: any;
 
     constructor(private service: AuthService, private platform: Platform, public alertController: AlertController,
@@ -43,7 +44,12 @@ export class Tab1Page {
             this.service.update('users/reset_password', {user: this.user})
                 .subscribe(
                     response => {
+                        this.usuario.password = this.user.password;
+                        this.service.updatePass(this.usuario).subscribe(res => {
+                            console.log(res);
+                        });
                         this.showAlert('Guardado con Exito', 'Se ha cambiado tu contraseña');
+
                     },
                     error => {
                         this.showAlert('!Oops algp ha salido mal', 'Oops!! Algo ha salido mal');

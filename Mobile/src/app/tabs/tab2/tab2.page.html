@@ -14,9 +14,9 @@
                                refreshingText="Refreshing..."></ion-refresher-content>
     </ion-refresher>
 
-    <ng-container *ngIf="show && usuario.rol == 2">
-        <ion-card *ngFor="let proyecto of proyectos" class="welcome-card"
-                  (click)="abrirEnlace(proyecto.idUsuariosProyectos,proyecto.estadoProyecto)">
+    <ng-container *ngIf="show && usuario.rol == 3">
+        <ion-card *ngFor="let proyecto of proyectos;" class="welcome-card"
+                  (click)="abrirEnlace(proyecto.idProyectos,proyecto.estadoProyecto)">
             <ion-card-header>
                 <ion-card-title color="primary">{{proyecto.nombreProyecto}}
                 </ion-card-title>
@@ -42,6 +42,35 @@
             </ion-card-content>
         </ion-card>
     </ng-container>
+
+    <ng-container *ngIf="show && usuario.rol == 2">
+    <ion-card *ngFor="let proyecto of proyectos" class="welcome-card"
+              (click)="abrirEnlace(proyecto.idUsuariosProyectos,proyecto.estadoProyecto)">
+        <ion-card-header>
+            <ion-card-title color="primary">{{proyecto.nombreProyecto}}
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        <ion-img src="/assets/images/proyecto.png">
+                        </ion-img>
+                    </div>
+                    <div class="col-9">
+                        <ion-label>Tutor de Proyecto: {{proyecto.tutor}}</ion-label>
+                        <br>
+                        <ion-label>Periodo: {{proyecto.periodo | lowercase }}</ion-label>
+                        <br>
+                        <ion-label>Nivel: {{proyecto.nivelProyecto}} Semestre</ion-label>
+                        <br>
+                        <ion-label>Estado: {{proyecto.estadoProyecto}}</ion-label>
+                    </div>
+                </div>
+            </div>
+        </ion-card-content>
+    </ion-card>
+</ng-container>
     <ng-container *ngIf="!show">
         <ion-card class="welcome-card">
             <ion-card-header>

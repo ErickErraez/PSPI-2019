@@ -18,6 +18,7 @@ export class Tab2Page {
 
     constructor(public nav: NavController, private proyectoServices: ProyectService) {
         this.getUserProyect();
+        this.getTutorProyect();
     }
 
     abrirEnlace(item, estado) {
@@ -27,6 +28,7 @@ export class Tab2Page {
 
     doRefresh(event) {
         this.getUserProyect();
+        this.getTutorProyect();
         setTimeout(() => {
             event.target.complete();
         }, 1000);
@@ -34,13 +36,26 @@ export class Tab2Page {
 
 
     getUserProyect() {
-        this.proyectoServices.getUserProyects(this.usuario.idUsuarios).subscribe(r => {
-            const proyecto: any = r;
-            this.validar(proyecto);
-            localStorage.setItem('proyecto', JSON.stringify(proyecto.datos));
-            this.proyectos = JSON.parse(localStorage.getItem('proyecto'));
+        if (this.usuario.rol === 2) {
+            this.proyectoServices.getUserProyects(this.usuario.idUsuarios).subscribe(r => {
+                const proyecto: any = r;
+                this.validar(proyecto);
+                localStorage.setItem('proyecto', JSON.stringify(proyecto.datos));
+                this.proyectos = JSON.parse(localStorage.getItem('proyecto'));
 
-        });
+            });
+        }
+    }
+
+    getTutorProyect() {
+        if (this.usuario.rol === 3) {
+            this.proyectoServices.getTutorProyects(this.usuario.idUsuarios).subscribe(r => {
+                const proyecto: any = r;
+                this.validar(proyecto);
+                localStorage.setItem('proyecto', JSON.stringify(proyecto.datos));
+                this.proyectos = JSON.parse(localStorage.getItem('proyecto'));
+            });
+        }
     }
 
     validar(id?) {
