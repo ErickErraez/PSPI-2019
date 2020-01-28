@@ -36,6 +36,33 @@ let getUserProyect = (req, res) => {
     });
 };
 
+let getTutorProyects = (req, res) => {
+    let datos = req.params.id;
+    const proyecto = db('Proyectos').orderBy('Proyectos.created_at', 'desc').where('Proyectos.tutor', datos).andWhere('Proyectos.estado', 'Pendiente')
+        .innerJoin('Usuarios as Tutor', 'Proyectos.Tutor', 'Tutor.idUsuarios')
+        .innerJoin('Usuarios as Jurado1', 'Proyectos.jurado1', 'Jurado1.idUsuarios')
+        .innerJoin('Usuarios as Jurado2', 'Proyectos.jurado2', 'Jurado2.idUsuarios')
+        .innerJoin('Categorias', 'Proyectos.idCategoria', 'Categorias.idCategorias')
+        .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
+        .select('Proyectos.idProyectos','Proyectos.nombre as nombreProyecto', 'Proyectos.descripcion as descripcionProyecto', 'Proyectos.estado as estadoProyecto',
+            'Proyectos.herramientas as herramientasProyecto', 'Proyectos.nivel as nivelProyecto', db.raw(`CONCAT(Tutor.nombre1, ' ', Tutor.apellido1) as "tutor"`),
+            db.raw(`CONCAT(Jurado1.nombre1, ' ', Jurado1.apellido1) as "jurado1"`), db.raw(`CONCAT(Jurado2.nombre1, ' ', Jurado2.apellido1) as "jurado2"`), 'Categorias.nombre as categoria',
+            'PeriodoAcademico.nombre as periodo', 'PeriodoAcademico.estado as estadoPeriodo');
+    proyecto.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
+
+};
+
 let getProyectById = (req, res) => {
     let tabla = 'UsuariosProyectos';
     let datos = req.params.id;
@@ -268,5 +295,6 @@ module.exports = {
     getUserProyect,
     getProyectos,
     saveNotes,
-    getProyectById
+    getProyectById,
+    getTutorProyects
 };

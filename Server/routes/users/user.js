@@ -9,6 +9,7 @@ api.post('/login', crudController.loginUser);
 api.get('/getUserByEmail/:email', crudController.getUserByEmail);
 api.post('/createUser', crudController.createUser);
 api.post('/insertAllUsers', crudController.insertUsers);
+api.put('/updatePassword', crudController.modifyUser);
 
 
 

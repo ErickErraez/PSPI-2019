@@ -43,4 +43,8 @@ export class ProyectService {
         return this.http.get(this.url + 'getProyectById/' + id);
     }
 
+    getTutorProyects(id) {
+        return this.http.get(this.url + 'getTutorProyects/' + id);
+    }
+
 }

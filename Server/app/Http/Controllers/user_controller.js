@@ -4,12 +4,6 @@ const config = require('../../../knexfile');
 const jwt = require('jsonwebtoken');
 const db = require('knex')(config['development']);
 
-let loadFile = (req, res) => {
-    res.json({
-        'message': 'File uploaded succesfully.'
-    });
-};
-
 
 let registerUser = (req, res) => {
     let {nombre, apellido, email, contrasena, rol} = req.body.params;
@@ -44,51 +38,39 @@ let registerUser = (req, res) => {
 
 //AUTH ADMIN
 let loginUser = (req, res) => {
-    let {contrasena, email} = req.body.params;
-    res.header('access-control-allow-origin', '*');
-    db('PERSONAS').where({'email': email}).select('contrasena', 'nombre', 'apellido', 'rol', 'idPersona', 'email')
-        .then(result => {
-            if (result.length === 1) {
-                bcrypt.compare(contrasena, result[0].contrasena, (err, re) => {
-                    if (re) {
-                        let token;
-                        if (result[0].rol == 1) {
-                            token = jwt.sign({email, contrasena}, 'userToken');
-                        }
-                        if (result[0].rol == 2) {
-                            token = jwt.sign({email, contrasena}, 'docToken');
-                        }
-                        if (result[0].rol == 3) {
-                            token = jwt.sign({email, contrasena}, 'adminToken');
-                        }
+        let tabla = 'Usuarios';
+        let {password, correo} = req.body.params;
+        res.header('access-control-allow-origin', '*');
+        db(tabla).where({'correo': correo})
+            .select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'password', 'nivel', 'rol')
+            .then(result => {
+                if (result.length === 1) {
+                    bcrypt.compare(password, result[0].password, (err, re) => {
                         return res.status(200).json({
-                            message: 'Login Successfull',
-                            session_id: token,
-                            response: {
-                                'idPersona': result[0].id,
-                                'nombre': result[0].nombre,
-                                'apellido': result[0].apellido,
-                                'rol': result[0].rol,
-                                'email': result[0].email,
-                            },
+                            ok: true,
+                            usuario: {
+                                'idUsuarios': result[0].idUsuarios,
+                                'nombre1': result[0].nombre1,
+                                'apellido1': result[0].apellido1,
+                                'cedula': result[0].cedula,
+                                'correo': result[0].correo,
+                                'nivel': result[0].nivel,
+                                'rol': result[0].rol
+                            }
+                        });
+                    });
+                } else {
+                    return res.status(500).json({
+                        ok: false,
+                        message: 'No encontrado'
+                    })
+                }
+            }).catch(error => {
+            console.log(error);
+        });
 
-                        })
-                    } else {
-                        return res.status(500).json({
-                            message: 'Incorrect password'
-                        })
-                    }
-                });
-            } else {
-                return res.status(500).json({
-                    message: 'User not found'
-                })
-            }
-        }).catch(error => {
-        console.log(error);
-    });
-
-};
+    }
+;
 
 let insertUsers = (req, res) => {
     let tabla = 'Usuarios';
@@ -110,26 +92,37 @@ let insertUsers = (req, res) => {
 
 let createUser = (req, res) => {
     let tabla = 'Usuarios';
-    let datos = req.body;
-    const qu = db.insert(datos).into(tabla);
-    qu.then(resultado => {
-        let idUsuarios = resultado[0];
-        const user = db(tabla).where('idUsuarios', idUsuarios).select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'nivel', 'rol').first();
-        user.then(response => {
-            return res.status(200).json({
-                ok: true,
-                mensaje: 'CREADO CON EXITO',
-                datos: response
-            })
-        }).catch(err => {
+    let {nombre1, apellido1, cedula, correo, password, nivel, rol} = req.body;
+    bcrypt.hash(password, 10, function (err, hash) {
+        const qu = db.insert({
+            nombre1,
+            apellido1,
+            cedula,
+            correo,
+            password: hash,
+            nivel,
+            rol
+        }).into(tabla);
+        qu.then(resultado => {
+            let idUsuarios = resultado[0];
+            const user = db(tabla).where('idUsuarios', idUsuarios).select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'nivel', 'rol').first();
+            user.then(response => {
+                return res.status(200).json({
+                    ok: true,
+                    mensaje: 'CREADO CON EXITO',
+                    datos: response
+                })
+            }).catch(err => {
 
+            })
+        }).catch((error) => {
+            return res.status(500).json({
+                ok: false,
+                mensaje: `Error del servidor: ${error}`
+            })
         })
-    }).catch((error) => {
-        return res.status(500).json({
-            ok: false,
-            mensaje: `Error del servidor: ${error}`
-        })
-    })
+    });
+
 };
 
 let allUsers = (req, res) => {
@@ -173,6 +166,33 @@ let getUserByEmail = (req, res) => {
     });
 };
 
+let modifyUser = (req, res) => {
+    let tabla = 'Usuarios';
+    let {idUsuarios, nombre1, apellido1, cedula, correo, password, nivel, rol} = req.body;
+    bcrypt.hash(password, 10, function (err, hash) {
+        db(tabla)
+            .where('idUsuarios', '=', idUsuarios)
+            .update({
+                nombre1,
+                apellido1,
+                password: hash,
+                correo,
+                cedula,
+                nivel,
+                rol
+
+            }).then(function (result) {
+            return res.status(200).json({
+                ok: true,
+                action: 'Actualizado con Exito',
+                id: result
+            })
+        }).catch(function (err) {
+            return res.send(err)
+        });
+
+    });
+};
 
 module.exports = {
     //CRUD USERS
@@ -182,5 +202,5 @@ module.exports = {
     createUser,
     getUserByEmail,
     insertUsers,
-    loadFile
+    modifyUser
 };

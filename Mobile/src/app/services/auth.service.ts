@@ -9,10 +9,10 @@ import {Storage} from '@ionic/storage';
 })
 export class AuthService {
 
-    url: any = environment.urlServer + 'users/';
+    url: any = environment.urlServer + 'user/';
 
     headers: HttpHeaders = new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     });
 
     constructor(private http: HttpClient, private storage: Storage) {
@@ -30,13 +30,13 @@ export class AuthService {
         return this.http.post(url, data, {headers: this.headers});
     }
 
-    loginUser(contrasena: string, email: string) {
+    loginUser(password: string, correo: string) {
         return this.http.post(this.url + 'login', {
             params: {
-                email,
-                contrasena,
+                correo,
+                password,
             }
-        }, {headers: this.headers});
+        });
     }
 
     registerUser(nombre: string, apellido: string, email: string, contrasena: string) {
@@ -74,6 +74,10 @@ export class AuthService {
         } else {
             return null;
         }
+    }
+
+    updatePass(data) {
+        return this.http.put(this.url + 'updatePassword', data);
     }
 
     update(url: string, data: any) {
