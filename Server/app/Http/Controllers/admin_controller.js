@@ -101,8 +101,8 @@ let updateCategory = (req, res) => {
 
 let deleteCategory = (req, res) => {
     let tabla = 'Categorias';
-    let datos = req.body;
-    const qu = db(tabla).where("idCategorias", datos.idCategorias).delete();
+    let datos = req.params.id;
+    const qu = db(tabla).where("idCategorias", datos).delete();
     qu.then(resultado => {
         return res.status(200).json({
             ok: true,

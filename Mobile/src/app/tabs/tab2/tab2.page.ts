@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavController, NavParams} from '@ionic/angular';
 import {ProyectService} from '../../services/proyect.service';
 
@@ -65,5 +65,6 @@ export class Tab2Page {
             this.show = true;
         }
     }
+
 
 }

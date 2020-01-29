@@ -5,7 +5,7 @@
                 CLOSE
             </ion-button>
         </ion-buttons>
-        <ion-title>Categoria</ion-title>
+        <ion-title> Categorias</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -15,8 +15,22 @@
         <ion-card-header>
             <ion-card-title color="primary">Categoria</ion-card-title>
         </ion-card-header>
-        <ion-content>
-            {{categoria.idCategorias}}
-        </ion-content>
+        <ion-card-content>
+            <ion-item *ngIf="categoria === 'new'">
+                <ion-label position="floating">Nombre de la Categoria</ion-label>
+                <ion-input [(ngModel)]="nombre"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="categoria !== 'new'">
+                <ion-label position="floating">Nombre de la Categoria</ion-label>
+                <ion-input [(ngModel)]="categoria.nombre"></ion-input>
+            </ion-item>
+            <br>
+            <ion-button *ngIf="categoria === 'new'" shape="round" fill="outline" (click)="crearCategoria()">Crear
+            </ion-button>
+            <ion-button *ngIf="categoria !== 'new'" shape="round" fill="outline" (click)="actualizarCategoria()">
+                Actualizar
+            </ion-button>
+        </ion-card-content>
     </ion-card>
+
 </ion-content>

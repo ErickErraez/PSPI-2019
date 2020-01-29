@@ -34,7 +34,7 @@ export class AdminService {
     }
 
     deleteCategory(categoria) {
-        return this.http.delete(this.url + 'deleteCategory', categoria);
+        return this.http.delete(this.url + 'deleteCategory/' + categoria.idCategorias);
     }
 
 }

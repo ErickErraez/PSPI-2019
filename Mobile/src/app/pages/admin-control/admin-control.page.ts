@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AdminService} from '../../services/admin.service';
 import {ProyectService} from '../../services/proyect.service';
 import {Categorias} from '../../models/Categorias';
-import {ModalController} from '@ionic/angular';
+import {AlertController, LoadingController, ModalController} from '@ionic/angular';
 import {ModalPage} from '../modal/modal.page';
 
 @Component({
@@ -14,9 +14,11 @@ export class AdminControlPage implements OnInit {
 
     show: any = {};
     categorias: any;
+    usuario: any = JSON.parse(localStorage.getItem('usuario'));
     categoria: Categorias = new Categorias();
 
-    constructor(private adminService: AdminService, private proyectoServices: ProyectService, public modalController: ModalController) {
+    constructor(private adminService: AdminService, private proyectoServices: ProyectService, public alertController: AlertController,
+                public modalController: ModalController, public loadingController: LoadingController) {
         this.adminService.getConfiguracion().subscribe(res => {
             this.show = res;
             this.show = this.show.datos;
@@ -35,12 +37,17 @@ export class AdminControlPage implements OnInit {
         });
     }
 
-    async presentModal() {
+    async presentModal(item?) {
         const modal = await this.modalController.create({
             component: ModalPage,
-
-            componentProps: {categoria: this.categoria}
+            componentProps: {categoria: item}
         });
+
+        modal.onDidDismiss().then(r => {
+            this.getCategorias();
+        });
+
+
         return await modal.present();
     }
 
@@ -58,17 +65,43 @@ export class AdminControlPage implements OnInit {
 
     changeStatus(variable) {
         this.show.formularioSolicitud = variable;
-        if (this.show.formularioSolicitud) {
-            this.show.formularioSolicitud = true;
-            this.adminService.updateConfiguraciones(this.show).subscribe(res => {
-                console.log(res);
-            });
-        } else {
-            this.show.formularioSolicitud = false;
-            this.adminService.updateConfiguraciones(this.show).subscribe(res => {
-                console.log(res);
-            });
-        }
+        this.adminService.updateConfiguraciones(this.show).subscribe(res => {
+            console.log(res);
+        });
+
+    }
+
+    deleteCategory() {
+        this.showLoading();
+        this.adminService.deleteCategory(this.categoria).subscribe(r => {
+            this.getCategorias();
+            this.presentAlertPrompt('Eliminado con Exito');
+        });
+    }
+
+    async showLoading() {
+        const loading = await this.loadingController.create({
+            duration: 50,
+            message: 'Please wait...',
+            translucent: true,
+            cssClass: 'custom-class custom-loading'
+        });
+        await loading.present();
+    }
+
+    async presentAlertPrompt(mensaje) {
+        const alert = await this.alertController.create({
+            header: mensaje,
+            buttons: [{
+                text: 'Ok',
+                handler: (data) => {
+
+                }
+            }
+            ]
+        });
+
+        await alert.present();
     }
 
 }

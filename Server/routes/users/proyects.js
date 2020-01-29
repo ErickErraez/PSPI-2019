@@ -13,5 +13,7 @@ api.get('/getUserProyect/:id', proyectController.getUserProyect);
 api.get('/getProyectos/:nivel', proyectController.getProyectos);
 api.get('/getProyectById/:id', proyectController.getProyectById);
 api.get('/getTutorProyects/:id', proyectController.getTutorProyects);
+api.put('/updateState', proyectController.updateState);
+api.get('/getById/:id', proyectController.getById);
 
 module.exports = api;

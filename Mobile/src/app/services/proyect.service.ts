@@ -47,4 +47,12 @@ export class ProyectService {
         return this.http.get(this.url + 'getTutorProyects/' + id);
     }
 
+    updateState(proyecto) {
+        return this.http.put(this.url + 'updateState', proyecto);
+    }
+
+    getById(id) {
+        return this.http.get(this.url + 'getById/' + id);
+    }
+
 }

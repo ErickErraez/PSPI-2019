@@ -7,7 +7,7 @@ var UsuariosProyecto,
 
 UsuariosProyecto = bookshelf.Model.extend({
     tableName: 'UsuariosProyectos',
-    idAttribute: 'idUsuariosProyectos',
+    idAttribute: 'idEstudiante',
 
     estudiante: function () {
         return this.hasMany(Usuario, 'idUsuarios');

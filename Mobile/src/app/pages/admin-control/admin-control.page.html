@@ -6,14 +6,14 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="usuario.rol === 1">
     <ion-card class="welcome-card">
         <ion-card-header>
             <ion-card-title color="primary">Activar Formulario
                 <br><br>
                 <div class="checkbox">
-                    <input type="checkbox" name="checkbox" id="checkbox1"
-                           (click)="changeStatus($event.target.checked)"/>
+                    <input (click)="changeStatus($event.target.checked)" type="checkbox" name="checkbox" id="checkbox1"
+                           [(ngModel)]="this.show.formularioSolicitud"/>
                     <label for="checkbox1">Si</label>
                 </div>
             </ion-card-title>
@@ -24,9 +24,58 @@
         <ion-card-header>
             <ion-card-title color="primary">Editar Temas</ion-card-title>
             <br>
-            <ion-icon (click)="presentModal()" color="primary" name="add-circle-outline"></ion-icon>
-            <ion-icon (click)="presentModal()" color="success" name="create"></ion-icon>
-            <ion-icon color="danger" name="trash"></ion-icon>
+            <ion-icon (click)="presentModal('new')" color="primary" name="add-circle-outline"></ion-icon>
+            <ion-icon *ngIf="categoria.nombre !== undefined" (click)="presentModal(categoria)" color="success"
+                      name="create"></ion-icon>
+            <ion-icon *ngIf="categoria.nombre !== undefined" (click)="deleteCategory()" color="danger" name="trash"></ion-icon>
+            <table border="1" class="table" style="width:100%" id="tablaprueba">
+                <thead class="thead-dark">
+                <tr>
+                    <th width="35" scope="col"></th>
+                    <th>id</th>
+                    <th>Descripcion</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of categorias;" (click)="onSelect(item)">
+                    <td width="35">
+                        <ion-icon class="hand" name="arrow-dropright-circle"
+                                  [hidden]="!estaSeleccionado(item)"></ion-icon>
+                    </td>
+                    <td>{{item.idCategorias}}</td>
+                    <td>
+                        {{item.nombre}}
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </ion-card-header>
+    </ion-card>
+</ion-content>
+
+<ion-content *ngIf="usuario.rol === 3">
+    <ion-card class="welcome-card">
+        <ion-card-header>
+            <ion-card-title color="primary">Activar Formulario
+                <br><br>
+                <div class="checkbox">
+                    <input (click)="changeStatus($event.target.checked)" type="checkbox" name="checkbox" id="checkbox1"
+                           [(ngModel)]="this.show.formularioSolicitud"/>
+                    <label for="checkbox1">Si</label>
+                </div>
+            </ion-card-title>
+        </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title color="primary">Editar Temas</ion-card-title>
+            <br>
+            <ion-icon (click)="presentModal('new')" color="primary" name="add-circle-outline"></ion-icon>
+            <ion-icon *ngIf="categoria.nombre !== undefined" (click)="presentModal(categoria)" color="success"
+                      name="create"></ion-icon>
+            <ion-icon *ngIf="categoria.nombre !== undefined" (click)="deleteCategory()" color="danger" name="trash"></ion-icon>
             <table border="1" class="table" style="width:100%" id="tablaprueba">
                 <thead class="thead-dark">
                 <tr>
