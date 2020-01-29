@@ -13,17 +13,19 @@ export class AdminAssignComponent implements OnInit {
   nivel: any;
   docentes: any;
   proyecto: Proyectos = new Proyectos();
+  id: any;
 
   constructor(private adminService: AdminService, private proyectoServiceService: ProyectoServiceService) {
     this.adminService.getDocentes().subscribe(r => {
       console.log(r);
       this.docentes = r;
       this.docentes = this.docentes.datos;
+
     });
   }
 
   asignarTutores() {
-    this.proyectoServiceService.getProyectosByNivel(this.nivel).subscribe(res => {
+    this.proyectoServiceService.getProyectosByNivel(this.id).subscribe(res => {
       console.log(res);
     });
   }

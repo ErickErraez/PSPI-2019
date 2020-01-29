@@ -11,6 +11,9 @@ export class ProyectoServiceService {
   constructor(private http: HttpClient) {
 
   }
+  getCategories() {
+    return this.http.get(this.url + 'getCategories');
+  }
 
   getProyectosByNivel(nivel) {
     return this.http.get(this.url + 'getProyectos/' + nivel);

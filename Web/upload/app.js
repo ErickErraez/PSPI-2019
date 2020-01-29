@@ -4,7 +4,7 @@ const port = 3000
 const bodyParser = require("body-parser");
 const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart({
-    uploadDir: './uploads'
+    uploadDir: './upload'
 });
 
 app.use(bodyParser.json());
@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.post('/api/upload', multipartMiddleware, (req, res) => {
+app.post('/web/upload', multipartMiddleware, (req, res) => {
     res.json({
         'message': 'File uploaded succesfully.'
     });

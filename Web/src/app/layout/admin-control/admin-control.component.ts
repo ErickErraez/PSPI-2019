@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProyectoServiceService} from "../../services/proyecto-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-control',
@@ -14,13 +15,16 @@ export class AdminControlComponent implements OnInit {
   userProyect: any;
   show: any = false;
 
-  constructor( private proyectoServices: ProyectoServiceService,) { }
+  constructor( private proyectoServices: ProyectoServiceService,private route: Router) { }
 
   ngOnInit() {
     this.getUserProyect();
   }
   getUserProyect() {
+
+
     this.proyectoServices.getUserProyects(this.usuario.idUsuarios).subscribe(r => {
+
       const proyecto: any = r;
       this.validar(proyecto);
       localStorage.setItem('proyecto', JSON.stringify(proyecto.datos));
@@ -31,6 +35,8 @@ export class AdminControlComponent implements OnInit {
 
   abrirEnlace(item, estado) {
    // this.nav.navigateForward(`student-proyect/${item}`);
+    this.route.navigate(['web/student/proyect']);
+    console.log(item,estado);
 
   }
   validar(id?) {
