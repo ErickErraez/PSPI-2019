@@ -10,5 +10,7 @@ export class Proyectos {
     jurado2: number;
     idPeriodo: number;
     idCategoria: number;
+    updated_at?: any;
+    created_at?: any;
 }
 

@@ -5,7 +5,7 @@ const databaseData = {
     connection: process.env.CONNECTION_DB || {
         host: 'localhost',
         port: '3306',
-        user: 'iepi',
+        user: 'prueba',
         password: '123456789',
         database: 'PSPI'
     }

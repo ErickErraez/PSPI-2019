@@ -8,6 +8,6 @@ api.put('/updateConfiguraciones', crudController.updateConfiguraciones);
 api.put('/updateProyecto', crudController.assignTutor);
 api.post('/createCategory', crudController.createCategory);
 api.put('/updateCategory', crudController.updateCategory);
-api.delete('/deleteCategory', crudController.deleteCategory);
+api.delete('/deleteCategory/:id', crudController.deleteCategory);
 
 module.exports = api;

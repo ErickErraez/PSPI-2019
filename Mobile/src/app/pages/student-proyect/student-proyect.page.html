@@ -27,14 +27,19 @@
                         <br>
                         <ion-label>Estado: {{proyecto.estadoProyecto}}</ion-label>
                         <br>
-                        <ion-label>Integrantes: Alejandro Coronel, Erick Erraez</ion-label>
-                        <div class="container" *ngIf="usuario.rol ===3">
+                        Integrantes:&nbsp;
+                        <ion-label *ngFor="let item of integrantes">
+                            <ion-label class="text-capitalize">{{item.estudiante[0].nombre1 | titlecase}}
+                                {{item.estudiante[0].apellido1 | titlecase}}, &nbsp;
+                            </ion-label>
+                        </ion-label>
+                        <div class="container" *ngIf="usuario.rol ===3 && proyecto.estadoProyecto ==='Pendiente'">
                             <ion-item>
-                                <ion-button shape="round" fill="outline">
+                                <ion-button (click)="aceptarProyecto('Aceptado')" shape="round" fill="outline">
                                     Aceptar
                                     <ion-icon name="checkmark-circle-outline"></ion-icon>
                                 </ion-button>
-                                <ion-button color="danger" shape="round" fill="outline">
+                                <ion-button (click)="rechazarProyecto('Rechazado')"  color="danger" shape="round" fill="outline">
                                     Rechazar
                                     <ion-icon name="close-circle-outline"></ion-icon>
                                 </ion-button>

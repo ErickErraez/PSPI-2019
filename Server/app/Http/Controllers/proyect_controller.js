@@ -38,13 +38,16 @@ let getUserProyect = (req, res) => {
 
 let getTutorProyects = (req, res) => {
     let datos = req.params.id;
-    const proyecto = db('Proyectos').orderBy('Proyectos.created_at', 'desc').where('Proyectos.tutor', datos).andWhere('Proyectos.estado', 'Pendiente')
+    const proyecto = db('Proyectos').orderBy('Proyectos.created_at', 'desc')
+        .where('Proyectos.tutor', datos).where('PeriodoAcademico.estado', '=', 'Activo')
+        .andWhere('Proyectos.estado', 'Pendiente')
+        .orWhere('Proyectos.estado', 'Aceptado')
         .innerJoin('Usuarios as Tutor', 'Proyectos.Tutor', 'Tutor.idUsuarios')
         .innerJoin('Usuarios as Jurado1', 'Proyectos.jurado1', 'Jurado1.idUsuarios')
         .innerJoin('Usuarios as Jurado2', 'Proyectos.jurado2', 'Jurado2.idUsuarios')
         .innerJoin('Categorias', 'Proyectos.idCategoria', 'Categorias.idCategorias')
         .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
-        .select('Proyectos.idProyectos','Proyectos.nombre as nombreProyecto', 'Proyectos.descripcion as descripcionProyecto', 'Proyectos.estado as estadoProyecto',
+        .select('Proyectos.idProyectos', 'Proyectos.nombre as nombreProyecto', 'Proyectos.descripcion as descripcionProyecto', 'Proyectos.estado as estadoProyecto',
             'Proyectos.herramientas as herramientasProyecto', 'Proyectos.nivel as nivelProyecto', db.raw(`CONCAT(Tutor.nombre1, ' ', Tutor.apellido1) as "tutor"`),
             db.raw(`CONCAT(Jurado1.nombre1, ' ', Jurado1.apellido1) as "jurado1"`), db.raw(`CONCAT(Jurado2.nombre1, ' ', Jurado2.apellido1) as "jurado2"`), 'Categorias.nombre as categoria',
             'PeriodoAcademico.nombre as periodo', 'PeriodoAcademico.estado as estadoPeriodo');
@@ -61,6 +64,24 @@ let getTutorProyects = (req, res) => {
         })
     });
 
+};
+
+let getById = (req, res) => {
+    let tabla = 'Proyectos';
+    let id = req.params.id;
+    const proyecto = db(tabla).where('idProyectos', id).select().first();
+    proyecto.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
 };
 
 let getProyectById = (req, res) => {
@@ -250,9 +271,8 @@ let getUsersProyects = (req, res) => {
     UserProyects.query({
         where: {idProyecto: id}
     })
-        .fetch({withRelated: ['estudiante.rol', 'proyecto.tutor', 'proyecto.jurado1.rol', 'proyecto.jurado2', 'proyecto.periodoAcademico', 'proyecto.categoria']})
+        .fetch({withRelated: ['estudiante.rol', 'proyecto.tutor', 'proyecto.jurado1.rol', 'proyecto.jurado2.rol', 'proyecto.periodoAcademico', 'proyecto.categoria']})
         .then(response => {
-            console.log(response);
             return res.status(200).json({
                 ok: true,
                 mensaje: 'ENCONTRADO CON EXITO',
@@ -284,6 +304,24 @@ let saveNotes = (req, res) => {
     });
 };
 
+let updateState = (req, res) => {
+    let tabla = 'Proyectos';
+    let datos = req.body;
+    const qu = db(tabla).where("idProyectos", datos.idProyectos).update(datos);
+    qu.then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se creo correctamente el registro`
+        })
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${error}`
+        })
+    })
+};
+
 module.exports = {
     //CRUD USERS
     createForm,
@@ -296,5 +334,7 @@ module.exports = {
     getProyectos,
     saveNotes,
     getProyectById,
-    getTutorProyects
+    getTutorProyects,
+    updateState,
+    getById
 };
