@@ -27,7 +27,8 @@
             <ion-icon (click)="presentModal('new')" color="primary" name="add-circle-outline"></ion-icon>
             <ion-icon *ngIf="categoria.nombre !== undefined" (click)="presentModal(categoria)" color="success"
                       name="create"></ion-icon>
-            <ion-icon *ngIf="categoria.nombre !== undefined" (click)="deleteCategory()" color="danger" name="trash"></ion-icon>
+            <ion-icon *ngIf="categoria.nombre !== undefined" (click)="deleteCategory()" color="danger"
+                      name="trash"></ion-icon>
             <table border="1" class="table" style="width:100%" id="tablaprueba">
                 <thead class="thead-dark">
                 <tr>
@@ -57,13 +58,8 @@
 <ion-content *ngIf="usuario.rol === 3">
     <ion-card class="welcome-card">
         <ion-card-header>
-            <ion-card-title color="primary">Activar Formulario
+            <ion-card-title color="primary">Crear Tareas
                 <br><br>
-                <div class="checkbox">
-                    <input (click)="changeStatus($event.target.checked)" type="checkbox" name="checkbox" id="checkbox1"
-                           [(ngModel)]="this.show.formularioSolicitud"/>
-                    <label for="checkbox1">Si</label>
-                </div>
             </ion-card-title>
         </ion-card-header>
     </ion-card>
@@ -75,7 +71,8 @@
             <ion-icon (click)="presentModal('new')" color="primary" name="add-circle-outline"></ion-icon>
             <ion-icon *ngIf="categoria.nombre !== undefined" (click)="presentModal(categoria)" color="success"
                       name="create"></ion-icon>
-            <ion-icon *ngIf="categoria.nombre !== undefined" (click)="deleteCategory()" color="danger" name="trash"></ion-icon>
+            <ion-icon *ngIf="categoria.nombre !== undefined" (click)="deleteCategory()" color="danger"
+                      name="trash"></ion-icon>
             <table border="1" class="table" style="width:100%" id="tablaprueba">
                 <thead class="thead-dark">
                 <tr>

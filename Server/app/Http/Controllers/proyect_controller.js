@@ -39,7 +39,8 @@ let getUserProyect = (req, res) => {
 let getTutorProyects = (req, res) => {
     let datos = req.params.id;
     const proyecto = db('Proyectos').orderBy('Proyectos.created_at', 'desc')
-        .where('Proyectos.tutor', datos).andWhere('Proyectos.estado', 'Pendiente')
+        .where('Proyectos.tutor', datos).where('PeriodoAcademico.estado', '=', 'Activo')
+        .andWhere('Proyectos.estado', 'Pendiente')
         .orWhere('Proyectos.estado', 'Aceptado')
         .innerJoin('Usuarios as Tutor', 'Proyectos.Tutor', 'Tutor.idUsuarios')
         .innerJoin('Usuarios as Jurado1', 'Proyectos.jurado1', 'Jurado1.idUsuarios')

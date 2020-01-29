@@ -15,7 +15,6 @@ let getConfiguraciones = (req, res) => {
     }).catch(er => {
         return res.status(500).json({
             ok: false,
-            datos: datos,
             mensaje: 'Error de Servidor' + er
         })
     });

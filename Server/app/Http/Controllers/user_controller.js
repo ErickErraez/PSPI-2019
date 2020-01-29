@@ -161,7 +161,7 @@ let getUserByEmail = (req, res) => {
         }
     }).catch(err => {
         return res.status(500).json({
-            message: 'Error en el Servidor'
+            mensaje: `Error del servidor: ${err}`
         })
     });
 };
