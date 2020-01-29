@@ -14,6 +14,9 @@ export class ProyectoServiceService {
   getCategories() {
     return this.http.get(this.url + 'getCategories');
   }
+  getTutorProyects(id) {
+    return this.http.get(this.url + 'getTutorProyects/' + id);
+  }
 
   getProyectosByNivel(nivel) {
     return this.http.get(this.url + 'getProyectos/' + nivel);

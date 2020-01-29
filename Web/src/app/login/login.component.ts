@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+
   mostrarContrasena(item) {
     if (item === 'password') {
       this.tipoInput = 'text';

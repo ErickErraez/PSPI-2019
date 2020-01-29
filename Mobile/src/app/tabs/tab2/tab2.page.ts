@@ -23,6 +23,7 @@ export class Tab2Page {
 
     abrirEnlace(item, estado) {
         this.nav.navigateForward(`student-proyect/${item}/${estado}`);
+        console.log(item,estado);
 
     }
 
