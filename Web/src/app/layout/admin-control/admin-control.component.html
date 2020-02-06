@@ -26,10 +26,10 @@
 
 
         </div>
-<div class="container col-12 ">
+<div class="container col-12 " *ngIf="show && usuario.rol == 3">
           <div class="card-deck">
             <div class="card" *ngFor="let proyecto of proyectos"
-                 (click)="abrirEnlace(proyecto.idUsuariosProyectos,proyecto.estadoProyecto)">
+                 (click)="abrirEnlace(proyecto.idProyectos,proyecto.estadoProyecto)">
               <img src="/assets/images/proyecto.jpg" style="width: 100px;" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">{{proyecto.nombreProyecto}}</h5>
@@ -51,6 +51,31 @@
 
 
       </div>
+        <div class="container col-12 " *ngIf="show && usuario.rol == 2">
+          <div class="card-deck">
+            <div class="card" *ngFor="let proyecto of proyectos"
+                 (click)="abrirEnlace(proyecto.idUsuariosProyectos,proyecto.estadoProyecto)">
+              <img src="/assets/images/proyecto.jpg" style="width: 100px;" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{proyecto.nombreProyecto}}</h5>
+                <label>Tutor de Proyecto: {{proyecto.tutor}}</label>
+                <br>
+                <label>Nivel: {{proyecto.nivelProyecto}} Semestre</label>
+                <br>
+                <label>Estado: {{proyecto.estadoProyecto}}</label>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Periodo: {{proyecto.periodo | lowercase }}</small>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- /.container-fluid -->
+
+
+        </div>
       <!-- End of Main Content -->
 
 

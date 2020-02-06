@@ -15,10 +15,14 @@ export class AdminControlComponent implements OnInit {
   userProyect: any;
   show: any = false;
 
-  constructor( private proyectoServices: ProyectoServiceService,private route: Router) { }
+  constructor( private proyectoServices: ProyectoServiceService,private route: Router) {
+    this.getUserProyect();
+    this.getTutorProyect();
+  }
 
   ngOnInit() {
     this.getUserProyect();
+    this.getTutorProyect();
   }
   getUserProyect() {
 
@@ -35,9 +39,21 @@ export class AdminControlComponent implements OnInit {
 
   abrirEnlace(item, estado) {
    // this.nav.navigateForward(`student-proyect/${item}`);
-    this.route.navigate(['web/student/proyect']);
+    this.route.navigate([`web/student/proyect/`]);
+
     console.log(item,estado);
 
+  }
+
+  getTutorProyect() {
+    if (this.usuario.rol === 3) {
+      this.proyectoServices.getTutorProyects(this.usuario.idUsuarios).subscribe(r => {
+        const proyecto: any = r;
+        this.validar(proyecto);
+        localStorage.setItem('proyecto', JSON.stringify(proyecto.datos));
+        this.proyectos = JSON.parse(localStorage.getItem('proyecto'));
+      });
+    }
   }
   validar(id?) {
     if (id.datos.length == 0) {

@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute} from '@angular/router';
 import {Adjuntos} from '../../models/Adjuntos';
+import {Proyectos} from '../../models/Proyectos';
+import {ProyectoServiceService} from '../../services/proyecto-service.service';
 
 @Component({
   selector: 'app-student-proyect',
@@ -12,8 +15,17 @@ export class StudentProyectComponent implements OnInit {
   uploadedFiles: any = [];
   adjunto: Adjuntos = new Adjuntos();
 
-  constructor(private http: HttpClient) {
+  id: string;
+  estado: string;
+  proyectos: any = JSON.parse(localStorage.getItem('proyecto'));
+  usuario: any = JSON.parse(localStorage.getItem('usuario'));
+  proyecto: any = new Proyectos();
 
+  constructor(private http: HttpClient,private route: ActivatedRoute, private proyectService: ProyectoServiceService) {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.estado = this.route.snapshot.paramMap.get('estado');
+    this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+    console.log(this.proyecto);
   }
 
   ngOnInit() {
