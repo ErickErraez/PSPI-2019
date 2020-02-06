@@ -3,12 +3,127 @@
         <ion-buttons slot="start">
             <ion-back-button defaulHref="/app-tab2"></ion-back-button>
         </ion-buttons>
-        <ion-title>{{proyecto.nombreProyecto}}</ion-title>
+        <ion-title *ngIf="estado === 'Pendiente' || estado === 'Rechazado' && rol == 2">{{proyecto.nombre}}</ion-title>
+        <ion-title
+                *ngIf="estado === 'Pendiente'  || estado === 'Aceptado' && rol == 3">{{proyecto.nombreProyecto}}</ion-title>
+        <ion-title *ngIf="estado === 'Aceptado' && rol == 2">{{proyecto.nombreProyecto}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card class="welcome-card">
+    <ion-card *ngIf="estado === 'Pendiente'|| estado === 'Rechazado'">
+        <ion-card-content *ngIf="rol == 2">
+            <br>
+            <ion-item>
+                <ion-label position="floating">Estado del Proyecto</ion-label>
+                <ion-input disabled="true" [(ngModel)]="proyecto.estado"></ion-input>
+            </ion-item>
+            <br>
+            <ion-item>
+                <ion-label position="floating">Nombre del Proyecto</ion-label>
+                <ion-input [(ngModel)]="proyecto.nombre"></ion-input>
+            </ion-item>
+            <br>
+            <ion-item>
+                <ion-label position="floating">Descripcion del Proyecto</ion-label>
+                <ion-textarea maxlength="200" [(ngModel)]="proyecto.descripcion" rows="4" cols="20"></ion-textarea>
+            </ion-item>
+            <br>
+            <ion-item>
+                <ion-label position="floating">Herramientas a Utilizar</ion-label>
+                <ion-textarea [(ngModel)]="proyecto.herramientas" rows="4" cols="20"></ion-textarea>
+            </ion-item>
+            <br>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Tema</ion-label>
+                    <ion-select interface="popover" [(ngModel)]="proyecto.idCategoria" okText="Aceptar"
+                                cancelText="Cerrar">
+                        <ion-select-option *ngFor="let item of categorias" value="{{item.idCategorias}}">{{item.nombre}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+            <br>
+            <br>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Nivel</ion-label>
+                    <ion-select interface="popover" [(ngModel)]="proyecto.nivel" okText="Aceptar" cancelText="Cerrar">
+                        <ion-select-option value="1">Primero</ion-select-option>
+                        <ion-select-option value="2">Segundo</ion-select-option>
+                        <ion-select-option value="3">Tercero</ion-select-option>
+                        <ion-select-option value="4">Cuarto</ion-select-option>
+                        <ion-select-option value="5">Quinto</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+            <br>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Paralelo</ion-label>
+                    <ion-select interface="popover" [(ngModel)]="proyecto.paralelo" okText="Aceptar"
+                                cancelText="Cerrar">
+                        <ion-select-option value="A">A</ion-select-option>
+                        <ion-select-option value="B">B</ion-select-option>
+                        <ion-select-option value="C">C</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+            <br>
+            <ion-item *ngIf="estado == 'Rechazado'">
+                <ion-label position="floating">Observaciones</ion-label>
+                <ion-textarea disabled="true" [(ngModel)]="proyecto.observaciones" rows="4" cols="20"></ion-textarea>
+            </ion-item>
+            <br>
+            <ion-button (click)="actualizar()" shape="round" expand="block" fill="outline">Actualizar Propuesta
+            </ion-button>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="welcome-card" *ngIf="estado == 'Pendiente' || estado == 'Aceptado'">
+        <ion-card-content *ngIf="rol == 3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <ion-label>Tutor de Proyecto: {{proyecto.tutor}}</ion-label>
+                        <br>
+                        <ion-label>Periodo: {{proyecto.periodo}}</ion-label>
+                        <br>
+                        <ion-label>Nivel: {{proyecto.nivelProyecto}} Semestre</ion-label>
+                        <br>
+                        <ion-label>Objetivos: {{proyecto.descripcionProyecto}}</ion-label>
+                        <br>
+                        <ion-label>Herramientas: {{proyecto.herramientasProyecto}}</ion-label>
+                        <br>
+                        <ion-label>Categoria: {{proyecto.categoria}}</ion-label>
+                        <br>
+                        <ion-label>Estado: {{proyecto.estadoProyecto}}</ion-label>
+                        <br>
+                        Integrantes:&nbsp;
+                        <ion-label *ngFor="let item of integrantes">
+                            <ion-label class="text-capitalize">{{item.estudiante[0].nombre1 | titlecase}}
+                                {{item.estudiante[0].apellido1 | titlecase}}, &nbsp;
+                            </ion-label>
+                        </ion-label>
+                        <div class="container" *ngIf="usuario.rol ===3 && proyecto.estadoProyecto ==='Pendiente'">
+                            <ion-item>
+                                <ion-button (click)="createObservaciones('Aceptado')" shape="round" fill="outline">
+                                    Aceptar
+                                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button (click)="createObservaciones('Rechazado')" color="danger" shape="round"
+                                            fill="outline">
+                                    Rechazar
+                                    <ion-icon name="close-circle-outline"></ion-icon>
+                                </ion-button>
+                            </ion-item>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="welcome-card" *ngIf="estado == 'Aceptado' && rol ==2 ">
         <ion-card-content>
             <div class="container">
                 <div class="row">
@@ -39,7 +154,8 @@
                                     Aceptar
                                     <ion-icon name="checkmark-circle-outline"></ion-icon>
                                 </ion-button>
-                                <ion-button (click)="rechazarProyecto('Rechazado')"  color="danger" shape="round" fill="outline">
+                                <ion-button (click)="rechazarProyecto('Rechazado')" color="danger" shape="round"
+                                            fill="outline">
                                     Rechazar
                                     <ion-icon name="close-circle-outline"></ion-icon>
                                 </ion-button>
@@ -50,36 +166,34 @@
             </div>
         </ion-card-content>
     </ion-card>
-    <ion-card class="welcome-card" (click)="openWork('12345')">
-        <ion-card-header>
-            <ion-card-title color="primary">Entregable 1
-            </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-            <div class="container">
-                <div class="row">
-                    <div class="col-8">
-                        <ion-label>Fecha de Entrega: 10/01/2019</ion-label>
-                    </div>
-                </div>
-            </div>
-        </ion-card-content>
-    </ion-card>
+    <ng-container *ngIf="estado == 'Aceptado'">
+        <ng-container *ngIf="works.length > 0">
+            <ion-card *ngFor="let work of works" class="welcome-card" (click)="openWork(work.idNotas)">
+                <ion-card-header>
+                    <ion-card-title color="primary">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    {{work.tipo}}
+                                </div>
+                                <div class="col-6 estudiante">
+                                   {{work.estudiante}}
+                                </div>
+                            </div>
+                        </div>
 
-    <ion-card class="welcome-card">
-        <ion-card-header>
-            <ion-card-title color="primary">Entregable 1
-            </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-            <div class="container">
-                <div class="row">
-                    <div class="col-8">
-                        <ion-label>Fecha de Entrega: 10/01/2019</ion-label>
+                    </ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8">
+                                <ion-label>Fecha de Entrega: <br>{{work.fechaLimite | date:'medium'}}</ion-label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </ion-card-content>
-    </ion-card>
-
+                </ion-card-content>
+            </ion-card>
+        </ng-container>
+    </ng-container>
 </ion-content>

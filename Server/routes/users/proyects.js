@@ -15,5 +15,11 @@ api.get('/getProyectById/:id', proyectController.getProyectById);
 api.get('/getTutorProyects/:id', proyectController.getTutorProyects);
 api.put('/updateState', proyectController.updateState);
 api.get('/getById/:id', proyectController.getById);
+api.get('/getUserPendingProyect/:id', proyectController.getUserPendingProyect);
+api.put('/actualizarProyecto', proyectController.actualizarProyecto);
+api.post('/createWork', proyectController.createWork);
+api.get('/getTutorUserProyects/:id', proyectController.getTutorUserProyects);
+api.get('/getTeacherProyectWorks/:id', proyectController.getTeacherProyectWorks);
+api.get('/getUserProyectWorks/:id', proyectController.getUserProyectWorks);
 
 module.exports = api;

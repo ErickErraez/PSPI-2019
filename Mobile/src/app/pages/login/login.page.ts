@@ -8,6 +8,7 @@ import {error} from 'util';
 import {Roles} from '../../models/Roles';
 import {Usuarios} from '../../models/Usuarios';
 import {ProyectService} from '../../services/proyect.service';
+import {HttpHeaders} from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
@@ -23,12 +24,22 @@ export class LoginPage implements OnInit {
     typeInput: any = 'password';
     validateLogin: boolean;
     user: any;
+    tipoInput: any = 'password';
 
     constructor(private service: AuthService, private route: NavController, private toastr: ToastController, private platform: Platform,
                 private userService: UserFormService, private proyectoServices: ProyectService, public loadingController: LoadingController) {
         this.platform.backButton.subscribeWithPriority(1, () => {
             navigator['app'].exitApp();
         });
+    }
+
+    showPassword(item) {
+        if (item === 'password') {
+            this.tipoInput = 'text';
+        }
+        if (item === 'text') {
+            this.tipoInput = 'password';
+        }
     }
 
     ngOnInit() {
@@ -73,7 +84,7 @@ export class LoginPage implements OnInit {
                     });
                     this.validateLogin = false;
                 },
-                error => {
+                err => {
                     localStorage.removeItem('token');
                     localStorage.removeItem('user');
                     localStorage.removeItem('isLoggedin');
@@ -96,6 +107,8 @@ export class LoginPage implements OnInit {
     saveUser() {
         this.user = JSON.parse(localStorage.getItem('user'));
         this.user = this.user.usuario;
+        let objetoP: any = {};
+        objetoP = this.user;
         this.service.get('estudiantes/' + this.user.id).subscribe(response => {
             let objeto: any = {};
             objeto = response;
@@ -112,7 +125,6 @@ export class LoginPage implements OnInit {
             this.userService.getUserByEmail(this.person.correo).subscribe(response2 => {
                 let objeto2: any = {};
                 objeto2 = response2;
-                console.log(objeto2.ok);
                 if (objeto2.ok) {
                     localStorage.setItem('usuario', JSON.stringify(objeto2.datos));
                     this.getPeriodo();
@@ -124,14 +136,14 @@ export class LoginPage implements OnInit {
                         localStorage.setItem('usuario', JSON.stringify(objeto2.datos));
                         this.route.navigateRoot(['']);
                     }, er => {
-                        console.log(er);
+                        alert(JSON.stringify(er));
                     });
                 }
-            }, err => {
-
+            }, erro => {
+                alert(JSON.stringify(erro));
             });
         }, err => {
-
+            alert(JSON.stringify(err));
         });
     }
 

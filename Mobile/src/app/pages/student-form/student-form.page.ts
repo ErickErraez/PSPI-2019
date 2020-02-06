@@ -116,8 +116,6 @@ export class StudentFormPage implements OnInit {
 
     enviarPropuesta() {
         this.proyecto.estado = 'Pendiente';
-        this.proyecto.nivel = this.usuario.nivel;
-        console.log(this.usuario);
         this.userService.createForm(this.proyecto).subscribe(res => {
             this.presentLoadingWithOptions();
             this.presentToast('Registro Guardado con exito');

@@ -13,6 +13,7 @@ export class AuthService {
 
     headers: HttpHeaders = new HttpHeaders({
         'Content-Type': 'application/json',
+        Accept: 'application/json'
     });
 
     constructor(private http: HttpClient, private storage: Storage) {

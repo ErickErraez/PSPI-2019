@@ -29,9 +29,35 @@
             <ion-list>
                 <ion-item>
                     <ion-label>Tema</ion-label>
-                    <ion-select [(ngModel)]="proyecto.idCategoria" value="" okText="Aceptar" cancelText="Cerrar">
+                    <ion-select interface="popover" [(ngModel)]="proyecto.idCategoria" value="" okText="Aceptar"
+                                cancelText="Cerrar">
                         <ion-select-option *ngFor="let item of categorias" value="{{item.idCategorias}}">{{item.nombre}}
                         </ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+            <br>
+            <br>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Nivel</ion-label>
+                    <ion-select interface="popover" [(ngModel)]="proyecto.nivel" okText="Aceptar" cancelText="Cerrar">
+                        <ion-select-option value="1">Primero</ion-select-option>
+                        <ion-select-option value="2">Segundo</ion-select-option>
+                        <ion-select-option value="3">Tercero</ion-select-option>
+                        <ion-select-option value="4">Cuarto</ion-select-option>
+                        <ion-select-option value="5">Quinto</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+            <br>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Paralelo</ion-label>
+                    <ion-select interface="popover" [(ngModel)]="proyecto.paralelo" okText="Aceptar" cancelText="Cerrar">
+                        <ion-select-option value="A">A</ion-select-option>
+                        <ion-select-option value="B">B</ion-select-option>
+                        <ion-select-option value="C">C</ion-select-option>
                     </ion-select>
                 </ion-item>
             </ion-list>

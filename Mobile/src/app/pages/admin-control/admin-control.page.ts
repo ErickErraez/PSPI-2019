@@ -4,6 +4,7 @@ import {ProyectService} from '../../services/proyect.service';
 import {Categorias} from '../../models/Categorias';
 import {AlertController, LoadingController, ModalController} from '@ionic/angular';
 import {ModalPage} from '../modal/modal.page';
+import {Notas} from '../../models/Notas';
 
 @Component({
     selector: 'app-admin-control',
@@ -14,6 +15,8 @@ export class AdminControlPage implements OnInit {
 
     show: any = {};
     categorias: any;
+    fecha: any;
+    nota: Notas = new Notas();
     usuario: any = JSON.parse(localStorage.getItem('usuario'));
     categoria: Categorias = new Categorias();
 
@@ -22,7 +25,6 @@ export class AdminControlPage implements OnInit {
         this.adminService.getConfiguracion().subscribe(res => {
             this.show = res;
             this.show = this.show.datos;
-            console.log(this.show);
         });
     }
 
@@ -60,6 +62,30 @@ export class AdminControlPage implements OnInit {
 
     onSelect(actual): void {
         this.categoria = actual;
+    }
+
+    createWork() {
+        if (this.nota.fechaLimite !== undefined || this.nota.idTipoEvaluacion !== undefined) {
+            this.showLoading();
+            this.nota.fechaLimite = this.nota.fechaLimite.replace('T', ' ');
+            this.nota.fechaLimite = this.nota.fechaLimite.substr(0, 19);
+            this.proyectoServices.getTutorUserProyects(this.usuario.idUsuarios).subscribe(res => {
+                let result: any = res;
+                result = result.datos;
+                for (let i = 0; i < result.length; i++) {
+                    this.nota.idUsuariosProyectos = result[i].idUsuariosProyectos;
+                    this.proyectoServices.createWork(this.nota).subscribe(resp => {
+                        this.presentAlertPrompt('Se ha creado la tarea');
+                    }, err => {
+                        this.presentAlertPrompt('Algo ha salido mal');
+                    });
+                }
+            }, error => {
+                this.presentAlertPrompt('Algo ha salido mal');
+            });
+        } else {
+            this.presentAlertPrompt('Debes llenar todos los campos');
+        }
     }
 
 

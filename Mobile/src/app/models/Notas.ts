@@ -1,10 +1,11 @@
 export class Notas {
     idNotas?: number;
-    fechaLimite: Date;
-    fechaEntrega: Date;
+    fechaLimite: any;
+    fechaEntrega: any;
     nota: number;
     calificador: string;
     idTipoEvaluacion: number;
     idUsuariosProyectos: number;
+    observaciones: string;
 
 }

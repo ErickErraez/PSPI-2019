@@ -16,7 +16,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/student-form/student-form.module').then(m => m.StudentFormPageModule)
     },
     {
-        path: 'student-proyect/:id/:estado',
+        path: 'student-proyect/:id/:estado/:rol',
         loadChildren: () => import('./pages/student-proyect/student-proyect.module').then(m => m.StudentProyectPageModule)
     },
     {

@@ -1,4 +1,14 @@
 ion-icon {
   font-size: 25px;
 }
-.capitalize::first-letter { text-transform: uppercase; }
+
+.capitalize::first-letter {
+  text-transform: uppercase;
+}
+
+
+.estudiante {
+  color: #707070;
+  font-size: 10px;
+  text-align: right;
+}

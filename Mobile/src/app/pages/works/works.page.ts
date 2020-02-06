@@ -13,7 +13,7 @@ export class WorksPage implements OnInit {
 
     constructor(private route: ActivatedRoute, private nav: NavController) {
         this.id = this.route.snapshot.paramMap.get('id');
-        console.log(this.id);
+        alert(this.id);
     }
 
     ngOnInit() {

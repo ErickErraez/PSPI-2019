@@ -36,6 +36,55 @@ let getUserProyect = (req, res) => {
     });
 };
 
+let getTutorUserProyects = (req, res) => {
+    let tabla = 'UsuariosProyectos';
+    let idTeacher = req.params.id;
+    const proyecto = db(tabla).orderBy('Proyectos.created_at', 'desc')
+        .where('Proyectos.tutor', idTeacher).andWhere('PeriodoAcademico.estado', 'Activo')
+        .innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos')
+        .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
+        .select();
+    proyecto.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
+};
+
+
+let getUserPendingProyect = (req, res) => {
+    let tabla = 'UsuariosProyectos';
+    let datos = req.params.id;
+    const proyecto = db(tabla).orderBy('Proyectos.created_at', 'desc').where('idEstudiante', datos).where('Proyectos.estado', 'Pendiente')
+        .innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos')
+        .innerJoin('Categorias', 'Proyectos.idCategoria', 'Categorias.idCategorias')
+        .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
+        .select('UsuariosProyectos.idUsuariosProyectos', 'UsuariosProyectos.idEstudiante', 'UsuariosProyectos.idProyecto',
+            'Proyectos.nombre as nombreProyecto', 'Proyectos.descripcion as descripcionProyecto', 'Proyectos.estado as estadoProyecto',
+            'Proyectos.herramientas as herramientasProyecto', 'Proyectos.nivel as nivelProyecto', 'Proyectos.paralelo as paralelo',
+            'Categorias.nombre as categoria',
+            'PeriodoAcademico.nombre as periodo', 'PeriodoAcademico.estado as estadoPeriodo');
+    proyecto.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
+};
+
 let getTutorProyects = (req, res) => {
     let datos = req.params.id;
     const proyecto = db('Proyectos').orderBy('Proyectos.created_at', 'desc')
@@ -63,13 +112,61 @@ let getTutorProyects = (req, res) => {
             mensaje: `Error del servidor: ${err}`
         })
     });
+};
 
+let getUserProyectWorks = (req, res) => {
+    let tabla = 'Notas';
+    let id = req.params.id;
+    const works = db('Notas').orderBy('Notas.created_at', 'desc')
+        .where('UsuariosProyectos.idEstudiante', id).andWhere('PeriodoAcademico.estado', 'Activo')
+        .innerJoin('TipoEvaluaciones', 'Notas.idTipoEvaluacion', 'TipoEvaluaciones.idTipoEvaluaciones')
+        .innerJoin('UsuariosProyectos', 'Notas.idUsuariosProyectos', 'UsuariosProyectos.idUsuariosProyectos')
+        .innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos')
+        .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
+        .select();
+    works.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
+};
+
+let getTeacherProyectWorks = (req, res) => {
+    let tabla = 'Notas';
+    let id = req.params.id;
+    const works = db(tabla).orderBy('Notas.created_at', 'asc')
+        .andWhere('Proyectos.tutor', id).andWhere('PeriodoAcademico.estado', 'Activo')
+        .innerJoin('TipoEvaluaciones', 'Notas.idTipoEvaluacion', 'TipoEvaluaciones.idTipoEvaluaciones')
+        .innerJoin('UsuariosProyectos', 'Notas.idUsuariosProyectos', 'UsuariosProyectos.idUsuariosProyectos')
+        .innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos')
+        .innerJoin('Usuarios', 'UsuariosProyectos.idEstudiante', 'Usuarios.idUsuarios')
+        .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
+        .select('Notas.*','TipoEvaluaciones.tipo',db.raw(`CONCAT(Usuarios.nombre1, ' ', Usuarios.apellido1) as "estudiante"`),);
+    works.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
 };
 
 let getById = (req, res) => {
     let tabla = 'Proyectos';
     let id = req.params.id;
-    const proyecto = db(tabla).where('idProyectos', id).select().first();
+    const proyecto = db(tabla).where('idProyectos', id).select('Proyectos.idProyectos as idProyecto', 'nombre', 'descripcion', 'herramientas', 'estado', 'nivel', 'paralelo', 'idCategoria', 'idPeriodo', 'observaciones').first();
     proyecto.then(response => {
         return res.status(200).json({
             ok: true,
@@ -82,6 +179,27 @@ let getById = (req, res) => {
             mensaje: `Error del servidor: ${err}`
         })
     });
+};
+
+let actualizarProyecto = (req, res) => {
+    let tabla = 'Proyectos';
+    let datos = req.body;
+    datos.idProyectos = datos.idProyecto;
+    delete datos.idProyecto;
+    const qu = db(tabla).where("idProyectos", datos.idProyectos).update(datos);
+    qu.then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se actualizo correctamente el registro`
+        })
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            datos: datos,
+            mensaje: `Error del servidor: ${error}`
+        })
+    })
 };
 
 let getProyectById = (req, res) => {
@@ -112,6 +230,7 @@ let getProyectById = (req, res) => {
         })
     });
 };
+
 
 let createForm = (req, res) => {
     let tabla = 'Proyectos';
@@ -286,7 +405,7 @@ let getUsersProyects = (req, res) => {
     });
 };
 
-let saveNotes = (req, res) => {
+let createWork = (req, res) => {
     let tabla = 'Notas';
     let datos = req.body;
     const qu = db.insert(datos).into(tabla);
@@ -307,6 +426,8 @@ let saveNotes = (req, res) => {
 let updateState = (req, res) => {
     let tabla = 'Proyectos';
     let datos = req.body;
+    datos.idProyectos = datos.idProyecto;
+    delete datos.idProyecto;
     const qu = db(tabla).where("idProyectos", datos.idProyectos).update(datos);
     qu.then(resultado => {
         return res.status(200).json({
@@ -332,9 +453,14 @@ module.exports = {
     getUsersProyects,
     getUserProyect,
     getProyectos,
-    saveNotes,
     getProyectById,
     getTutorProyects,
     updateState,
-    getById
+    getById,
+    getTutorUserProyects,
+    getUserPendingProyect,
+    actualizarProyecto,
+    createWork,
+    getTeacherProyectWorks,
+    getUserProyectWorks
 };

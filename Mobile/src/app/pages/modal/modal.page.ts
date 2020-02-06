@@ -59,7 +59,7 @@ export class ModalPage implements OnInit {
 
     async presentAlertPrompt() {
         const alert = await this.alertController.create({
-            header: 'Guardado cn Exito',
+            header: 'Guardado con Exito',
             buttons: [{
                 text: 'Ok',
                 handler: (data) => {

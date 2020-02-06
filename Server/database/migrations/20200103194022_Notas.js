@@ -1,12 +1,13 @@
 exports.up = function (knex, Promise) {
     return knex.schema.createTable('Notas', function (table) {
         table.increments('idNotas').unsigned().primary();
-        table.date('fechaLimite').notNullable();
-        table.date('fechaEntrega').notNullable();
-        table.integer('nota').notNullable();
-        table.string('calificador',100).notNullable();
+        table.dateTime('fechaLimite');
+        table.dateTime('fechaEntrega');
+        table.integer('nota');
+        table.string('calificador', 100);
         table.integer('idTipoEvaluacion').unsigned().references('idTipoEvaluaciones').inTable('TipoEvaluaciones');
         table.integer('idUsuariosProyectos').unsigned().references('idUsuariosProyectos').inTable('UsuariosProyectos');
+        table.string('observaciones', 250);
         table.timestamps(true, true);
     });
 };

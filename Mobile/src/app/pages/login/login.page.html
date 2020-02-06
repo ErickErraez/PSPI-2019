@@ -23,15 +23,27 @@
                     </div>
 
                     <div class="wrap-input100 validate-input m-b-10">
-                        <input [(ngModel)]="password" (keyup)="login($event)" class="input100" type="password"
-                               name="pass"
-                               placeholder="Password">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-							<ion-icon name="lock"></ion-icon>
-						</span>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-11">
+                                    <input [(ngModel)]="password" (keyup)="login($event)" class="input100"
+                                           [type]="tipoInput"
+                                           name="pass"
+                                           placeholder="Password">
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+							            <ion-icon name="lock"></ion-icon>
+                                    </span>
+                                </div>
+                                <div class="col-1">
+                                    <ion-icon *ngIf="tipoInput == 'password'" (click)="showPassword(tipoInput)"
+                                              class="input1001 ion-icon1" name="eye"></ion-icon>
+                                    <ion-icon *ngIf="tipoInput == 'text'" (click)="showPassword(tipoInput)"
+                                              class="input1001 ion-icon1" name="eye-off"></ion-icon>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                     <div class="container-login100-form-btn p-t-10">
                         <button class="login100-form-btn" (click)="login(13)">
                             Login
