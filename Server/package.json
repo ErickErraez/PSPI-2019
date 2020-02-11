@@ -2,8 +2,7 @@
   "name": "Server",
   "description": "Server",
   "scripts": {
-    "start": "node index.js",
-    "serve": "nodemon index.js"
+    "start": "node index.js"
   },
   "main": "index.js",
   "author": "Erick Erraez",
