@@ -226,6 +226,7 @@ export class StudentProyectPage implements OnInit {
     }
 
     getWorks() {
+        alert(JSON.stringify(this.proyecto));
         if (this.usuario.rol == 2) {
             this.proyectoServices.getUserProyectWorks(this.usuario.idUsuarios).subscribe(res => {
                 const result: any = res;

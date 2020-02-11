@@ -58,35 +58,35 @@
 <ion-content *ngIf="usuario.rol === 3">
     <ion-card class="welcome-card">
         <ion-card-header>
-            <ion-card-title color="primary">Crear Tareas
+            <ion-card-title color="primary">Tareas
                 <br><br>
-                <ion-list>
+                <ion-icon (click)="showNew('new')" color="primary" name="add-circle-outline"></ion-icon>
+                <ion-icon color="success" name="create"></ion-icon>
+                <ion-icon color="danger" name="trash"></ion-icon>
+                <div *ngIf="stateWork == 'new'">
+                    <ion-list>
+                        <ion-item>
+                            <ion-label>Tipo de Evaluacion</ion-label>
+                            <ion-select [(ngModel)]="nota.idTipoEvaluacion" interface="popover" okText="Aceptar"
+                                        cancelText="Cerrar">
+                                <ion-select-option value="1">Entregable 1</ion-select-option>
+                                <ion-select-option value="2">Entregable 2</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
+                    <br>
                     <ion-item>
-                        <ion-label>Tipo de Evaluacion</ion-label>
-                        <ion-select [(ngModel)]="nota.idTipoEvaluacion" interface="popover" okText="Aceptar"
-                                    cancelText="Cerrar">
-                            <ion-select-option value="1">Entregable 1</ion-select-option>
-                            <ion-select-option value="2">Entregable 2</ion-select-option>
-                        </ion-select>
+                        <ion-label>Fecha Limite</ion-label>
+                        <ion-datetime [(ngModel)]="nota.fechaLimite" displayFormat="D MMM YYYY H:mm" min="2017"
+                                      value="2005-06-17T11:06Z"></ion-datetime>
                     </ion-item>
-                </ion-list>
-                <br>
-                <ion-item>
-                    <ion-label>Fecha Limite</ion-label>
-                    <ion-datetime [(ngModel)]="nota.fechaLimite" displayFormat="D MMM YYYY H:mm" min="2017"
-                                  value="2005-06-17T11:06Z"></ion-datetime>
-                </ion-item>
+                    <ion-button shape="round" fill="outline" (click)="createWork()">Crear
+                    </ion-button>
+                    <ion-button color="danger" shape="round" fill="outline" (click)="stateWork = ''">Cancelar
+                    </ion-button>
+                </div>
 
-                <ion-button shape="round" fill="outline" (click)="createWork()">Crear
-                </ion-button>
             </ion-card-title>
-        </ion-card-header>
-    </ion-card>
-
-    <ion-card>
-        <ion-card-header>
-            <ion-card-title color="primary">Editar Temas</ion-card-title>
-
         </ion-card-header>
     </ion-card>
 </ion-content>
