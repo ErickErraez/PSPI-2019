@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
         table.increments('idPeriodoAcademico').unsigned().primary();
         table.string('nombre',50).notNullable();
         table.string('estado',50).notNullable();
-        table.timestamps(true, true);
+        table.timestamps();
     });
 };
 

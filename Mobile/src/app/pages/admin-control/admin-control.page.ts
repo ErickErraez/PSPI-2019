@@ -15,7 +15,9 @@ export class AdminControlPage implements OnInit {
 
     show: any = {};
     categorias: any;
+    stateWork: any = '';
     fecha: any;
+    works: any = [];
     nota: Notas = new Notas();
     usuario: any = JSON.parse(localStorage.getItem('usuario'));
     categoria: Categorias = new Categorias();
@@ -53,6 +55,10 @@ export class AdminControlPage implements OnInit {
         return await modal.present();
     }
 
+    showNew(state) {
+        this.stateWork = state;
+    }
+
     estaSeleccionado(porVerificar): boolean {
         if (this.categoria == null) {
             return false;
@@ -87,7 +93,6 @@ export class AdminControlPage implements OnInit {
             this.presentAlertPrompt('Debes llenar todos los campos');
         }
     }
-
 
     changeStatus(variable) {
         this.show.formularioSolicitud = variable;

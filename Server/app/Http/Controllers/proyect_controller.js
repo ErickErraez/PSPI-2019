@@ -148,7 +148,7 @@ let getTeacherProyectWorks = (req, res) => {
         .innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos')
         .innerJoin('Usuarios', 'UsuariosProyectos.idEstudiante', 'Usuarios.idUsuarios')
         .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
-        .select('Notas.*','TipoEvaluaciones.tipo',db.raw(`CONCAT(Usuarios.nombre1, ' ', Usuarios.apellido1) as "estudiante"`),);
+        .select('Notas.*', 'Usuarios.idUsuarios','TipoEvaluaciones.tipo',db.raw(`CONCAT(Usuarios.nombre1, ' ', Usuarios.apellido1) as "estudiante"`),);
     works.then(response => {
         return res.status(200).json({
             ok: true,

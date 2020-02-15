@@ -74,7 +74,7 @@ let loginUser = (req, res) => {
 
 let insertUsers = (req, res) => {
     let tabla = 'Usuarios';
-    let datos = req.body.estudiantes;
+    let datos = req.body;
     db(tabla).insert(datos).then(resultado => {
         return res.status(200).json({
             ok: true,
@@ -144,7 +144,8 @@ let allUsers = (req, res) => {
 
 let getUserByEmail = (req, res) => {
     let datos = req.params.email;
-    const proyecto = db('Usuarios').where('correo', datos).select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'nivel', 'rol');
+    console.log(datos);
+    const proyecto = db('Usuarios').where('correo', datos).select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'nivel', 'rol').orderBy('Nivel', 'desc');
     proyecto.then(response => {
         if (response.length == 0) {
             return res.status(200).json({
@@ -152,7 +153,7 @@ let getUserByEmail = (req, res) => {
                 mensaje: 'No Existe'
             })
         }
-        if (response.length == 1) {
+        if (response.length > 0) {
             return res.status(200).json({
                 ok: true,
                 mensaje: 'Encontrado con Exito',
@@ -193,6 +194,11 @@ let modifyUser = (req, res) => {
 
     });
 };
+let welcome = (req, res) => {
+    return res.status(200).json({
+        action: 'Servidor Funcionando'
+    })
+};
 
 module.exports = {
     //CRUD USERS
@@ -202,5 +208,6 @@ module.exports = {
     createUser,
     getUserByEmail,
     insertUsers,
-    modifyUser
+    modifyUser,
+    welcome
 };

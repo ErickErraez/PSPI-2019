@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavController, NavParams} from '@ionic/angular';
 import {ProyectService} from '../../services/proyect.service';
-import {Proyectos} from '../../models/Proyectos';
 
 @Component({
     selector: 'app-tab2',

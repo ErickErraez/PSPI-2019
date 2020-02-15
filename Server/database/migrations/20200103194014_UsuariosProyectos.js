@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
         table.increments('idUsuariosProyectos').unsigned().primary();
         table.integer('idEstudiante').unsigned().references('idUsuarios').inTable('Usuarios');
         table.integer('idProyecto').unsigned().references('idProyectos').inTable('Proyectos');
-        table.timestamps(true, true);
+        table.timestamps();
     });
 };
 

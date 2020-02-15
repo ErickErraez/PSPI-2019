@@ -34,14 +34,14 @@ export class StudentProyectPage implements OnInit {
         this.getCategories();
         this.getPeriodo();
         this.getWorks();
-        if (this.proyectos.length !== 0) {
+        if (this.proyectos.length !== 0 && this.estado != 'Pendiente') {
             this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
             if (this.usuario.rol == 3) {
                 this.findById(this.proyecto.idProyectos);
             }
             if (this.usuario.rol == 2) {
-                console.log(this.proyectos);
-                this.proyecto = this.proyectos.find(proyect => proyect.idProyecto === parseInt(this.id));
+                this.proyecto = this.proyectos.find(proyect => proyect.idUsuariosProyectos === parseInt(this.id));
+
                 if (this.estado == 'Aceptado') {
                     this.findById(this.proyecto.idProyecto);
                 } else {
@@ -50,7 +50,7 @@ export class StudentProyectPage implements OnInit {
             }
         } else {
             if (this.usuario.rol == 2) {
-                this.proyecto = this.proyectosPending.find(proyect => proyect.idProyecto === parseInt(this.id));
+                this.proyecto = this.proyectosPending.find(proyect => proyect.idUsuariosProyectos === parseInt(this.id));
                 this.getProyecto(this.proyecto.idProyecto);
             }
         }
@@ -231,7 +231,6 @@ export class StudentProyectPage implements OnInit {
                 const result: any = res;
                 this.works = result.datos;
             }, err => {
-                alert(JSON.stringify(err));
             });
 
         } else if (this.usuario.rol == 3) {
@@ -239,7 +238,6 @@ export class StudentProyectPage implements OnInit {
                 const result: any = res;
                 this.works = result.datos;
             }, err => {
-                alert(JSON.stringify(err));
             });
         }
     }

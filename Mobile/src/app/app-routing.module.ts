@@ -42,7 +42,11 @@ const routes: Routes = [
     {
         path: 'works/:id',
         loadChildren: () => import('./pages/works/works.module').then(m => m.WorksPageModule)
-    }
+    },  {
+    path: 'modal-tareas',
+    loadChildren: () => import('./pages/modal-tareas/modal-tareas.module').then( m => m.ModalTareasPageModule)
+  }
+
 
 ];
 

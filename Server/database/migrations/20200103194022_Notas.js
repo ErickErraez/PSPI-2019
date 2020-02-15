@@ -8,7 +8,7 @@ exports.up = function (knex, Promise) {
         table.integer('idTipoEvaluacion').unsigned().references('idTipoEvaluaciones').inTable('TipoEvaluaciones');
         table.integer('idUsuariosProyectos').unsigned().references('idUsuariosProyectos').inTable('UsuariosProyectos');
         table.string('observaciones', 250);
-        table.timestamps(true, true);
+        table.timestamps();
     });
 };
 
