@@ -4,6 +4,7 @@ export class Proyectos {
   descripcion: string;
   herramientas: string;
   nivel: string;
+  paralelo: string;
   estado: string;
   tutor: number;
   juez1: number;

@@ -21,40 +21,16 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">LISTADO DE PROYECTOS INTEGRADORES PENDIENTES</h6>
+            <h6 class="m-0 font-weight-bold text-primary">LISTADO DE PROYECTOS INTEGRADORES</h6>
           </div>
 
 
         </div>
-<div class="container col-12 " *ngIf="show && usuario.rol == 3">
-          <div class="card-deck">
-            <div class="card" *ngFor="let proyecto of proyectos"
-                 (click)="abrirEnlace(proyecto.idProyectos,proyecto.estadoProyecto)">
-              <img src="/assets/images/proyecto.jpg" style="width: 100px;" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">{{proyecto.nombreProyecto}}</h5>
-                <label>Tutor de Proyecto: {{proyecto.tutor}}</label>
-                <br>
-                <label>Nivel: {{proyecto.nivelProyecto}} Semestre</label>
-                <br>
-                <label>Estado: {{proyecto.estadoProyecto}}</label>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Periodo: {{proyecto.periodo | lowercase }}</small>
-              </div>
-            </div>
-          </div>
+        <div class="container"  *ngIf="show && usuario.rol == 3">
 
-
-
-        <!-- /.container-fluid -->
-
-
-      </div>
-        <div class="container col-12 " *ngIf="show && usuario.rol == 2">
-          <div class="card-deck">
-            <div class="card" *ngFor="let proyecto of proyectos"
-                 (click)="abrirEnlace(proyecto.idUsuariosProyectos,proyecto.estadoProyecto)">
+          <div class="card-deck" *ngFor="let proyecto of proyectos">
+            <div class="card" *ngIf="proyecto.estadoPeriodo == 'Activo'"
+                 (click)="abrirEnlace(proyecto.idProyectos,proyecto.estadoProyecto,usuario.rol)">
               <img src="/assets/images/proyecto.jpg" style="width: 100px;" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">{{proyecto.nombreProyecto}}</h5>
@@ -76,14 +52,59 @@
 
 
         </div>
-      <!-- End of Main Content -->
+        <div class="container">
+        <div class="container col-12 "*ngIf="usuario.rol == 2">
+          <div class="card-deck" *ngIf="showPendinga">
+            <div class="card" *ngFor="let proyecto of pendings"
+                 (click)="abrirEnlace(proyecto.idUsuariosProyectos,proyecto.estadoProyecto,usuario.rol)">
+              <img src="/assets/images/proyecto.jpg" style="width: 100px;" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{proyecto.nombreProyecto}}</h5>
+                <label>Tutor de Proyecto: {{proyecto.tutor}}</label>
+                <br>
+                <label>Nivel: {{proyecto.nivelProyecto}} Semestre</label>
+                <br>
+                <label>Estado: {{proyecto.estadoProyecto}}</label>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Periodo: {{proyecto.periodo | lowercase }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
 
+          <div class="container col-12 " *ngIf="show ">
+            <div class="card-deck">
+              <div class="card" *ngFor="let proyecto of proyectos"
+                   (click)="abrirEnlace(proyecto.idUsuariosProyectos,proyecto.estadoProyecto,usuario.rol)">
+                <img src="/assets/images/proyecto.jpg" style="width: 100px;" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{proyecto.nombreProyecto}}</h5>
+                  <label>Tutor de Proyecto: {{proyecto.tutor}}</label>
+                  <br>
+                  <label>Nivel: {{proyecto.nivelProyecto}} Semestre</label>
+                  <br>
+                  <label>Estado: {{proyecto.estadoProyecto}}</label>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">Periodo: {{proyecto.periodo | lowercase }}</small>
+                </div>
+              </div>
+            </div>
+
+
+          <!-- /.container-fluid -->
+
+
+        </div>
+        <!-- End of Main Content -->
+
+
+      </div>
+      <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
+    <!-- End of Page Wrapper -->
   </div>
 </div>
 

@@ -21,7 +21,7 @@ const routes: Routes = [{
           .then(m => m.StudentFormModule)
     },
     {
-      path: 'student/proyect',
+      path: 'student/proyect/:id/:estado/:rol',
       loadChildren: () =>
         import('./student-proyect/student-proyect.module')
           .then(m => m.StudentProyectModule)

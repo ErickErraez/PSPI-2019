@@ -62,16 +62,49 @@
                     </td>
 
                     <td scope="col">
-                      <select class="browser-default custom-select" [(ngModel)]="proyectos.idCategoria">
-                        <option value="" disabled selected>SELECCIONE UN TEMA</option>
+                      <select class="browser-default custom-select" class="inp"[(ngModel)]="proyectos.idCategoria">
+
+                        <option value="selected"  class="label"  disabled>SELECCIONE UN TEMA</option>
                         <option *ngFor="let categoria of Arraycategorias"
                                 value="{{categoria.idCategorias}}">{{categoria.nombre}}</option>
+                        <span class="border"></span>
 
 
                       </select>
 
                     </td>
                   </tr>
+                  <tr>
+                    <td scope="col">
+                      <select class="browser-default custom-select" class="inp"[(ngModel)]="proyectos.nivel">
+                        <option value="selected"  class="label"  disabled>NIVEL</option>
+                        <option  value="1">PRIMERO </option>
+                        <option  value="2">SEGUNDO</option>
+                        <option  value="3">TERCERO </option>
+                        <option  value="4">CUARTO </option>
+                        <option  value="5">QUINTO </option>
+                        <span class="border"></span>
+
+
+                      </select>
+
+                    </td>
+                    <td scope="col">
+                      <select class="browser-default custom-select" class="inp"[(ngModel)]="proyectos.paralelo">
+                        <option value="selected"  class="label"  disabled>PARALELO</option>
+                        <option  value="A">A </option>
+                        <option  value="B">B</option>
+                        <option  value="C">C </option>
+
+                        <span class="border"></span>
+
+
+                      </select>
+
+                    </td>
+                  </tr>
+
+
 
 
                   </tbody>
@@ -83,7 +116,8 @@
                   </div>
                   <tbody>
                   <tr>
-                    <td> {{user.usuario.name}} {{user.usuario.email}}</td>
+                    <td> {{user.usuario.name}}
+                    <tr>{{user.usuario.email}}</tr></td>
                     <td width="70">
                       <button (click)="presentarAlerta()" color="primary"
                               name="add-circle-outline" class="btn btn-primary">+
@@ -91,7 +125,9 @@
                     </td>
                   </tr>
                   <tr *ngFor="let item of miembros;">
-                    <td>{{item.nombre1}}&nbsp;{{item.apellido1}} {{item.correo}}</td>
+                    <td>{{item.nombre1}}&nbsp;{{item.apellido1}}
+                    <tr>{{item.correo}}</tr></td>
+
                     <td width="70">
                       <button (click)="quitar(item)" color="danger" name="trash" class="btn btn-danger">-</button>
                     </td>
@@ -126,7 +162,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">INTEGRANTE</h5>
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

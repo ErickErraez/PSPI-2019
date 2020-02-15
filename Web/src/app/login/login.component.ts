@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {Usuarios} from "../../../../Mobile/src/app/models/Usuarios";
 import {ProyectoServiceService} from "../services/proyecto-service.service";
+import {Usuarios} from "../models/Usuarios";
 
 
 @Component({

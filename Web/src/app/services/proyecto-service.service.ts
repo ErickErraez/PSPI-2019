@@ -17,7 +17,23 @@ export class ProyectoServiceService {
   getTutorProyects(id) {
     return this.http.get(this.url + 'getTutorProyects/' + id);
   }
+  getUserPendingProyect(id) {
+    return this.http.get(this.url + 'getUserPendingProyect/' + id);
+  }
+  actualizarProyecto(proyecto) {
+    return this.http.put(this.url + 'actualizarProyecto', proyecto);
+  }
 
+  createWork(work) {
+    return this.http.post(this.url + 'createWork', work);
+  }
+  getUserProyectWorks(id) {
+    return this.http.get(this.url + 'getUserProyectWorks/' + id);
+  }
+
+  getTeacherProyectWorks(id) {
+    return this.http.get(this.url + 'getTeacherProyectWorks/' + id);
+  }
   getProyectosByNivel(nivel) {
     return this.http.get(this.url + 'getProyectos/' + nivel);
   }
@@ -30,6 +46,11 @@ export class ProyectoServiceService {
     return this.http.get(this.url + 'getPeriodo');
 
   }
+
+  getById(id) {
+    return this.http.get(this.url + 'getById/' + id);
+  }
+
   createUserProyects(usuariosProyecto) {
     return this.http.post(this.url + 'createUserProyect', usuariosProyecto);
   }

@@ -17,4 +17,7 @@ user: any = JSON.parse(localStorage.getItem('user'));
     this.route.navigate(['login']);
 
   }
+getUsuario(){
+    this
+}
 }

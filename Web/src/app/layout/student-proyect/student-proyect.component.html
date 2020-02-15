@@ -1,6 +1,14 @@
-<body id="page-top" style="padding-left: 10%;padding-right: 10%;">
 
-<!-- Page Wrapper -->
+<body id="page-top" style="padding-left: 10%;padding-right: 10%;">
+<div class="card-header text-white" style="border-bottom-width: 5px;background-color: rgb(43, 76, 226);">
+  <label class="m-0 font-weight-bold" *ngIf="estado === 'Pendiente' || estado === 'Rechazado' && rol == 2">{{proyecto.nombre}} </label>
+  <label class="m-0 font-weight-bold" *ngIf="estado === 'Pendiente'  || estado === 'Aceptado' && rol == 3">{{proyecto.nombreProyecto}} </label>
+  <label class="m-0 font-weight-bold" *ngIf="estado === 'Aceptado' && rol == 2">{{proyecto.nombreProyecto}} </label>
+</div>
+
+
+
+
 <div id="wrapper">
 
   <!-- Sidebar -->
@@ -15,10 +23,9 @@
 
       <div class="row">
         <div class="col-12 ">
-          <div class="card">
-            <div class="card-header text-white" style="border-bottom-width: 5px;background-color: rgb(43, 76, 226);">
-              <h6 class="m-0 font-weight-bold">INFORMACIÓN DEL PROYECTO</h6>
-            </div>
+          <div class="card" *ngIf="estado === 'Pendiente'|| estado === 'Rechazado'">
+
+
             <div class="card-body ">
               <div class="row ">
                 <table class="table table-bordered" id="tableColor">
@@ -28,8 +35,9 @@
                     <td scope="col">
 
                       <label class="inp">
-                        <input type="text" id="name" placeholder="&nbsp;"  disabled>
-                        <span class="label">{{proyecto.nombreProyecto}}</span>
+
+                        <input type="text" id="name" placeholder="&nbsp;" [(ngModel)]="proyecto.estado"  disabled>
+                        <span class="label">ESTADO DEL PROYECTO</span>
                         <span class="border"></span>
                       </label>
 
@@ -37,8 +45,8 @@
                     <td scope="col">
 
                       <label class="inp">
-                        <input type="text" id="desc" placeholder="&nbsp;" disabled>
-                        <span class="label">Tutor de Proyecto: {{proyecto.tutor}}</span>
+                        <input type="text" id="desc" placeholder="&nbsp;" [(ngModel)]="proyecto.nombre">
+                        <span class="label">Nombre del Proyecto {{proyecto.tutor}}</span>
                         <span class="border"></span>
                       </label>
 
@@ -54,15 +62,69 @@
                     <td scope="col">
 
                       <label class="inp">
-                        <input type="text" id="herr" placeholder="&nbsp;" disabled >
-                        <span class="label">Periodo: {{proyecto.periodo}}</span>
+                        <input type="text" id="herr" placeholder="&nbsp;" [(ngModel)]="proyecto.descripcion" >
+                        <span class="label">Descripcion del Proyecto</span>
+                        <span class="border"></span>
+                      </label>
+
+                    </td>
+                    <td scope="col">
+
+                      <label class="inp">
+                        <input type="text" id="herra" placeholder="&nbsp;"[(ngModel)]="proyecto.herramientas">
+                        <span class="label">Herramientas a Utilizar</span>
                         <span class="border"></span>
                       </label>
 
                     </td>
 
 
+
                   </tr>
+                  <tr>
+                    <td scope="col">
+                      <select class="browser-default custom-select" class="inp"[(ngModel)]="proyecto.idCategoria">
+                        <option class="label"  disabled selected>SELECCIONE UN TEMA</option>
+                        <option *ngFor="let item of categorias"
+                                value="{{item.idCategorias}}">{{item.nombre}}</option>
+                        <span class="border"></span>
+
+
+                      </select>
+
+                    </td>
+                    <td scope="col">
+                      <select class="browser-default custom-select" class="inp"[(ngModel)]="proyecto.nivel">
+                        <option class="label"  disabled selected>SELECCIONE UN TEMA</option>
+                        <option  value="1">PRIMERO </option>
+                        <option  value="2">SEGUNDO</option>
+                        <option  value="3">PRIMERO </option>
+                        <option  value="4">PRIMERO </option>
+                        <option  value="5">PRIMERO </option>
+                        <span class="border"></span>
+
+
+                      </select>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td scope="col">
+                      <select class="browser-default custom-select" class="inp"[(ngModel)]="proyecto.paralelo">
+                        <option class="label"  disabled selected>SELECCIONE UN TEMA</option>
+                        <option  value="A">A </option>
+                        <option  value="B">B</option>
+                        <option  value="C">C </option>
+
+                        <span class="border"></span>
+
+
+                      </select>
+
+                    </td>
+                  </tr>
+                  <br>
+
 
 
                   </tbody>
@@ -86,7 +148,7 @@
 
 </div>
 
-
+<button class="btn btn-secondary" (click)="actualizar()">ACTUALIZAR</button>
 </body>
 
 

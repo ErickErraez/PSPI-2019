@@ -4,7 +4,9 @@ import {ProyectoServiceService} from "../../services/proyecto-service.service";
 import {Proyectos} from '../../models/Proyectos';
 import {ToastrService} from 'ngx-toastr';
 import Swal from 'sweetalert2';
-import {UsuariosProyecto} from "../../../../../Mobile/src/app/models/Usuarios-Proyecto";
+import {usuariosProyectos} from "../../models/UsuariosProyectos";
+
+
 
 
 @Component({
@@ -23,10 +25,14 @@ export class StudentFormComponent implements OnInit {
   usuario: any = JSON.parse(localStorage.getItem('usuario'));
   period: any;
   proyectos: Proyectos = new Proyectos();
-  usuarioProyecto: UsuariosProyecto = new UsuariosProyecto();
+  usuarioProyecto: usuariosProyectos = new usuariosProyectos();
   miembros = [];
 
+
   constructor(private server: UserFormService, private proyectService: ProyectoServiceService, private toastr: ToastrService) {
+ this.proyectos.paralelo="selected";
+ this.proyectos.nivel="selected";
+    this.Arraycategorias[this.nombre]="selected"
   }
 
   ngOnInit() {
@@ -118,24 +124,60 @@ export class StudentFormComponent implements OnInit {
     });
 
   }
+  validarValores(): any {
+    if (this.proyectos.nombre === null || this.proyectos.herramientas === null || this.proyectos.descripcion === null) {
+      console.log('estan vacios');
+
+    }
+  }
+  datosErroneos() {
+    if (this.proyectos.nombre === null || this.proyectos.herramientas === null || this.proyectos.descripcion === null) {
+      alert('datos vacios');
+
+      return false;
+
+    }
+    return true;
+  }
 
 
   EnviarPropuesta() {
-    console.log(this.usuario);
-    this.proyectos.estado = 'pendiente';
 
-    this.proyectos.nivel = this.usuario.nivel;
-    console.log(this.proyectos);
-    console.log(this.usuario);
-    this.server.postForm(this.proyectos).subscribe(r => {
-      let proyectFinal: any = r;
-      proyectFinal = proyectFinal.proyecto;
-      this.createUserProyect(proyectFinal.idProyectos);
-      this.toastr.success('Bien ¡', 'Tu Propuesta se ha envíado correctamente');
+if(this.proyectos.nombre === null ){
+  console.log(this.proyectos.nombre)
+  alert('falta');
+}
+    if(this.proyectos.descripcion === null ){
+      console.log(this.proyectos.descripcion)
+      alert('falta');
+    }
+    if(this.proyectos.herramientas === null ){
+      console.log(this.proyectos.herramientas)
+      alert('falta');
+    }
+  console.log(this.usuario);
+  this.proyectos.estado = 'Pendiente';
 
-    }, error => {
-      this.toastr.error('Error!', 'No se ha envíado correctamente!');
-    })
+
+  //this.proyectos.nivel = this.usuario.nivel;
+  console.log(this.proyectos);
+  console.log(this.usuario);
+  this.server.postForm(this.proyectos).subscribe(r => {
+    let proyectFinal: any = r;
+    proyectFinal = proyectFinal.proyecto;
+    this.createUserProyect(proyectFinal.idProyectos);
+
+    this.toastr.success('Tu Propuesta se ha envíado correctamente', 'Bien..¡¡');
+
+  }, error => {
+    this.toastr.error('No se ha envíado tu propuesta', 'Error');
+
+  })
+
+
+
+
+
   }
 
   createUserProyect(proyecto) {
