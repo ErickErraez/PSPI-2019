@@ -145,7 +145,7 @@ let allUsers = (req, res) => {
 let getUserByEmail = (req, res) => {
     let datos = req.params.email;
     console.log(datos);
-    const proyecto = db('Usuarios').where('correo', datos).select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'nivel', 'rol').orderBy('Nivel','desc');
+    const proyecto = db('Usuarios').where('correo', datos).select('idUsuarios', 'nombre1', 'apellido1', 'cedula', 'correo', 'nivel', 'rol').orderBy('Nivel', 'desc');
     proyecto.then(response => {
         if (response.length == 0) {
             return res.status(200).json({
@@ -194,6 +194,11 @@ let modifyUser = (req, res) => {
 
     });
 };
+let welcome = (req, res) => {
+    return res.status(200).json({
+        action: 'Servidor Funcionando'
+    })
+};
 
 module.exports = {
     //CRUD USERS
@@ -203,5 +208,6 @@ module.exports = {
     createUser,
     getUserByEmail,
     insertUsers,
-    modifyUser
+    modifyUser,
+    welcome
 };

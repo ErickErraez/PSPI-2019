@@ -4,10 +4,10 @@ exports.seed = function (knex, Promise) {
         .then(function () {
             // Inserts seed entries
             return knex('Roles').insert([
-                {nombre: 'Administrador'},
-                {nombre: 'Estudiante'},
-                {nombre: 'Tutor'},
-                {nombre: 'Jurado'}
+                {idRoles: 1, nombre: 'Administrador'},
+                {idRoles: 2, nombre: 'Estudiante'},
+                {idRoles: 3, nombre: 'Tutor'},
+                {idRoles: 4, nombre: 'Jurado'}
             ]);
         });
 };

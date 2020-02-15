@@ -3,11 +3,11 @@
 const databaseData = {
     client: process.env.CLIENT || 'mysql',
     connection: process.env.CONNECTION_DB || {
-        host: 'localhost',
+        host: 'us-cdbr-iron-east-04.cleardb.net',
         port: '3306',
-        user: 'prueba',
-        password: '123456789',
-        database: 'PSPI'
+        user: 'b0562ba05a45d8',
+        password: '75b422ce',
+        database: 'heroku_068f349305bcc12'
     }
 };
 //configurar knex

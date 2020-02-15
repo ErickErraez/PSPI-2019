@@ -8,7 +8,7 @@ exports.up = function (knex, Promise) {
         table.string('password');
         table.string('nivel', 10);
         table.integer('rol').unsigned().references('idRoles').inTable('Roles');
-        table.timestamps(true, true);
+        table.timestamps();
     });
 };
 

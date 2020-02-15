@@ -15,7 +15,7 @@ exports.up = function(knex, Promise) {
         table.integer('idPeriodo').unsigned().references('idPeriodoAcademico').inTable('PeriodoAcademico');
         table.integer('idCategoria').unsigned().references('idCategorias').inTable('Categorias');
         table.string('observaciones',250);
-        table.timestamps(true, true);
+        table.timestamps();
     });
 };
 

@@ -4,7 +4,7 @@ exports.seed = function (knex, Promise) {
         .then(function () {
             // Inserts seed entries
             return knex('Configuraciones').insert([
-                {formularioSolicitud: false},
+                {formularioSolicitud: true},
             ]);
         });
 };
