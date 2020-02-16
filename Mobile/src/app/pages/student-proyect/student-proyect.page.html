@@ -80,6 +80,8 @@
             </ion-button>
         </ion-card-content>
     </ion-card>
+
+<!---SEGUNDO-->
     <ion-card class="welcome-card" *ngIf="estado == 'Pendiente' || estado == 'Aceptado'">
         <ion-card-content *ngIf="rol == 3">
             <div class="container">
@@ -123,6 +125,9 @@
             </div>
         </ion-card-content>
     </ion-card>
+
+
+
     <ion-card class="welcome-card" *ngIf="estado == 'Aceptado' && rol ==2 ">
         <ion-card-content>
             <div class="container">
@@ -166,7 +171,10 @@
             </div>
         </ion-card-content>
     </ion-card>
-    <ng-container *ngIf="estado == 'Aceptado'">
+
+
+
+    <ng-container *ngIf="estado == 'Aceptado' && rol==3">
         <ng-container *ngIf="works.length > 0">
             <ng-container *ngFor="let work of works">
                 <ng-container *ngFor="let item of integrantes; let i = index;">
@@ -203,6 +211,39 @@
                     </ng-container>
                 </ng-container>
             </ng-container>
+        </ng-container>
+    </ng-container>
+
+
+
+    <ng-container *ngIf="estado == 'Aceptado' && rol == 2">
+        <ng-container *ngIf="works.length > 0">
+            <ion-card *ngFor="let work of works" class="welcome-card" (click)="openWork(work.idNotas)">
+                <ion-card-header>
+                    <ion-card-title color="primary">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    {{work.tipo}}
+                                </div>
+                                <div class="col-6 estudiante">
+                                    {{work.estudiante}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8">
+                                <ion-label>Fecha de Entrega: <br>{{work.fechaLimite | date:'medium'}}</ion-label>
+                            </div>
+                        </div>
+                    </div>
+                </ion-card-content>
+            </ion-card>
         </ng-container>
     </ng-container>
 </ion-content>
