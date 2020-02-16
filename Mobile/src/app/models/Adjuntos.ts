@@ -3,4 +3,5 @@ export class Adjuntos {
     nombre: string;
     tipo: string;
     contenido: string;
+    idNotas: number;
 }

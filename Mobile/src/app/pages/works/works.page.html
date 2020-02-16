@@ -3,12 +3,12 @@
         <ion-buttons slot="start">
             <ion-back-button defaulHref="/app-student-proyect"></ion-back-button>
         </ion-buttons>
-        <ion-title>Entregable 1</ion-title>
+        <ion-title>{{nota.tipo}}</ion-title>
         <ion-title></ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="rol == 2">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -16,21 +16,68 @@
                     <ion-card-header>
                         <ion-card-title class="text-center" color="primary">NOTA:
                         </ion-card-title>
-                        <ion-avatar class="login100-form-avatar text-center">
-                            <img src="/assets/images/avatar.jpg">
-                        </ion-avatar>
+                        <br>
+                        <ion-label *ngIf="nota.nota == undefined" class="circulo fondo">Sin calificar</ion-label>
+                        <ion-label *ngIf="nota.nota != undefined" [ngClass]=" typeClass() ? 'good' : 'bad'"
+                                   class="circulo"><h2>{{nota.nota}}</h2></ion-label>
                     </ion-card-header>
                     <ion-card-content>
                         <ion-item>
                             <ion-label position="floating">Link de Github</ion-label>
-                            <ion-input></ion-input>
+                            <ion-input [(ngModel)]="nota.link"></ion-input>
                         </ion-item>
                         <br><br>
                         <ion-item class="fileUpload">
-                            <input type="file" class="fileElem" multiple>
-                            <label class="fileSelect">Subir</label>
+                            <input (change)="CodificarArchivo($event)" type="file" class="fileElem" multiple>
+                            <label class="fileSelect">Cargar Archivos</label>
                         </ion-item>
+                        <br><br>
+                        <ion-button shape="round" fill="outline" (click)="enviarTarea()">Enviar Tarea</ion-button>
                     </ion-card-content>
+                    <ion-item>
+                        <ion-label position="floating">Observaciones</ion-label>
+                        <ion-textarea rows="4" cols="20"></ion-textarea>
+                    </ion-item>
+                </ion-card>
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+<ion-content *ngIf="rol == 3">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ion-card class="welcome-card">
+                    <ion-card-header>
+
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-item>
+                            <ion-label position="floating">Link de Github</ion-label>
+                            <ion-input disabled="true" [(ngModel)]="nota.link"></ion-input>
+                        </ion-item>
+                        <br><br>
+                        <div class="container">
+                            <div class="row">
+                                <div *ngFor="let item of adjuntos" class="col-6">
+                                    <ion-avatar>
+                                        <img src="assets/images/adjunto.png"
+                                             (click)="download(item.nombre, item.tipo,item.contenido)">
+
+
+                                    </ion-avatar>
+                                    <ion-label>{{item.nombre}}</ion-label>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <ion-button shape="round" fill="outline" (click)="calificar()">Calificar</ion-button>
+                    </ion-card-content>
+                    <ion-item>
+                        <ion-label position="floating">Observaciones</ion-label>
+                        <ion-textarea rows="4" cols="20"></ion-textarea>
+                    </ion-item>
                 </ion-card>
             </div>
         </div>

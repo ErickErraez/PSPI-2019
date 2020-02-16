@@ -2,6 +2,7 @@
   max-height: 35vh;
   overflow: hidden;
 }
+
 .login100-form-avatar {
   width: 100px;
   height: 100px;
@@ -57,12 +58,14 @@ a {
     background-position: 0 -15px;
   }*/
   width: 300px;
+
   h4 {
     font-size: 18px;
     font-weight: normal;
     margin: 20px 0 5px 0;
     padding: 0;
   }
+
   progress {
     appearance: none;
     border: 0;
@@ -72,19 +75,23 @@ a {
     background-color: #ccc;
     border-radius: 10px;
   }
+
   progress::-moz-progress-bar {
     background-color: $buttonColor;
     border-radius: 10px;
   }
+
   progress::-webkit-progress-bar {
     background-color: #ccc;
     border-radius: 10px;
   }
+
   progress::-webkit-progress-value {
     position: relative;
     background-color: $buttonColor;
-    border-radius:10px;
+    border-radius: 10px;
   }
+
   p {
     font-size: 80%;
     padding: 0;
@@ -101,10 +108,12 @@ a {
     height: 50px;
     opacity: 0;
     cursor: pointer;
+
     &:focus {
       outline: none;
     }
   }
+
   .fileSelect {
     display: inline-block;
     box-sizing: border-box;
@@ -114,17 +123,52 @@ a {
     height: 50px;
     background-color: $buttonColor;
     border-radius: 3px;
-    border-bottom: 3px solid rgba(0,0,0,.1);
+    border-bottom: 3px solid rgba(0, 0, 0, .1);
     position: relative;
     font-size: 20px;
     line-height: 50px;
     color: white;
+
     &:before {
       font-family: Entypo;
-      content:'\E711';
+      content: '\E711';
       position: absolute;
       top: 0;
       left: 80px;
     }
   }
+}
+
+.circulo {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0px auto;
+  padding: 3%
+}
+
+.circulo > h2 {
+  font-family: sans-serif;
+  color: white;
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+.fondo {
+  background: #555555;
+  font-family: sans-serif;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.good {
+  background: #57ff53
+}
+
+.bad {
+  background: #ff4a4a
 }
