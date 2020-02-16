@@ -79,4 +79,19 @@ export class ProyectService {
         return this.http.get(this.url + 'getTeacherProyectWorks/' + id);
     }
 
+    getNotas(id) {
+        return this.http.get(this.url + 'getNotas/' + id);
+    }
+
+    getAdjuntosByNotas(id) {
+        return this.http.get(this.url + 'getAdjuntosByNotas/' + id);
+    }
+
+    createAdjuntos(adjunto) {
+        return this.http.post(this.url + 'createAdjuntos', adjunto);
+    }
+
+    actualizarNota(nota) {
+        return this.http.put(this.url + 'actualizarNota', nota);
+    }
 }

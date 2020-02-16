@@ -138,6 +138,62 @@ let getUserProyectWorks = (req, res) => {
     });
 };
 
+let getNotas = (req, res) => {
+    let tabla = 'Notas';
+    let id = req.params.id;
+    const notas = db(tabla).innerJoin('TipoEvaluaciones', 'Notas.idTipoEvaluacion', 'TipoEvaluaciones.idTipoEvaluaciones')
+        .select('Notas.*','TipoEvaluaciones.tipo').where('idNotas', id).first();
+    notas.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
+};
+
+let createAdjuntos = (req, res) => {
+    let tabla = 'Adjuntos';
+    let datos = req.body;
+    const adjuntos = db(tabla).insert(datos);
+    adjuntos.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Creado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
+};
+
+let getAdjuntosByNotas = (req, res) => {
+    let tabla = 'Adjuntos';
+    let id = req.params.id;
+    const notas = db(tabla).innerJoin('Notas', 'Adjuntos.idNotas', 'Notas.idNotas')
+        .select('Adjuntos.*','Notas.*').where('Adjuntos.idNotas', id);
+    notas.then(response => {
+        return res.status(200).json({
+            ok: true,
+            mensaje: 'Encontrado con Exito',
+            datos: response
+        })
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${err}`
+        })
+    });
+};
+
 let getTeacherProyectWorks = (req, res) => {
     let tabla = 'Notas';
     let id = req.params.id;
@@ -148,7 +204,7 @@ let getTeacherProyectWorks = (req, res) => {
         .innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos')
         .innerJoin('Usuarios', 'UsuariosProyectos.idEstudiante', 'Usuarios.idUsuarios')
         .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
-        .select('Notas.*', 'Usuarios.idUsuarios','TipoEvaluaciones.tipo',db.raw(`CONCAT(Usuarios.nombre1, ' ', Usuarios.apellido1) as "estudiante"`),);
+        .select('Notas.*', 'Usuarios.idUsuarios', 'TipoEvaluaciones.tipo', db.raw(`CONCAT(Usuarios.nombre1, ' ', Usuarios.apellido1) as "estudiante"`),);
     works.then(response => {
         return res.status(200).json({
             ok: true,
@@ -180,6 +236,27 @@ let getById = (req, res) => {
         })
     });
 };
+
+let actualizarNota = (req, res) => {
+    let tabla = 'Notas';
+    let datos = req.body;
+    delete datos.tipo;
+    const qu = db(tabla).where("idNotas", datos.idNotas).update(datos);
+    qu.then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se actualizo correctamente el registro`
+        })
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            datos: datos,
+            mensaje: `Error del servidor: ${error}`
+        })
+    })
+};
+
 
 let actualizarProyecto = (req, res) => {
     let tabla = 'Proyectos';
@@ -462,5 +539,9 @@ module.exports = {
     actualizarProyecto,
     createWork,
     getTeacherProyectWorks,
-    getUserProyectWorks
+    getUserProyectWorks,
+    getNotas,
+    getAdjuntosByNotas,
+    createAdjuntos,
+    actualizarNota
 };

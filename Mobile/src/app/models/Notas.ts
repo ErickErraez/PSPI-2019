@@ -6,6 +6,8 @@ export class Notas {
     calificador: string;
     idTipoEvaluacion: number;
     idUsuariosProyectos: number;
+    tipo?: any;
+    link: string;
     observaciones: string;
 
 }

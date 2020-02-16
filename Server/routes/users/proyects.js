@@ -21,5 +21,9 @@ api.post('/createWork', proyectController.createWork);
 api.get('/getTutorUserProyects/:id', proyectController.getTutorUserProyects);
 api.get('/getTeacherProyectWorks/:id', proyectController.getTeacherProyectWorks);
 api.get('/getUserProyectWorks/:id', proyectController.getUserProyectWorks);
+api.get('/getNotas/:id', proyectController.getNotas);
+api.get('/getAdjuntosByNotas/:id', proyectController.getAdjuntosByNotas);
+api.post('/createAdjuntos',proyectController.createAdjuntos);
+api.put('/actualizarNota', proyectController.actualizarNota);
 
 module.exports = api;

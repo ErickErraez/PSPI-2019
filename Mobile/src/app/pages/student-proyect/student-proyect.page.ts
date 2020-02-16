@@ -34,14 +34,16 @@ export class StudentProyectPage implements OnInit {
         this.getCategories();
         this.getPeriodo();
         this.getWorks();
-        if (this.proyectos.length !== 0 && this.estado != 'Pendiente') {
+        if (this.estado != 'Pendiente') {
             this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+        }
+        if (this.proyectos.length !== 0) {
             if (this.usuario.rol == 3) {
+                this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
                 this.findById(this.proyecto.idProyectos);
             }
             if (this.usuario.rol == 2) {
                 this.proyecto = this.proyectos.find(proyect => proyect.idUsuariosProyectos === parseInt(this.id));
-
                 if (this.estado == 'Aceptado') {
                     this.findById(this.proyecto.idProyecto);
                 } else {
@@ -97,11 +99,12 @@ export class StudentProyectPage implements OnInit {
         });
     }
 
-    openWork(item) {
-        this.nav.navigateForward(`works/${item}`);
+    openWork(item, rol) {
+        this.nav.navigateForward(`works/${item}/${rol}`);
     }
 
     getIntegrantes(id) {
+        console.log(id);
         this.proyectService.getUsersProyects(id).subscribe(r => {
             let objeto: any = r;
             objeto = objeto.datos;
