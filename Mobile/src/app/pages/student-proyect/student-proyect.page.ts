@@ -32,12 +32,14 @@ export class StudentProyectPage implements OnInit {
         this.estado = this.route.snapshot.paramMap.get('estado');
         this.rol = this.route.snapshot.paramMap.get('rol');
         this.getCategories();
-        this.getPeriodo();
         this.getWorks();
-        if (this.estado != 'Pendiente') {
-            this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+        this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+
+        if (this.usuario.rol == 2 && this.estado != 'Aceptado') {
+            this.proyecto = this.proyectosPending.find(proyect => proyect.idUsuariosProyectos === parseInt(this.id));
+            this.getProyecto(this.proyecto.idProyecto);
         }
-        if (this.proyectos.length !== 0) {
+        if (this.proyectos.length !== 0 && this.estado != 'Pendiente') {
             if (this.usuario.rol == 3) {
                 this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
                 this.findById(this.proyecto.idProyectos);
@@ -50,12 +52,9 @@ export class StudentProyectPage implements OnInit {
                     this.getProyecto(this.proyecto.idProyecto);
                 }
             }
-        } else {
-            if (this.usuario.rol == 2) {
-                this.proyecto = this.proyectosPending.find(proyect => proyect.idUsuariosProyectos === parseInt(this.id));
-                this.getProyecto(this.proyecto.idProyecto);
-            }
         }
+
+        this.getPeriodo();
     }
 
     ngOnInit() {
@@ -104,7 +103,6 @@ export class StudentProyectPage implements OnInit {
     }
 
     getIntegrantes(id) {
-        console.log(id);
         this.proyectService.getUsersProyects(id).subscribe(r => {
             let objeto: any = r;
             objeto = objeto.datos;

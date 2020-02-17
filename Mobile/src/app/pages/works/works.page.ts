@@ -98,9 +98,6 @@ export class WorksPage implements OnInit {
 
     public download(nombreArchivo, tipoarchivo, archivoAdjunto) {
 
-        const fileSaver = require('file-saver');
-        const data: any = 'data:' + tipoarchivo + ';base64,' + archivoAdjunto;
-        fileSaver.saveAs(data, nombreArchivo);
     }
 
 }
