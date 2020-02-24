@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
-
+import {DocumentViewer} from '@ionic-native/document-viewer/ngx';
 import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
@@ -14,6 +14,7 @@ import {AuthService} from './services/auth.service';
 import {IonicStorageModule} from '@ionic/storage';
 import {ModalPage} from './pages/modal/modal.page';
 import {FormsModule} from '@angular/forms';
+import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 
 @NgModule({
     declarations: [AppComponent, ModalPage],
@@ -35,6 +36,8 @@ import {FormsModule} from '@angular/forms';
         SplashScreen,
         AuthService,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+        InAppBrowser,
+        DocumentViewer
     ],
     bootstrap: [AppComponent]
 })

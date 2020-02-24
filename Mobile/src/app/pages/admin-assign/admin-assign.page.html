@@ -30,10 +30,25 @@
                     <ion-select-option value="5">Quinto</ion-select-option>
                 </ion-select>
             </ion-item>
-            <div class="container" *ngIf="valor!=null">
+            <ion-item>
+                <ion-label>Paralelo</ion-label>
+                <ion-select interface="popover" placeholder="Select One" [(ngModel)]="paralelo">
+                    <ion-select-option value="A">A</ion-select-option>
+                    <ion-select-option value="B">B</ion-select-option>
+                    <ion-select-option value="C">C</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <div class="container" *ngIf="valor!=null && paralelo !=null">
                 <ion-item>
                     <ion-label>Tutor</ion-label>
                     <ion-select interface="popover" placeholder="Select One" [(ngModel)]="proyecto.tutor">
+                        <ion-select-option *ngFor="let item of docentes"
+                                           value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Tutor Suplente</ion-label>
+                    <ion-select interface="popover" placeholder="Select One" [(ngModel)]="proyecto.tutorSuplente">
                         <ion-select-option *ngFor="let item of docentes"
                                            value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</ion-select-option>
                     </ion-select>

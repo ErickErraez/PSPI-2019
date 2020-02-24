@@ -40,13 +40,13 @@ const routes: Routes = [
         loadChildren: () => import('./pages/modal/modal.module').then(m => m.ModalPageModule)
     },
     {
-        path: 'works/:id/:rol',
+        path: 'works/:id/:rol/:email',
         loadChildren: () => import('./pages/works/works.module').then(m => m.WorksPageModule)
     },
-  {
-    path: 'modal-tareas',
-    loadChildren: () => import('./pages/modal-tareas/modal-tareas.module').then( m => m.ModalTareasPageModule)
-  }
+    {
+        path: 'modal-tareas',
+        loadChildren: () => import('./pages/modal-tareas/modal-tareas.module').then(m => m.ModalTareasPageModule)
+    }
 
 
 ];

@@ -33,8 +33,16 @@ export class AdminService {
         return this.http.put(this.url + 'updateCategory', categoria);
     }
 
+    updateDate(nota) {
+        return this.http.put(this.url + 'updateDate', nota);
+    }
+
     deleteCategory(categoria) {
         return this.http.delete(this.url + 'deleteCategory/' + categoria.idCategorias);
+    }
+
+    getNotesAdmin(tipo) {
+        return this.http.get(this.url + 'getNotesAdmin/' + tipo);
     }
 
 }

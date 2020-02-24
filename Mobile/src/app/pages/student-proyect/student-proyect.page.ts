@@ -32,12 +32,15 @@ export class StudentProyectPage implements OnInit {
         this.estado = this.route.snapshot.paramMap.get('estado');
         this.rol = this.route.snapshot.paramMap.get('rol');
         this.getCategories();
-        this.getWorks();
         this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
 
         if (this.usuario.rol == 2 && this.estado != 'Aceptado') {
             this.proyecto = this.proyectosPending.find(proyect => proyect.idUsuariosProyectos === parseInt(this.id));
             this.getProyecto(this.proyecto.idProyecto);
+        }
+        if (this.usuario.rol == 3 && this.estado == 'Pendiente') {
+            this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+            this.findById(this.proyecto.idProyectos);
         }
         if (this.proyectos.length !== 0 && this.estado != 'Pendiente') {
             if (this.usuario.rol == 3) {
@@ -55,6 +58,7 @@ export class StudentProyectPage implements OnInit {
         }
 
         this.getPeriodo();
+        this.getWorks();
     }
 
     ngOnInit() {
@@ -95,11 +99,12 @@ export class StudentProyectPage implements OnInit {
             this.presentAlertPrompt();
         }, error => {
 
+            this.presentToast('Algo ha salido mal');
         });
     }
 
-    openWork(item, rol) {
-        this.nav.navigateForward(`works/${item}/${rol}`);
+    openWork(item, rol, email) {
+        this.nav.navigateForward(`works/${item}/${rol}/${email}`);
     }
 
     getIntegrantes(id) {
@@ -228,17 +233,19 @@ export class StudentProyectPage implements OnInit {
 
     getWorks() {
         if (this.usuario.rol == 2) {
-            this.proyectoServices.getUserProyectWorks(this.usuario.idUsuarios).subscribe(res => {
+            this.proyectoServices.getUserProyectWorks(this.usuario.idUsuarios, this.proyecto.idProyecto).subscribe(res => {
                 const result: any = res;
                 this.works = result.datos;
             }, err => {
+                this.presentToast('Algo ha salido mal');
             });
-
         } else if (this.usuario.rol == 3) {
-            this.proyectoServices.getTeacherProyectWorks(this.usuario.idUsuarios).subscribe(res => {
+            this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+            this.proyectoServices.getTeacherProyectWorks(this.usuario.idUsuarios, this.proyecto.idProyectos).subscribe(res => {
                 const result: any = res;
                 this.works = result.datos;
             }, err => {
+                this.presentToast('Algo ha salido mal');
             });
         }
     }

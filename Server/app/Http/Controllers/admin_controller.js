@@ -115,7 +115,45 @@ let deleteCategory = (req, res) => {
                 mensaje: `Error del servidor: ${error}`
             })
         })
-}
+};
+
+let getNotesAdmin = (req, res) => {
+    let tabla = 'Notas';
+    let datos = req.params.tipo;
+    db(tabla)
+        .innerJoin('TipoEvaluaciones', 'Notas.idTipoEvaluacion', 'TipoEvaluaciones.idTipoEvaluaciones')
+        .innerJoin('UsuariosProyectos', 'Notas.idUsuariosProyectos', 'UsuariosProyectos.idUsuariosProyectos')
+        .innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos')
+        .where('TipoEvaluaciones.tipo', datos).select().then(r => {
+        return res.status(200).json({
+            ok: true,
+            datos: r,
+        });
+    }).catch(er => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: 'Error de Servidor' + er
+        })
+    });
+};
+
+let updateDate = (req, res) => {
+    let tabla = 'Notas';
+    let datos = req.body;
+    const qu = db(tabla).where("idNotas", datos.idNotas).update({fechaLimite:datos.fechaLimite});
+    qu.then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se creo correctamente el registro`
+        })
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${error}`
+        })
+    })
+};
 
 
 module.exports = {
@@ -125,5 +163,7 @@ module.exports = {
     assignTutor,
     createCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    getNotesAdmin,
+    updateDate
 };

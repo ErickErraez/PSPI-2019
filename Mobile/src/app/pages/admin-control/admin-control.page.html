@@ -61,8 +61,7 @@
             <ion-card-title color="primary">Tareas
                 <br><br>
                 <ion-icon (click)="showNew('new')" color="primary" name="add-circle-outline"></ion-icon>
-                <ion-icon color="success" name="create"></ion-icon>
-                <ion-icon color="danger" name="trash"></ion-icon>
+                <ion-icon (click)="showNew('edit')" color="success" name="create"></ion-icon>
                 <div *ngIf="stateWork == 'new'">
                     <ion-list>
                         <ion-item>
@@ -85,7 +84,49 @@
                     <ion-button color="danger" shape="round" fill="outline" (click)="stateWork = ''">Cancelar
                     </ion-button>
                 </div>
+                <div *ngIf="stateWork == 'edit'">
+                    <ion-list>
+                        <ion-item>
+                            <ion-label>Tipo de Evaluacion</ion-label>
+                            <ion-select [(ngModel)]="tipo" interface="popover" okText="Aceptar"
+                                        cancelText="Cerrar">
+                                <ion-select-option value="Entregable 1">Entregable 1</ion-select-option>
+                                <ion-select-option value="Entregable 2">Entregable 2</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
+                    <br>
+                    <ng-container *ngIf="tipo != null">
+                        <ion-button *ngIf="tipos.length==0" shape="round" fill="outline"
+                                    (click)="getData()">Buscar
+                        </ion-button>
+                        <ion-button *ngIf="tipos.length>0" color="danger" shape="round"
+                                    fill="outline" (click)="cancelEdit()">Cancelar
+                        </ion-button>
+                        <table *ngIf="tipos.length > 0" border="1" class="table" style="width:100%" id="tablaprueba">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th width="35" scope="col"></th>
+                                <th>id</th>
+                                <th>Descripcion</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of tipos;" (click)="onSelect(item)">
+                                <td width="35">
+                                    <ion-icon class="hand" name="arrow-dropright-circle"
+                                              [hidden]="!selectTipo(item)"></ion-icon>
+                                </td>
+                                <td>{{item.fechaLimite}}</td>
+                                <td>
+                                    {{item.nombre}}
+                                </td>
+                            </tr>
 
+                            </tbody>
+                        </table>
+                    </ng-container>
+                </div>
             </ion-card-title>
         </ion-card-header>
     </ion-card>

@@ -7,7 +7,7 @@ export class Proyectos {
     nivel: string;
     paralelo: string;
     tutor: number;
-    tutorSecundario: number;
+    tutorSuplente: number;
     jurado1: number;
     jurado2: number;
     idPeriodo: number;

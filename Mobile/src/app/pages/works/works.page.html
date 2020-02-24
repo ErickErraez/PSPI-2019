@@ -22,22 +22,40 @@
                                    class="circulo"><h2>{{nota.nota}}</h2></ion-label>
                     </ion-card-header>
                     <ion-card-content>
+                        <ion-item *ngIf="nota.fechaEntrega != null">
+                            <ion-label>Fecha de Entrega <br>{{nota.fechaEntrega}}</ion-label>
+                            <br><br>
+                        </ion-item>
                         <ion-item>
                             <ion-label position="floating">Link de Github</ion-label>
                             <ion-input [(ngModel)]="nota.link"></ion-input>
                         </ion-item>
+                        <br><br>
+                        <div class="container">
+                            <div class="row">
+                                <div *ngFor="let item of adjuntos" class="col-6">
+                                    <ion-avatar>
+                                        <img src="assets/images/adjunto.png"
+                                             (click)="download(item.nombre, item.tipo,item.contenido)">
+                                    </ion-avatar>
+                                    <ion-label>{{item.nombre}}</ion-label>
+                                </div>
+                            </div>
+                        </div>
                         <br><br>
                         <ion-item class="fileUpload">
                             <input (change)="CodificarArchivo($event)" type="file" class="fileElem" multiple>
                             <label class="fileSelect">Cargar Archivos</label>
                         </ion-item>
                         <br><br>
+                        <ion-item *ngIf="nota.observaciones != undefined">
+                            <ion-label position="floating">Observaciones</ion-label>
+                            <ion-textarea [(ngModel)]="nota.observaciones" rows="4" cols="20"></ion-textarea>
+                        </ion-item>
+                        <br><br>
                         <ion-button shape="round" fill="outline" (click)="enviarTarea()">Enviar Tarea</ion-button>
                     </ion-card-content>
-                    <ion-item>
-                        <ion-label position="floating">Observaciones</ion-label>
-                        <ion-textarea rows="4" cols="20"></ion-textarea>
-                    </ion-item>
+
                 </ion-card>
             </div>
         </div>
@@ -49,10 +67,22 @@
         <div class="row">
             <div class="col-12">
                 <ion-card class="welcome-card">
-                    <ion-card-header>
-
+                    <ion-card-header *ngIf="nota.nota != undefined">
+                        <ion-card-title class="text-center" color="primary">NOTA:
+                        </ion-card-title>
+                        <br>
+                        <ion-label [ngClass]=" typeClass() ? 'good' : 'bad'"
+                                   class="circulo"><h2>{{nota.nota}}</h2></ion-label>
                     </ion-card-header>
                     <ion-card-content>
+                        <ion-item>
+                            <ion-label>Fecha Limite <br>{{nota.fechaLimite}}</ion-label>
+                        </ion-item>
+                        <br><br>
+                        <ion-item *ngIf="nota.fechaEntrega != null">
+                            <ion-label>Fecha de Entrega <br>{{nota.fechaEntrega}}</ion-label>
+                            <br><br>
+                        </ion-item>
                         <ion-item>
                             <ion-label position="floating">Link de Github</ion-label>
                             <ion-input disabled="true" [(ngModel)]="nota.link"></ion-input>
@@ -64,20 +94,20 @@
                                     <ion-avatar>
                                         <img src="assets/images/adjunto.png"
                                              (click)="download(item.nombre, item.tipo,item.contenido)">
-
-
                                     </ion-avatar>
                                     <ion-label>{{item.nombre}}</ion-label>
                                 </div>
                             </div>
                         </div>
                         <br><br>
-                        <ion-button shape="round" fill="outline" (click)="calificar()">Calificar</ion-button>
+                        <ion-item *ngIf="nota.observaciones != undefined">
+                            <ion-label position="floating">Observaciones</ion-label>
+                            <ion-textarea [(ngModel)]="nota.observaciones" rows="4" cols="20"></ion-textarea>
+                        </ion-item>
+                        <br><br>
+                        <ion-button *ngIf="nota.nota == undefined" shape="round" fill="outline" (click)="calificar('Calificar Tarea')">Calificar Tarea</ion-button>
+                        <ion-button *ngIf="nota.nota != undefined" shape="round" fill="outline" (click)="calificar('Editar Nota')">Editar Nota</ion-button>
                     </ion-card-content>
-                    <ion-item>
-                        <ion-label position="floating">Observaciones</ion-label>
-                        <ion-textarea rows="4" cols="20"></ion-textarea>
-                    </ion-item>
                 </ion-card>
             </div>
         </div>

@@ -7,7 +7,7 @@ const app = express(),
     mail = require('./mail');
 
 app.use('/user', user_routes);
-app.use('/mail', mail);
+app.use('/user/mail', mail);
 
 module.exports = app;
 
