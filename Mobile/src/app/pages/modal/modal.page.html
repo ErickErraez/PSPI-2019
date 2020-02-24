@@ -5,7 +5,7 @@
                 CLOSE
             </ion-button>
         </ion-buttons>
-        <ion-title> Categorias</ion-title>
+        <ion-title> Editar</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -13,9 +13,10 @@
 <ion-content>
     <ion-card class="welcome-card">
         <ion-card-header>
-            <ion-card-title color="primary">Categoria</ion-card-title>
+            <ion-card-title *ngIf="categoria.idNotas == undefined" color="primary">Categoria</ion-card-title>
+            <ion-card-title *ngIf="categoria.idNotas != undefined" color="primary">Proyecto</ion-card-title>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content *ngIf="categoria.idNotas == undefined">
             <ion-item *ngIf="categoria === 'new'">
                 <ion-label position="floating">Nombre de la Categoria</ion-label>
                 <ion-input [(ngModel)]="nombre"></ion-input>
@@ -28,6 +29,25 @@
             <ion-button *ngIf="categoria === 'new'" shape="round" fill="outline" (click)="crearCategoria()">Crear
             </ion-button>
             <ion-button *ngIf="categoria !== 'new'" shape="round" fill="outline" (click)="actualizarCategoria()">
+                Actualizar
+            </ion-button>
+        </ion-card-content>
+        <ion-card-content *ngIf="categoria.idNotas != undefined">
+
+            <ion-item>
+                <ion-label>Nombre Proyecto: {{categoria.nombre}}</ion-label>
+            </ion-item>
+            <br>
+            <ion-item>
+                <ion-label>Fecha Limite</ion-label>
+                <ion-datetime [(ngModel)]="categoria.fechaLimite" displayFormat="D MMM YYYY H:mm" min="2017"
+                              value="2005-06-17T11:06Z"></ion-datetime>
+            </ion-item>
+            <br>
+            <ion-item>
+                <ion-label>Nivel: {{categoria.nivel}} Semestre Paralelo: {{categoria.paralelo}}</ion-label>
+            </ion-item>
+            <ion-button shape="round" fill="outline" (click)="actualizarFecha()">
                 Actualizar
             </ion-button>
         </ion-card-content>

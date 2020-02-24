@@ -18,6 +18,10 @@ export class AdminControlPage implements OnInit {
     stateWork: any = '';
     fecha: any;
     works: any = [];
+    tipos: any = [];
+    cont = 0;
+    tipo: any = null;
+    tipoUpdate: any = {};
     nota: Notas = new Notas();
     usuario: any = JSON.parse(localStorage.getItem('usuario'));
     categoria: Categorias = new Categorias();
@@ -48,7 +52,11 @@ export class AdminControlPage implements OnInit {
         });
 
         modal.onDidDismiss().then(r => {
-            this.getCategorias();
+            if (this.usuario.rol == 3) {
+                this.getData();
+            } else {
+                this.getCategorias();
+            }
         });
 
 
@@ -66,8 +74,20 @@ export class AdminControlPage implements OnInit {
         return porVerificar.idCategorias === this.categoria.idCategorias;
     }
 
+    selectTipo(porVerificar): boolean {
+        if (this.tipoUpdate.idNotas == undefined) {
+            return false;
+        }
+        return porVerificar.idNotas === this.tipoUpdate.idNotas;
+    }
+
     onSelect(actual): void {
-        this.categoria = actual;
+        if (actual.idNotas != undefined) {
+            this.tipoUpdate = actual;
+            this.presentModal(this.tipoUpdate);
+        } else {
+            this.categoria = actual;
+        }
     }
 
     createWork() {
@@ -80,6 +100,7 @@ export class AdminControlPage implements OnInit {
                 result = result.datos;
                 for (let i = 0; i < result.length; i++) {
                     this.nota.idUsuariosProyectos = result[i].idUsuariosProyectos;
+
                     this.proyectoServices.createWork(this.nota).subscribe(resp => {
                         this.presentAlertPrompt('Se ha creado la tarea');
                     }, err => {
@@ -123,16 +144,30 @@ export class AdminControlPage implements OnInit {
     async presentAlertPrompt(mensaje) {
         const alert = await this.alertController.create({
             header: mensaje,
-            buttons: [{
-                text: 'Ok',
-                handler: (data) => {
+            buttons: [
+                {
+                    text: 'Ok',
+                    handler: (data) => {
 
+                    }
                 }
-            }
             ]
         });
 
         await alert.present();
     }
 
+    getData() {
+        this.adminService.getNotesAdmin(this.tipo).subscribe(res => {
+            this.tipos = res['datos'];
+            for (let i = 0; i < this.tipos.length; i++) {
+                this.tipos[i].fechaLimite = new Date(this.tipos[i].fechaLimite).toISOString().slice(0, 19).replace('T', ' ');
+            }
+        });
+    }
+
+    cancelEdit() {
+        this.tipos = [];
+        this.tipo = null;
+    }
 }

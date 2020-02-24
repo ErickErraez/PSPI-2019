@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {userError} from '@angular/compiler-cli/src/transformers/util';
 
 @Injectable({
     providedIn: 'root'
@@ -39,8 +38,8 @@ export class ProyectService {
         return this.http.get(this.url + 'getUsersProyects/' + id);
     }
 
-    getProyects(nivel) {
-        return this.http.get(this.url + 'getProyectos/' + nivel);
+    getProyects(nivel, paralelo) {
+        return this.http.get(this.url + 'getProyectos/' + nivel + '/' + paralelo);
     }
 
     getProyectById(id) {
@@ -71,12 +70,12 @@ export class ProyectService {
         return this.http.get(this.url + 'getTutorUserProyects/' + id);
     }
 
-    getUserProyectWorks(id) {
-        return this.http.get(this.url + 'getUserProyectWorks/' + id);
+    getUserProyectWorks(id, idProyecto) {
+        return this.http.get(this.url + 'getUserProyectWorks/' + id + '/' + idProyecto);
     }
 
-    getTeacherProyectWorks(id) {
-        return this.http.get(this.url + 'getTeacherProyectWorks/' + id);
+    getTeacherProyectWorks(id, idProyecto) {
+        return this.http.get(this.url + 'getTeacherProyectWorks/' + id + '/' + idProyecto);
     }
 
     getNotas(id) {
@@ -93,5 +92,9 @@ export class ProyectService {
 
     actualizarNota(nota) {
         return this.http.put(this.url + 'actualizarNota', nota);
+    }
+
+    sendEmail(email) {
+        return this.http.post(environment.urlServer + 'user/mail/enviar', email);
     }
 }

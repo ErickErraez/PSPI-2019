@@ -13,6 +13,7 @@ import {AdminService} from '../../services/admin.service';
 export class AdminAssignPage implements OnInit {
 
     valor: any = null;
+    paralelo: any = null;
     docentes: any = [];
     proyecto: Proyectos = new Proyectos();
     proyectos: any;
@@ -71,8 +72,9 @@ export class AdminAssignPage implements OnInit {
 
 
     getProyectos() {
-        if (this.valor != null) {
-            this.proyectService.getProyects(this.valor).subscribe(r => {
+        if (this.valor != null && this.paralelo != null) {
+            this.presentLoadingWithOptions();
+            this.proyectService.getProyects(this.valor, this.paralelo).subscribe(r => {
                 this.proyectos = r;
                 this.proyectos = this.proyectos.datos;
                 if (this.proyectos.length == 0) {
@@ -81,18 +83,20 @@ export class AdminAssignPage implements OnInit {
                     for (let i = 0; i < this.proyectos.length; i++) {
                         this.proyecto.idProyectos = this.proyectos[i].idProyectos;
                         this.adminService.updateProyecto(this.proyecto).subscribe(res => {
-                            this.presentLoadingWithOptions();
-                            this.presentAlertPrompt('Se ha asigando el tutor');
-                            this.cancelarAsignacion();
                         });
                     }
+                    this.presentAlertPrompt('Se ha asigando el tutor');
+                    this.cancelarAsignacion();
                 }
             });
+        } else {
+            this.presentAlertPrompt('Faltan datos necesarios');
         }
     }
 
     cancelarAsignacion() {
         this.valor = null;
+        this.paralelo = null;
         this.proyecto = new Proyectos();
     }
 

@@ -172,7 +172,8 @@
                 <ng-container *ngFor="let item of integrantes; let i = index;">
                     <ng-container *ngFor="let user of item.estudiante">
                         <ng-container *ngIf="user.idUsuarios == work.idUsuarios">
-                            <ion-card class="welcome-card" (click)="openWork(work.idNotas, rol)">
+                            <ion-card class="welcome-card"
+                                      (click)="openWork(work.idNotas, rol,item.estudiante[0].correo)">
                                 <ion-card-header>
                                     <ion-card-title color="primary">
                                         <div class="container">

@@ -88,9 +88,7 @@ let getUserPendingProyect = (req, res) => {
 let getTutorProyects = (req, res) => {
     let datos = req.params.id;
     const proyecto = db('Proyectos').orderBy('Proyectos.created_at', 'desc')
-        .where('Proyectos.tutor', datos).where('PeriodoAcademico.estado', '=', 'Activo')
-        .andWhere('Proyectos.estado', 'Pendiente')
-        .orWhere('Proyectos.estado', 'Aceptado')
+        .where('Proyectos.tutor', datos).andWhere('PeriodoAcademico.estado', '=', 'Activo')
         .innerJoin('Usuarios as Tutor', 'Proyectos.Tutor', 'Tutor.idUsuarios')
         .innerJoin('Usuarios as Jurado1', 'Proyectos.jurado1', 'Jurado1.idUsuarios')
         .innerJoin('Usuarios as Jurado2', 'Proyectos.jurado2', 'Jurado2.idUsuarios')
@@ -117,10 +115,13 @@ let getTutorProyects = (req, res) => {
 let getUserProyectWorks = (req, res) => {
     let tabla = 'Notas';
     let id = req.params.id;
+    let idProyecto = req.params.idProyecto;
     const works = db('Notas').orderBy('Notas.created_at', 'desc')
         .where('UsuariosProyectos.idEstudiante', id).andWhere('PeriodoAcademico.estado', 'Activo')
+        .andWhere('UsuariosProyectos.idProyecto', idProyecto)
         .innerJoin('TipoEvaluaciones', 'Notas.idTipoEvaluacion', 'TipoEvaluaciones.idTipoEvaluaciones')
         .innerJoin('UsuariosProyectos', 'Notas.idUsuariosProyectos', 'UsuariosProyectos.idUsuariosProyectos')
+        .innerJoin('Usuarios', 'UsuariosProyectos.idEstudiante', 'Usuarios.idUsuarios')
         .innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos')
         .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
         .select();
@@ -142,7 +143,7 @@ let getNotas = (req, res) => {
     let tabla = 'Notas';
     let id = req.params.id;
     const notas = db(tabla).innerJoin('TipoEvaluaciones', 'Notas.idTipoEvaluacion', 'TipoEvaluaciones.idTipoEvaluaciones')
-        .select('Notas.*','TipoEvaluaciones.tipo').where('idNotas', id).first();
+        .select('Notas.*', 'TipoEvaluaciones.tipo').where('idNotas', id).first();
     notas.then(response => {
         return res.status(200).json({
             ok: true,
@@ -179,7 +180,7 @@ let getAdjuntosByNotas = (req, res) => {
     let tabla = 'Adjuntos';
     let id = req.params.id;
     const notas = db(tabla).innerJoin('Notas', 'Adjuntos.idNotas', 'Notas.idNotas')
-        .select('Adjuntos.*','Notas.*').where('Adjuntos.idNotas', id);
+        .select('Adjuntos.*', 'Notas.*').where('Adjuntos.idNotas', id);
     notas.then(response => {
         return res.status(200).json({
             ok: true,
@@ -197,8 +198,10 @@ let getAdjuntosByNotas = (req, res) => {
 let getTeacherProyectWorks = (req, res) => {
     let tabla = 'Notas';
     let id = req.params.id;
+    let idProyecto = req.params.idProyecto;
     const works = db(tabla).orderBy('Notas.created_at', 'asc')
         .andWhere('Proyectos.tutor', id).andWhere('PeriodoAcademico.estado', 'Activo')
+        .andWhere('UsuariosProyectos.idProyecto', idProyecto)
         .innerJoin('TipoEvaluaciones', 'Notas.idTipoEvaluacion', 'TipoEvaluaciones.idTipoEvaluaciones')
         .innerJoin('UsuariosProyectos', 'Notas.idUsuariosProyectos', 'UsuariosProyectos.idUsuariosProyectos')
         .innerJoin('Proyectos', 'UsuariosProyectos.idProyecto', 'Proyectos.idProyectos')
@@ -442,9 +445,10 @@ let createUserProyect = (req, res) => {
 let getProyectos = (req, res) => {
     let tabla = 'Proyectos';
     let nivel = req.params.nivel;
+    let paralelo = req.params.paralelo;
     const qu = db(tabla)
         .innerJoin('PeriodoAcademico', 'Proyectos.idPeriodo', 'PeriodoAcademico.idPeriodoAcademico')
-        .where('nivel', nivel).andWhere('PeriodoAcademico.estado', 'Activo')
+        .where('nivel', nivel).andWhere('paralelo', paralelo).andWhere('PeriodoAcademico.estado', 'Activo')
         .select('Proyectos.idProyectos', 'Proyectos.nombre', 'Proyectos.descripcion', 'Proyectos.herramientas',
             'Proyectos.estado', 'Proyectos.nivel', 'Proyectos.tutor', 'Proyectos.jurado1',
             'Proyectos.jurado2', 'PeriodoAcademico.nombre as nombrePeriodo');

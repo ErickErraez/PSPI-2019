@@ -88,7 +88,6 @@ export class StudentFormPage implements OnInit {
             if (objeto.ok) {
                 if (objeto.datos.rol === 2) {
                     if (objeto.datos.correo !== this.user.usuario.email) {
-                        console.log('value:', this.miembros);
                         if (this.miembros.length === 0) {
                             this.miembros.push(objeto.datos);
                         } else {

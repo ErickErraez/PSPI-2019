@@ -1,9 +1,8 @@
 ;
 const express = require('express');
 const api = express.Router(),
-    sendMail = require('../../app/Http/Mailer/index'),
-    middlewares = require('../../app/Http/Middelware/jwt_middleware');
+    sendMail = require('../../app/Http/Mailer/index');
 
-api.post('/enviar', middlewares.ensureTokenDoc, sendMail.sendMail);
+api.post('/enviar',sendMail.sendMail);
 
 module.exports = api;
