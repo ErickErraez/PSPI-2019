@@ -45,4 +45,15 @@ export class AdminService {
         return this.http.get(this.url + 'getNotesAdmin/' + tipo);
     }
 
+    getPeriodos() {
+        return this.http.get(this.url + 'getPeriodos');
+    }
+
+    updatePeriodo(periodo) {
+        return this.http.put(this.url + 'updatePeriodo', periodo);
+    }
+
+    createPeriodo(periodo) {
+        return this.http.post(this.url + 'createPeriodo', periodo);
+    }
 }

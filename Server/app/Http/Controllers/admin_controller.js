@@ -140,7 +140,60 @@ let getNotesAdmin = (req, res) => {
 let updateDate = (req, res) => {
     let tabla = 'Notas';
     let datos = req.body;
-    const qu = db(tabla).where("idNotas", datos.idNotas).update({fechaLimite:datos.fechaLimite});
+    const qu = db(tabla).where("idNotas", datos.idNotas).update({fechaLimite: datos.fechaLimite});
+    qu.then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se creo correctamente el registro`
+        })
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${error}`
+        })
+    })
+};
+
+let getPeriodos = (req, res) => {
+    let tabla = 'PeriodoAcademico';
+    const qu = db(tabla).select();
+    qu.then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se creo correctamente el registro`
+        })
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${error}`
+        })
+    })
+};
+
+let updatePeriodo = (req, res) => {
+    let tabla = 'PeriodoAcademico';
+    let datos = req.body;
+    const qu = db(tabla).where("idPeriodoAcademico", datos.idPeriodoAcademico).update(datos);
+    qu.then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se Actualizo correctamente el registro`
+        })
+    }).catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: `Error del servidor: ${error}`
+        })
+    })
+};
+
+let createPeriodo = (req, res) => {
+    let tabla = 'PeriodoAcademico';
+    let datos = req.body;
+    const qu = db(tabla).insert(datos);
     qu.then(resultado => {
         return res.status(200).json({
             ok: true,
@@ -165,5 +218,8 @@ module.exports = {
     updateCategory,
     deleteCategory,
     getNotesAdmin,
-    updateDate
+    updateDate,
+    getPeriodos,
+    updatePeriodo,
+    createPeriodo
 };
