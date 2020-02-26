@@ -9,8 +9,8 @@
 <ion-content>
     <ion-card class="welcome-card">
         <ion-card-header>
-            <ion-card-title color="primary">NOVIEMBRE 2019 - ABRIL 2020
-                <ion-button shape="round" expand="block" fill="outline">Editar Periodo</ion-button>
+            <ion-card-title color="primary">{{periodo.nombre}}
+                <ion-button (click)="editarPeriodo()" shape="round" expand="block" fill="outline">Editar Periodo</ion-button>
             </ion-card-title>
         </ion-card-header>
     </ion-card>

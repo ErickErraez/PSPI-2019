@@ -4,6 +4,7 @@ import {UserFormService} from '../../services/user-form.service';
 import {Proyectos} from '../../models/Proyectos';
 import {AlertController, LoadingController} from '@ionic/angular';
 import {AdminService} from '../../services/admin.service';
+import {PeriodoAcademico} from '../../models/Periodo-Academico';
 
 @Component({
     selector: 'app-admin-assign',
@@ -15,13 +16,15 @@ export class AdminAssignPage implements OnInit {
     valor: any = null;
     paralelo: any = null;
     docentes: any = [];
+    periodo: PeriodoAcademico = new PeriodoAcademico();
+    periodoActual: any = JSON.parse(localStorage.getItem('periodoActual'));
     proyecto: Proyectos = new Proyectos();
     proyectos: any;
 
     constructor(private userService: UserFormService, private proyectService: ProyectService,
                 public loadingController: LoadingController, public alertController: AlertController,
                 private adminService: AdminService) {
-
+        this.periodo.nombre = this.periodoActual.nombre;
         this.userService.getDocentes().subscribe(r => {
             let objeto: any = {};
             objeto = r;
@@ -98,6 +101,78 @@ export class AdminAssignPage implements OnInit {
         this.valor = null;
         this.paralelo = null;
         this.proyecto = new Proyectos();
+    }
+
+    editarPeriodo() {
+        this.showPeriodo('Crear Nuevo Periodo');
+
+    }
+
+    async showPeriodo(message) {
+        const alert = await this.alertController.create({
+            header: message,
+            inputs: [
+                {
+                    name: 'periodo',
+                    type: 'text',
+                    placeholder: 'Ingrese el nuevo Periodo Academico'
+                },
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                        console.log('Confirm Cancel');
+                    }
+                }, {
+                    text: 'Ok',
+                    handler: (data) => {
+                        this.presentLoadingWithOptions();
+                        this.periodo.nombre = data.periodo;
+                        this.periodo.estado = 'Activo';
+                        this.adminService.getPeriodos().subscribe(result => {
+                            const periodos = result['datos'];
+                            for (let i = 0; i < periodos.length; i++) {
+                                periodos[i].estado = 'Inactivo';
+                                this.adminService.updatePeriodo(periodos[i]).subscribe(res => {
+
+                                }, err => {
+                                    this.presentAlert('Algo ha salido Mal');
+                                });
+                            }
+                            this.adminService.createPeriodo(this.periodo).subscribe(r => {
+                                this.presentAlert('Periodo creado con exito');
+                            }, e => {
+                                this.presentAlert('Nose ha podido crear el periodo');
+                            });
+                        }, error => {
+                            this.presentAlert('Algo ha salido Mal');
+                        });
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
+
+
+    async presentAlert(mensaje) {
+        const alert = await this.alertController.create({
+            header: mensaje,
+            buttons: [
+                {
+                    text: 'Ok',
+                    handler: (data) => {
+
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
     }
 
 }
