@@ -30,16 +30,21 @@ export class StudentProyectComponent implements OnInit {
   proyectoSend: Proyectos = new Proyectos();
   works: any = [];
 
-  constructor(private toastr: ToastrService,private http: HttpClient,private route: ActivatedRoute,private router: Router, private proyectoService: ProyectoServiceService,private proyectService: ProyectoServiceService) {
+  constructor(private toastr: ToastrService, private http: HttpClient, private route: ActivatedRoute, private router: Router, private proyectoService: ProyectoServiceService, private proyectService: ProyectoServiceService) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.estado = this.route.snapshot.paramMap.get('estado');
     this.rol = this.route.snapshot.paramMap.get('rol');
     this.getCategories();
-    this.getWorks();
     this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+
+
     if (this.usuario.rol == 2 && this.estado != 'Aceptado') {
       this.proyecto = this.proyectosPending.find(proyect => proyect.idUsuariosProyectos === parseInt(this.id));
       this.getProyecto(this.proyecto.idProyecto);
+    }
+    if (this.usuario.rol == 3 && this.estado == 'Pendiente') {
+      this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+      this.findById(this.proyecto.idProyectos);
     }
     if (this.proyectos.length !== 0 && this.estado != 'Pendiente') {
       if (this.usuario.rol == 3) {
@@ -56,7 +61,9 @@ export class StudentProyectComponent implements OnInit {
       }
     }
     this.getPeriodo();
+    this.getWorks();
   }
+
   ngOnInit() {
     // tslint:disable-next-line:radix
     if (parseInt(this.rol) == 2) {
@@ -65,9 +72,9 @@ export class StudentProyectComponent implements OnInit {
     // tslint:disable-next-line:radix
     if (parseInt(this.rol) == 3) {
       this.getIntegrantes(this.proyecto.idProyectos);
-      console.log(this.proyecto);
     }
   }
+
   getIntegrantes(id) {
     this.proyectService.getUsersProyects(id).subscribe(r => {
       let objeto: any = r;
@@ -75,6 +82,7 @@ export class StudentProyectComponent implements OnInit {
       this.integrantes = objeto;
     });
   }
+
   getCategories() {
     this.proyectoService.getCategories().subscribe(res => {
       const categoria: any = res;
@@ -83,6 +91,7 @@ export class StudentProyectComponent implements OnInit {
       this.toastr.error('Algo ha salido mal', '');
     });
   }
+
   getPeriodo() {
     this.proyectoService.getPeriodo().subscribe(res => {
       const per: any = res;
@@ -91,6 +100,7 @@ export class StudentProyectComponent implements OnInit {
       this.proyecto.idPeriodo = this.periodo.idPeriodoAcademico;
     });
   }
+
   getProyecto(id?) {
     this.proyectoService.getById(id).subscribe(res => {
       let data: any = res;
@@ -98,25 +108,29 @@ export class StudentProyectComponent implements OnInit {
       this.proyecto = data;
     });
   }
+
   actualizar() {
     if (this.proyecto.estado == 'Rechazado') {
       this.proyecto.estado = 'Pendiente';
     }
     this.proyectoService.actualizarProyecto(this.proyecto).subscribe(res => {
-      this.toastr.success('se actualizo', '');;
+      this.toastr.success('se actualizo', '');
+      ;
     }, error => {
 
     });
   }
+
   findById(id) {
     this.proyectService.getById(id).subscribe(res => {
       const objeto: any = res;
       this.proyectoSend = objeto.datos;
     });
   }
+
   getWorks() {
     if (this.usuario.rol == 2) {
-      this.proyectoService.getUserProyectWorks(this.usuario.idUsuarios).subscribe(res => {
+      this.proyectoService.getUserProyectWorks(this.usuario.idUsuarios, this.proyecto.idProyecto).subscribe(res => {
         const result: any = res;
         this.works = result.datos;
       }, err => {
@@ -124,7 +138,8 @@ export class StudentProyectComponent implements OnInit {
       });
 
     } else if (this.usuario.rol == 3) {
-      this.proyectoService.getTeacherProyectWorks(this.usuario.idUsuarios).subscribe(res => {
+      this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+      this.proyectoService.getTeacherProyectWorks(this.usuario.idUsuarios, this.proyecto.idProyectos).subscribe(res => {
         const result: any = res;
         this.works = result.datos;
       }, err => {
@@ -132,6 +147,7 @@ export class StudentProyectComponent implements OnInit {
       });
     }
   }
+
   async createObservaciones(estado) {
     // @ts-ignore
     Swal.fire({
@@ -149,7 +165,7 @@ export class StudentProyectComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Agregar',
       showLoaderOnConfirm: true,
-      preConfirm:  (data) => {
+      preConfirm: (data) => {
         console.log(data);
         if (data != '') {
           if (estado == 'Aceptado') {
@@ -165,10 +181,13 @@ export class StudentProyectComponent implements OnInit {
     })
 
   }
-  openWork(item) {
-    this.router.navigate([`web/teacher/notes/${item}`]);
-   // this.nav.navigateForward(`works/${item}`);
+
+  openWork(item, rol, email) {
+    this.router.navigate([`web/teacher/notes/${item}/${rol}/${email}`]);
+    // this.nav.navigateForward(`works/${item}`);
+
   }
+
   aceptarProyecto(state, observacion) {
     const update = new Date().toISOString().slice(0, 19).replace('T', ' ');
     this.proyectoSend.updated_at = update;
@@ -179,6 +198,7 @@ export class StudentProyectComponent implements OnInit {
       this.router.navigate(['']);
     });
   }
+
   rechazarProyecto(state, observacion) {
     const update = new Date().toISOString().slice(0, 19).replace('T', ' ');
     this.proyectoSend.updated_at = update;
@@ -188,6 +208,7 @@ export class StudentProyectComponent implements OnInit {
       this.router.navigate(['']);
     });
   }
+
   fileChange(event) {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {

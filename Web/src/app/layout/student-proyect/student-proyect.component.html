@@ -310,22 +310,24 @@
 <div class="container" *ngIf="estado == 'Aceptado' && rol == 2">
   <div class="container" *ngIf="works.length > 0">
     <div class="container" *ngFor="let work of works">
-      <div class="card" class="welcome-card" (click)="openWork(work.idNotas)">
+      <br>
+      <div class="card" class="welcome-card" (click)="openWork(work.idNotas, rol)">
         <div class="card" style="color: #721c24">
           <div class="container">
             <div class="row">
               <div class="col-6">
-                <label class="m-0 font-weight-bold"> {{work.tipo}}</label>
+                <label class="m-0 font-weight-light"> {{work.tipo}}</label>
 
               </div>
+
               <div class="col-6 estudiante">
-                <label class="m-0 font-weight-bold"> {{work.estudiante}}</label>
+                <label class="m-0 font-weight-light"> {{work.estudiante}}</label>
               </div>
             </div>
           </div>
           <div class="container">
             <div class="row">
-              <label class="m-0 font-weight-bold"> Fecha Entrega: {{work.fechaLimite | date:'medium'}}</label>
+              <label class="m-0 font-weight-light"> Fecha Entrega: {{work.fechaLimite | date:'medium'}}</label>
             </div>
           </div>
         </div>

@@ -28,7 +28,7 @@ const routes: Routes = [{
     },
 
     {
-      path: 'teacher/notes/:id',
+      path: 'teacher/notes/:item/:rol/:email',
       loadChildren: () =>
         import('./teacher-notes/teacher-notes.module')
           .then(m => m.TeacherNotesModule)

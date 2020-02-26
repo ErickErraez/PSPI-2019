@@ -36,13 +36,14 @@ export class ProyectoServiceService {
   createWork(work) {
     return this.http.post(this.url + 'createWork', work);
   }
-  getUserProyectWorks(id) {
-    return this.http.get(this.url + 'getUserProyectWorks/' + id);
+  getUserProyectWorks(id, idProyecto) {
+    return this.http.get(this.url + 'getUserProyectWorks/' + id + '/' + idProyecto);
   }
 
-  getTeacherProyectWorks(id) {
-    return this.http.get(this.url + 'getTeacherProyectWorks/' + id);
+  getTeacherProyectWorks(id, idProyecto) {
+    return this.http.get(this.url + 'getTeacherProyectWorks/' + id + '/' + idProyecto);
   }
+
   getProyectosByNivel(nivel) {
     return this.http.get(this.url + 'getProyectos/' + nivel);
   }
