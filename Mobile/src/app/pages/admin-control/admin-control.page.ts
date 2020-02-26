@@ -160,6 +160,8 @@ export class AdminControlPage implements OnInit {
     getData() {
         this.adminService.getNotesAdmin(this.tipo).subscribe(res => {
             this.tipos = res['datos'];
+            console.log(this.tipos);
+
             for (let i = 0; i < this.tipos.length; i++) {
                 this.tipos[i].fechaLimite = new Date(this.tipos[i].fechaLimite).toISOString().slice(0, 19).replace('T', ' ');
             }

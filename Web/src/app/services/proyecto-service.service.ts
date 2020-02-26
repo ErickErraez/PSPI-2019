@@ -17,11 +17,20 @@ export class ProyectoServiceService {
   getTutorProyects(id) {
     return this.http.get(this.url + 'getTutorProyects/' + id);
   }
+  getTutorUserProyects(id) {
+    return this.http.get(this.url + 'getTutorUserProyects/' + id);
+  }
   getUserPendingProyect(id) {
     return this.http.get(this.url + 'getUserPendingProyect/' + id);
   }
   actualizarProyecto(proyecto) {
     return this.http.put(this.url + 'actualizarProyecto', proyecto);
+  }
+  updateState(proyecto) {
+    return this.http.put(this.url + 'updateState', proyecto);
+  }
+  getProyectsNivel(nivel, paralelo) {
+    return this.http.get(this.url + 'getProyectos/' + nivel + '/' + paralelo);
   }
 
   createWork(work) {

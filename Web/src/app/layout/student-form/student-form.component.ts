@@ -5,6 +5,7 @@ import {Proyectos} from '../../models/Proyectos';
 import {ToastrService} from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import {usuariosProyectos} from "../../models/UsuariosProyectos";
+import {Router} from "@angular/router";
 
 
 
@@ -29,7 +30,7 @@ export class StudentFormComponent implements OnInit {
   miembros = [];
 
 
-  constructor(private server: UserFormService, private proyectService: ProyectoServiceService, private toastr: ToastrService) {
+  constructor(private route: Router,private server: UserFormService, private proyectService: ProyectoServiceService, private toastr: ToastrService) {
  this.proyectos.paralelo="selected";
  this.proyectos.nivel="selected";
     this.Arraycategorias[this.nombre]="selected"
@@ -168,6 +169,7 @@ if(this.proyectos.nombre === null ){
     this.createUserProyect(proyectFinal.idProyectos);
 
     this.toastr.success('Tu Propuesta se ha envíado correctamente', 'Bien..¡¡');
+    this.route.navigate(['web/admin/control']);
 
   }, error => {
     this.toastr.error('No se ha envíado tu propuesta', 'Error');

@@ -1,55 +1,92 @@
-
 <body id="page-top" style="padding-left: 10%;padding-right: 10%;">
 <div class="card-header text-white" style="border-bottom-width: 5px;background-color: rgb(43, 76, 226);">
-  <label class="m-0 font-weight-bold" *ngIf="estado === 'Pendiente' || estado === 'Rechazado' && rol == 2">{{proyecto.nombre}} </label>
-  <label class="m-0 font-weight-bold" *ngIf="estado === 'Pendiente'  || estado === 'Aceptado' && rol == 3">{{proyecto.nombreProyecto}} </label>
+  <label class="m-0 font-weight-bold"
+         *ngIf="estado === 'Pendiente' || estado === 'Rechazado' && rol == 2">{{proyecto.nombre}} </label>
+  <label class="m-0 font-weight-bold"
+         *ngIf="estado === 'Pendiente'  || estado === 'Aceptado' && rol == 3">{{proyecto.nombreProyecto}} </label>
   <label class="m-0 font-weight-bold" *ngIf="estado === 'Aceptado' && rol == 2">{{proyecto.nombreProyecto}} </label>
 </div>
-
-
-
-
 <div id="wrapper">
-
-  <!-- Sidebar -->
-
-  <!-- End of Sidebar -->
-
-  <!-- Content Wrapper -->
   <div id="content-wrapper" class="d-flex flex-column">
-
     <div id="content">
-
-
       <div class="row">
         <div class="col-12 ">
           <div class="card" *ngIf="estado === 'Pendiente'|| estado === 'Rechazado'">
-
-
-            <div class="card-body ">
+            <div class="card-body " *ngIf="rol == 2">
               <div class="row ">
                 <table class="table table-bordered" id="tableColor">
                   <tbody>
                   <tr>
 
+                    <td scope="col"><b>Tutor de Proyecto:</b></td>
                     <td scope="col">
+                      <input type="text" id="name" placeholder="&nbsp;" [(ngModel)]="proyecto.estado" disabled>
+                    </td>
 
-                      <label class="inp">
+                  </tr>
+                  <tr>
 
-                        <input type="text" id="name" placeholder="&nbsp;" [(ngModel)]="proyecto.estado"  disabled>
-                        <span class="label">ESTADO DEL PROYECTO</span>
+                    <td scope="col"><b>Nombre del Proyecto:</b></td>
+                    <td scope="col">
+                      <input type="text" id="name" placeholder="&nbsp;" [(ngModel)]="proyecto.nombre" >
+                    </td>
+
+                  </tr>
+
+                  <tr>
+
+                    <td scope="col"><b>Descripcion del Proyecto:</b></td>
+                    <td scope="col">
+                      <input type="text" id="name" placeholder="&nbsp;" [(ngModel)]="proyecto.descripcion" >
+                    </td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Herramientas a Utilizar:</b></td>
+                    <td scope="col">
+                      <input type="text" id="name" placeholder="&nbsp;" [(ngModel)]="proyecto.herramientas" >
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td scope="col">
+                      <select class="browser-default custom-select" class="inp" [(ngModel)]="proyecto.idCategoria">
+                        <option class="label" disabled selected>SELECCIONE LA CATEGORÍA</option>
+                        <option *ngFor="let item of categorias"
+                                value="{{item.idCategorias}}">{{item.nombre}}</option>
                         <span class="border"></span>
-                      </label>
-
+                      </select>
                     </td>
                     <td scope="col">
+                      <select class="browser-default custom-select" class="inp" [(ngModel)]="proyecto.nivel">
+                        <option class="label" disabled selected>SELECCIONE EL NIVEL</option>
+                        <option value="1">PRIMERO</option>
+                        <option value="2">SEGUNDO</option>
+                        <option value="3">TERCERO</option>
+                        <option value="4">CUARTO</option>
+                        <option value="5">QUINTO</option>
+                        <span class="border"></span>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
 
+                    <td scope="col">
+                      <select class="browser-default custom-select" class="inp" [(ngModel)]="proyecto.paralelo">
+                        <option class="label" disabled selected>SELECCIONE UN TEMA</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <span class="border"></span>
+                      </select>
+                    </td>
+                    <td scope="col" *ngIf="estado == 'Rechazado'">
                       <label class="inp">
-                        <input type="text" id="desc" placeholder="&nbsp;" [(ngModel)]="proyecto.nombre">
-                        <span class="label">Nombre del Proyecto {{proyecto.tutor}}</span>
+                        <input type="text" id="obs" placeholder="&nbsp;" [(ngModel)]="proyecto.observaciones">
+                        <span class="label">OBSERVACIONES</span>
                         <span class="border"></span>
                       </label>
-
                     </td>
                   </tr>
 
@@ -57,98 +94,247 @@
                 </table>
                 <table class="table table-bordered" id="tableColor">
                   <tbody>
-                  <tr>
 
-                    <td scope="col">
-
-                      <label class="inp">
-                        <input type="text" id="herr" placeholder="&nbsp;" [(ngModel)]="proyecto.descripcion" >
-                        <span class="label">Descripcion del Proyecto</span>
-                        <span class="border"></span>
-                      </label>
-
-                    </td>
-                    <td scope="col">
-
-                      <label class="inp">
-                        <input type="text" id="herra" placeholder="&nbsp;"[(ngModel)]="proyecto.herramientas">
-                        <span class="label">Herramientas a Utilizar</span>
-                        <span class="border"></span>
-                      </label>
-
-                    </td>
-
-
-
-                  </tr>
-                  <tr>
-                    <td scope="col">
-                      <select class="browser-default custom-select" class="inp"[(ngModel)]="proyecto.idCategoria">
-                        <option class="label"  disabled selected>SELECCIONE UN TEMA</option>
-                        <option *ngFor="let item of categorias"
-                                value="{{item.idCategorias}}">{{item.nombre}}</option>
-                        <span class="border"></span>
-
-
-                      </select>
-
-                    </td>
-                    <td scope="col">
-                      <select class="browser-default custom-select" class="inp"[(ngModel)]="proyecto.nivel">
-                        <option class="label"  disabled selected>SELECCIONE UN TEMA</option>
-                        <option  value="1">PRIMERO </option>
-                        <option  value="2">SEGUNDO</option>
-                        <option  value="3">PRIMERO </option>
-                        <option  value="4">PRIMERO </option>
-                        <option  value="5">PRIMERO </option>
-                        <span class="border"></span>
-
-
-                      </select>
-
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="col">
-                      <select class="browser-default custom-select" class="inp"[(ngModel)]="proyecto.paralelo">
-                        <option class="label"  disabled selected>SELECCIONE UN TEMA</option>
-                        <option  value="A">A </option>
-                        <option  value="B">B</option>
-                        <option  value="C">C </option>
-
-                        <span class="border"></span>
-
-
-                      </select>
-
-                    </td>
-                  </tr>
-                  <br>
 
 
 
                   </tbody>
                 </table>
 
+              </div>
 
+            </div>
+            <button class="btn btn-success" (click)="actualizar()">ACTUALIZAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="wrapper">
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <div class="row">
+        <div class="col-12 ">
+          <div class="card" *ngIf="estado == 'Pendiente' || estado == 'Aceptado'">
+            <div class="card-body" *ngIf="rol == 3">
+              <div class="row ">
+                <table class="table table-bordered" id="tableColor">
+                  <tr>
+
+                    <td scope="col"><b>Tutor de Proyecto:</b></td>
+                    <td scope="col">{{proyecto.tutor}}</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Periodo:</b></td>
+                    <td scope="col">{{proyecto.periodo}}</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Nivel:</b></td>
+                    <td scope="col">{{proyecto.nivelProyecto}} Semestre</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Objetivos:</b></td>
+                    <td scope="col">{{proyecto.descripcionProyecto}}</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Herramientas:</b></td>
+                    <td scope="col">{{proyecto.herramientasProyecto}}</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Categoria:</b></td>
+                    <td scope="col">{{proyecto.categoria}}</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Estado:</b></td>
+                    <td scope="col">{{proyecto.estadoProyecto}}</td>
+
+                  </tr>
+
+
+                </table>
+
+              </div>
+              <tr>
+                <td scope="col"><b>Integrantes: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                  &nbsp;</b></td>
+                <td scope="col" *ngFor="let item of integrantes">{{item.estudiante[0].nombre1 | titlecase}}
+                  {{item.estudiante[0].apellido1 | titlecase}},
+                </td>
+
+
+              </tr>
+              <div class="container" *ngIf="usuario.rol ===3 && proyecto.estadoProyecto ==='Pendiente'">
+                <button class="btn btn-success" (click)="createObservaciones('Aceptado')">ACEPTAR</button>
+                <button class="btn btn-danger" (click)="createObservaciones('Rechazado')">RECHAZAR</button>
               </div>
             </div>
 
-
+          </div>
         </div>
-        </div>
-
-
       </div>
     </div>
-
-
   </div>
-
-
 </div>
 
-<button class="btn btn-secondary" (click)="actualizar()">ACTUALIZAR</button>
+
+<div id="wrapper">
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <div class="row">
+        <div class="col-12 ">
+          <div class="card" *ngIf="estado == 'Aceptado' && rol ==2 ">
+            <div class="card-body">
+              <div class="row ">
+                <table class="table table-bordered" id="tableColor">
+                  <tr>
+
+                    <td scope="col"><b>Tutor de Proyecto:</b></td>
+                    <td scope="col">{{proyecto.tutor}}</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Periodo:</b></td>
+                    <td scope="col">{{proyecto.periodo}}</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Nivel:</b></td>
+                    <td scope="col">{{proyecto.nivelProyecto}} Semestre</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Objetivos:</b></td>
+                    <td scope="col">{{proyecto.descripcionProyecto}}</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Herramientas:</b></td>
+                    <td scope="col">{{proyecto.herramientasProyecto}}</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Categoria:</b></td>
+                    <td scope="col">{{proyecto.categoria}}</td>
+
+                  </tr>
+                  <tr>
+
+                    <td scope="col"><b>Estado:</b></td>
+                    <td scope="col">{{proyecto.estadoProyecto}}</td>
+
+                  </tr>
+
+
+                </table>
+
+              </div>
+              <tr>
+                <td scope="col"><b>Integrantes: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                  &nbsp;</b></td>
+                <td scope="col" *ngFor="let item of integrantes">{{item.estudiante[0].nombre1 | titlecase}}
+                  {{item.estudiante[0].apellido1 | titlecase}},
+                </td>
+
+
+              </tr>
+              <div class="container" *ngIf="usuario.rol ===3 && proyecto.estadoProyecto ==='Pendiente'">
+                <button class="btn btn-success" (click)="createObservaciones('Aceptado')">ACEPTAR</button>
+                <button class="btn btn-danger" (click)="createObservaciones('Rechazado')">RECHAZAR</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container" *ngIf="estado == 'Aceptado' && rol==3">
+  <div class="container" *ngIf="works.length > 0">
+    <div class="container" *ngFor="let work of works">
+      <div class="container" *ngFor="let item of integrantes; let i = index;">
+        <div class="container" *ngFor="let user of item.estudiante">
+          <div class="container" *ngIf="user.idUsuarios == work.idUsuarios">
+            <div class="card" class="welcome-card" (click)="openWork(work.idNotas)">
+              <div class="card" style="color: #721c24">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-6">
+                      {{work.tipo}}
+                    </div>
+                    <div class="col-6 estudiante">
+                      {{work.estudiante}}
+                    </div>
+                  </div>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <td scope="col"><b>Fecha Entrega:</b> <br>{{work.fechaLimite | date:'medium'}}</td>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<br>
+<br>
+
+<div class="container" *ngIf="estado == 'Aceptado' && rol == 2">
+  <div class="container" *ngIf="works.length > 0">
+    <div class="container" *ngFor="let work of works">
+      <div class="card" class="welcome-card" (click)="openWork(work.idNotas)">
+        <div class="card" style="color: #721c24">
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <label class="m-0 font-weight-bold"> {{work.tipo}}</label>
+
+              </div>
+              <div class="col-6 estudiante">
+                <label class="m-0 font-weight-bold"> {{work.estudiante}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <label class="m-0 font-weight-bold"> Fecha Entrega: {{work.fechaLimite | date:'medium'}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 
 

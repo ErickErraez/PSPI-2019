@@ -21,6 +21,9 @@ export class AdminService {
   updateConfiguraciones(configuracion) {
     return this.http.put(this.url + 'updateConfiguraciones', configuracion);
   }
+  getNotesAdmin(tipo) {
+    return this.http.get(this.url + 'getNotesAdmin/' + tipo);
+  }
 
   updateProyecto(proyecto) {
     return this.http.put(this.url + 'updateProyecto', proyecto);

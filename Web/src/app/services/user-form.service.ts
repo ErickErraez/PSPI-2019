@@ -7,11 +7,17 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class UserFormService {
   url = environment.urlServer + 'user/';
-
+  headers: HttpHeaders = new HttpHeaders({
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  });
   constructor(private http: HttpClient) {
   }
 
 
+  getDocentes() {
+    return this.http.get(this.url + 'getDocentes', {headers: this.headers});
+  }
   postForm(form) {
     return this.http.post(this.url + 'form', form);
   }

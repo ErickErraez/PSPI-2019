@@ -7,10 +7,14 @@ export class Proyectos {
   paralelo: string;
   estado: string;
   tutor: number;
-  juez1: number;
-  juez2: number;
+  tutorSuplente: number;
+  jurado1: number;
+  jurado2: number;
+  updated_at?: any;
+  created_at?: any;
   idPeriodo: number;
   idCategoria: number;
+  observaciones: string;
 
 
 }

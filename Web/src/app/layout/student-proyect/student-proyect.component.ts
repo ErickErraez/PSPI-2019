@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Adjuntos} from '../../models/Adjuntos';
 import {Proyectos} from '../../models/Proyectos';
 import {ProyectoServiceService} from '../../services/proyecto-service.service';
 import {ToastrService} from "ngx-toastr";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-student-proyect',
@@ -29,45 +30,46 @@ export class StudentProyectComponent implements OnInit {
   proyectoSend: Proyectos = new Proyectos();
   works: any = [];
 
-  constructor(private toastr: ToastrService,private http: HttpClient,private route: ActivatedRoute, private proyectoService: ProyectoServiceService,private proyectService: ProyectoServiceService) {
-    this.id = this.route.snapshot.paramMap.get('id')
+  constructor(private toastr: ToastrService,private http: HttpClient,private route: ActivatedRoute,private router: Router, private proyectoService: ProyectoServiceService,private proyectService: ProyectoServiceService) {
+    this.id = this.route.snapshot.paramMap.get('id');
     this.estado = this.route.snapshot.paramMap.get('estado');
     this.rol = this.route.snapshot.paramMap.get('rol');
-    this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
     this.getCategories();
-    this.getPeriodo();
     this.getWorks();
-
-    if (this.proyectos.length !== 0) {
-      this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+    this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
+    if (this.usuario.rol == 2 && this.estado != 'Aceptado') {
+      this.proyecto = this.proyectosPending.find(proyect => proyect.idUsuariosProyectos === parseInt(this.id));
+      this.getProyecto(this.proyecto.idProyecto);
+    }
+    if (this.proyectos.length !== 0 && this.estado != 'Pendiente') {
       if (this.usuario.rol == 3) {
+        this.proyecto = this.proyectos.find(proyect => proyect.idProyectos === parseInt(this.id));
         this.findById(this.proyecto.idProyectos);
       }
       if (this.usuario.rol == 2) {
-        console.log(this.proyectos);
-        this.proyecto = this.proyectos.find(proyect => proyect.idProyecto === parseInt(this.id));
+        this.proyecto = this.proyectos.find(proyect => proyect.idUsuariosProyectos === parseInt(this.id));
         if (this.estado == 'Aceptado') {
           this.findById(this.proyecto.idProyecto);
         } else {
-
           this.getProyecto(this.proyecto.idProyecto);
-          console.log(this.proyecto.idProyecto);
         }
       }
-    } else {
-      if (this.usuario.rol == 2) {
-        this.proyecto = this.proyectosPending.find(proyect => proyect.idProyecto === parseInt(this.id));
-        this.getProyecto(this.proyecto.idProyecto);
-      }
+    }
+    this.getPeriodo();
+  }
+  ngOnInit() {
+    // tslint:disable-next-line:radix
+    if (parseInt(this.rol) == 2) {
+      this.getIntegrantes(this.proyecto.idProyecto);
+    }
+    // tslint:disable-next-line:radix
+    if (parseInt(this.rol) == 3) {
+      this.getIntegrantes(this.proyecto.idProyectos);
+      console.log(this.proyecto);
     }
   }
-
-  ngOnInit() {
-    this.getIntegrantes();
-
-  }
-  getIntegrantes() {
-    this.proyectService.getUsersProyects(this.proyecto.idProyectos).subscribe(r => {
+  getIntegrantes(id) {
+    this.proyectService.getUsersProyects(id).subscribe(r => {
       let objeto: any = r;
       objeto = objeto.datos;
       this.integrantes = objeto;
@@ -107,7 +109,7 @@ export class StudentProyectComponent implements OnInit {
     });
   }
   findById(id) {
-    this.proyectService.getById(this.proyecto.idProyectos).subscribe(res => {
+    this.proyectService.getById(id).subscribe(res => {
       const objeto: any = res;
       this.proyectoSend = objeto.datos;
     });
@@ -130,8 +132,62 @@ export class StudentProyectComponent implements OnInit {
       });
     }
   }
+  async createObservaciones(estado) {
+    // @ts-ignore
+    Swal.fire({
+      title: 'ESCRIBIR OBSERVACION',
+      inputPlaceholder: 'Observacion',
+      input: 'text',
 
 
+      inputAttributes: {
+        autocapitalize: 'off',
+        titleText: 'persona',
+
+      },
+
+      showCancelButton: true,
+      confirmButtonText: 'Agregar',
+      showLoaderOnConfirm: true,
+      preConfirm:  (data) => {
+        console.log(data);
+        if (data != '') {
+          if (estado == 'Aceptado') {
+            this.aceptarProyecto(estado, data);
+          } else {
+            this.rechazarProyecto(estado, data);
+          }
+        } else {
+          this.toastr.success('Error Debes escribir una observacion', 'Error');
+        }
+      },
+
+    })
+
+  }
+  openWork(item) {
+    this.router.navigate([`web/teacher/notes/${item}`]);
+   // this.nav.navigateForward(`works/${item}`);
+  }
+  aceptarProyecto(state, observacion) {
+    const update = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    this.proyectoSend.updated_at = update;
+    this.proyectoSend.estado = state;
+    this.proyectoSend.observaciones = observacion;
+    console.log(this.proyectoSend);
+    this.proyectService.updateState(this.proyectoSend).subscribe(r => {
+      this.router.navigate(['']);
+    });
+  }
+  rechazarProyecto(state, observacion) {
+    const update = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    this.proyectoSend.updated_at = update;
+    this.proyectoSend.estado = state;
+    this.proyectoSend.observaciones = observacion;
+    this.proyectService.updateState(this.proyectoSend).subscribe(r => {
+      this.router.navigate(['']);
+    });
+  }
   fileChange(event) {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {

@@ -1,4 +1,6 @@
 export class Categorias{
-    id?: number;
+  idCategorias?: number;
     nombre: string;
+  updated_at?: any;
+  created_at?: any;
 }

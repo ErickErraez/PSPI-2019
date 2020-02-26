@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, RouterModule, Routes} from '@angular/router';
+import {AdminService} from "../../../services/admin.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,8 +8,15 @@ import {Router, RouterModule, Routes} from '@angular/router';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-user: any = JSON.parse(localStorage.getItem('user'));
-  constructor( private route: Router) { }
+  show: any = {};
+  usuario: any = JSON.parse(localStorage.getItem('usuario'));
+
+  constructor( private route: Router,private adminService:AdminService) {
+    this.adminService.getConfiguracion().subscribe(res=>{
+      this.show = res;
+      this.show = this.show.datos;
+    })
+  }
 
   ngOnInit() {
   }

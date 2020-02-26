@@ -1,4 +1,4 @@
-<body id="page-top" style="padding-left: 5%;padding-right: 5%;">
+<body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -14,137 +14,155 @@
     <div id="content">
 
 
-      <div class="row">
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
 
-        <div class="col-lg-6">
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">CURSOS</h1>
-          <p class="mb-4"> CURSOS DE LA CARRERA DE DESARROLLO DE SOFTWARE</p>
-          <button (click)="agregarModal(1)" class="btn btn-success m-1" data-toggle="modal" data-target="#update">PRIMER CURSO</button>&nbsp;
-          <button (click)="id =2" class="btn btn-success m-1" data-toggle="modal" data-target="#update">SEGUNDO CURSO</button>&nbsp;
-          <button (click)="id =3" class="btn btn-success m-1" data-toggle="modal" data-target="#update">TERCER CURSO</button>&nbsp;
-          <button (click)="id =4" class="btn btn-success m-1" data-toggle="modal" data-target="#update">CUARTO CURSO</button>&nbsp;
-          <button (click)="id =5" class="btn btn-success m-1" data-toggle="modal" data-target="#update">QUINTO CURSO</button>&nbsp;
 
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
-            </div>
-            <div class="card-body">
-              <button style="width: 100%; height: 100%;" class="btn btn-success" data-toggle="modal"
-                      data-target="#update">PRIMER CURSO
-              </button>
-            </div>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">ASIGNACIÓN DE TUTORES</h6>
           </div>
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
-            </div>
+
+
+        </div>
+        <div class="container">
+          <div class="card-deck">
             <div class="card-body">
-              <button style="width: 100%; height: 100%;" class="btn btn-success" data-toggle="modal"
-                      data-target="#update">SEGUNDO CURSO
-              </button>
+              <h6 class="m-0 font-weight-bold text-danger">PERIODO ACADÉMICO:</h6>
+              <h5 class="card-title">
+                NOVIEMBRE 2019 - ABRIL 2020 &nbsp;&nbsp;
+                <button class="btn btn-success" (click)="editarPeriodo()">EDITAR PERIODO</button>
+              </h5>
+
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
-          <br>
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
-            </div>
+        <div class="container">
+          <div class="card-deck">
             <div class="card-body">
-              <button style="width: 100%; height: 100%;" class="btn btn-success" data-toggle="modal"
-                      data-target="#update">TERCER CURSO
-              </button>
+              <h6 class="m-0 font-weight-bold text-primary">SELECCIONE:</h6>
             </div>
-          </div>
+            <div class="container">
+              <select class="browser-default custom-select" class="inp" [(ngModel)]="valor">
+                <option value="selected" class="label" disabled>NIVEL</option>
+                <option value="1">PRIMERO</option>
+                <option value="2">SEGUNDO</option>
+                <option value="3">TERCERO</option>
+                <option value="4">CUARTO</option>
+                <option value="5">QUINTO</option>
+                <span class="border"></span>
 
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
+
+              </select>
             </div>
-            <div class="card-body">
-              <button style="width: 100%; height: 100%;" class="btn btn-success" data-toggle="modal"
-                      data-target="#update">CUARTO CURSO
-              </button>
+            <br>
+            <br>
+            <div class="container">
+              <select class="browser-default custom-select" class="inp" [(ngModel)]="paralelo">
+                <option value="selected" class="label" disabled>NIVEL</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <span class="border"></span>
+
+
+              </select>
             </div>
-          </div>
-
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
-            </div>
-            <div class="card-body">
-              <button style="width: 100%; height: 100%;" class="btn btn-success" data-toggle="modal"
-                      data-target="#update">QUINTO CURSO
-              </button>
-            </div>
-          </div>
-        </div>
 
 
-        <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">CALIFICAR</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <select [(ngModel)]="proyecto.tutor" class="browser-default custom-select">
-                  <option value="" disabled selected>Seleccione un Tutor
-                  </option>
-                  <option *ngFor="let item of docentes"
-                          value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</option>
-                </select>
-                <div class="modal-body">
-                  <select [(ngModel)]="proyecto.jurado1" class="browser-default custom-select">
-                    <option value="0" disabled selected>Seleccione un Juez
-                    </option>
-                    <option *ngFor="let item of docentes"
-                            value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</option>
-                  </select>
-                  <br><br>
-                  <select [(ngModel)]="proyecto.jurado2"class="browser-default custom-select">
-                    <option value="0" disabled selected>Seleccione un Juez
-                    </option>
-                    <option *ngFor="let item of docentes"
-                            value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</option>
-                  </select>
-                  <br><br>
-                  <button class="btn btn-success" (click)="asignarTutores()">ACEPTAR</button>&nbsp; &nbsp; &nbsp;
-                  <button class="btn btn-danger" data-toggle="modal" data-dismiss="modal"
-                          data-target="#rechazo">RECHAZAR
-                  </button>&nbsp;
-                  <br>
 
 
+            <div id="wrapper">
+              <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                  <div class="row">
+                    <div class="col-12 ">
+                      <div class="card" >
+                        <div class="card-body " *ngIf="valor!=null && paralelo !=null">
+                          <div class="row ">
+                            <table class="table table-bordered" id="tableColor">
+                              <tbody>
+                              <tr>
+
+                                <td scope="col"><b>TUTOR:</b></td>
+                                <td scope="col">
+                                  <select class="browser-default custom-select" class="inp" [(ngModel)]="proyecto.tutor">
+                                    <option class="label" disabled selected>SELECCIONE EL TUTOR </option>
+                                    <option *ngFor="let item of docentes"
+                                            value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</option>
+                                    <span class="border"></span>
+                                  </select>
+                                </td>
+
+                              </tr>
+                              <tr>
+
+                                <td scope="col"><b>TUTOR SUPLENTE:</b></td>
+                                <td scope="col">
+                                  <select class="browser-default custom-select" class="inp" [(ngModel)]="proyecto.tutorSuplente">
+                                    <option class="label" disabled selected>SELECCIONE EL TUTOR SUPLENTE</option>
+                                    <option *ngFor="let item of docentes"
+                                            value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</option>
+                                    <span class="border"></span>
+                                  </select>
+                                </td>
+                              </tr>
+
+                              <tr>
+
+                                <td scope="col"><b>CALIFICADOR 1:</b></td>
+                                <td scope="col">
+                                  <select class="browser-default custom-select" class="inp" [(ngModel)]="proyecto.jurado1">
+                                    <option class="label" disabled selected>SELECCIONE EL PRIMER JURADO</option>
+                                    <option *ngFor="let item of docentes"
+                                            value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</option>
+                                    <span class="border"></span>
+                                  </select>
+                                </td>
+
+                              </tr>
+                              <tr>
+
+                                <td scope="col"><b>CALIFICADOR 2:</b></td>
+                                <td scope="col">
+                                  <select class="browser-default custom-select" class="inp" [(ngModel)]="proyecto.jurado2">
+                                    <option class="label" disabled selected>SELECCIONE EL SEGUNDO JURADO</option>
+                                    <option *ngFor="let item of docentes"
+                                            value="{{item.idUsuarios}}">{{item.nombre1}} {{item.apellido1}}</option>
+                                    <span class="border"></span>
+                                  </select>
+                                  <div class="container text-center">
+                                    <button class="btn btn-success" (click)="getProyectos()">ASIGNAR</button>
+                                    <button class="btn btn-danger" (click)="cancelarAsignacion()">CANCELAR </button>
+                                  </div>
+                                </td>
+
+                              </tr>
+
+
+                              </tbody>
+                            </table>
+
+
+                          </div>
+
+                        </div>
+
+                    </div>
+                  </div>
+                  </div>
                 </div>
-
               </div>
             </div>
+
+
+
+
           </div>
         </div>
-
-        <!-- /.container-fluid -->
-
-
       </div>
     </div>
-    <!-- End of Main Content -->
-
-
   </div>
-  <!-- End of Content Wrapper -->
-
 </div>
-<!-- End of Page Wrapper -->
-
-
 </body>
-
-

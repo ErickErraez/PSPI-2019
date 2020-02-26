@@ -26,81 +26,113 @@
 
 
         </div>
-        <div class="container col-12 ">
+        <div class="container col-6 ">
           <div class="card-deck">
-            <div  class="welcome-card">
+            <div class="welcome-card">
               <div class="checkbox">
                 <h3>ACTIVAR FORMULARIO</h3>
-              <br>
+                <br>
                 <input type="checkbox" name="checkbox" id="checkbox1"
-                       (click)="changeStatus($event.target.checked)"/>
+                       (click)="changeStatus($event.target.checked)"
+                       [(ngModel)]="this.show.formularioSolicitud"/>
                 <label for="checkbox1">Si</label>
 
               </div>
 
 
-
-
             </div>
           </div>
 
+        </div>
 
-          <!-- /.container-fluid -->
 
+        <br>
 
+      </div>
+      <div class="container col-6">
+        <div class="card-deck" *ngIf="usuario.rol === 3">
+          <div class="welcome-card">
+            <div class="checkbox">
+              <h3>CREAR TAREA</h3>
+              <br>
+              <button class="btn btn-success" (click)="showNew('new')">CREAR</button>
+              &nbsp; &nbsp;
+              <button class="btn btn-secondary" (click)="showNew('edit')">EDITAR</button>
+              <div *ngIf="stateWork == 'new'">
+                <h1>Tipo de Evaluación</h1>
+                <div>
+                  <select class="browser-default custom-select" class="inp" [(ngModel)]="nota.idTipoEvaluacion">
+                    <option class="label" disabled selected>SELECCIONE EL ENTREGABLE</option>
+                    <option value="1">ENTREGABLE 1</option>
+                    <option value="2">ENTREGABLE 2</option>
+                    <span class="border"></span>
+                  </select>
+                </div>
+                <div>
+                  <h1>Fecha Límite</h1>
+                  <div>
+                    <input type="date" name="fecha" min="2020-02-25" [(ngModel)]="nota.fechaLimite"
+                           max="2020-12-31" step="2">
+                  </div>
+
+                </div>
+                <br>
+                <button class="btn btn-success" (click)="createWork()">CREAR</button>
+                &nbsp; &nbsp;
+                <button class="btn btn-danger" (click)="stateWork = ''">CANCELAR</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="stateWork == 'edit'">
+        <h1>Tipo Evaluaciones</h1>
+        <div>
+          <select class="browser-default custom-select" class="inp" [(ngModel)]="tipo">
+            <option class="label" disabled selected>SELECCIONE EL ENTREGABLE</option>
+            <option value="Entregable 1">ENTREGABLE 1</option>
+            <option value="Entregable 2">ENTREGABLE 2</option>
+            <span class="border"></span>
+          </select>
         </div>
         <br>
-        <div class="container col-12 ">
-          <div class="card-deck">
-            <div  class="welcome-card">
-              <div class="checkbox">
-                <h3>EDITAR TEMAS</h3>
-                <br>
-                <table border="1" class="table" style="width:100%" id="tablaprueba">
-                  <thead class="thead-dark">
-                  <tr>
-                    <th width="35" scope="col"></th>
-                    <th>id</th>
-                    <th>Descripcion</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let item of categorias;">
-                    <td width="35">
-
-                    </td>
-                    <td>{{item.idCategorias}}</td>
-                    <td>
-                      {{item.nombre}}
-                    </td>
-                  </tr>
-
-                  </tbody>
-                </table>
-
-              </div>
-
-
-
-
-            </div>
-          </div>
-
-
-          <!-- /.container-fluid -->
-
-
+        <div class="container" *ngIf="tipo != null">
+          <button class="btn btn-secondary" *ngIf="tipos.length==0" (click)="getData()">BUSCAR</button>
+          <button class="btn btn-danger" *ngIf="tipos.length>0" (click)="cancelEdit()">CANCELAR</button>
         </div>
+        <br>
+        <table class="table table-bordered" id="tableColor">
 
-        <!-- End of Main Content -->
+          <thead class="thead-dark">
+        <tr>
+          <th width="35" scope="col"></th>
+            <th>Fecha Límite</th>
+            <th>Tema de Proyecto</th>
+          </tr>
+        </thead>
+          <tbody>
+          <tr *ngFor="let item of tipos;" (click)="onSelect(item)" >
+            <td width="35">
+              <!--<button [hidden]="!estaSeleccionado(item)"> Seleccionado</button> -->
+              <i class="fas fa-hand-pointer" [hidden]="!estaSeleccionado(item)"></i>
+            </td>
+            <td>{{item.fechaLimite}}</td>
+            <td>
+              {{item.nombre}}
+            </td>
+          </tr>
+          </tbody>
+        </table>
 
 
       </div>
-      <!-- End of Content Wrapper -->
+
 
     </div>
-    <!-- End of Page Wrapper -->
+
   </div>
 </div>
+</body>
 
 
